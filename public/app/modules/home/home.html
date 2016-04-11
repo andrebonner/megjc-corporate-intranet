@@ -1,0 +1,95 @@
+<div class="block">
+  <div class="box-rect">
+    <h2><i class="fa fa-cogs"></i> Applications</h2>
+    <div class="box-content">
+      <ul>
+        <li><a href>Webmail</a></li>
+      </ul>
+    </div>
+    <a href class="more-link">More</a>
+  </div>
+
+<div class="box-square-lg">
+  <div class="box-header"><h1>Notice Board</h1></div>
+  <div class="news-wrapper">
+      <div class="news-item">
+        <img src="http://placehold.it/80">
+        <h3>Mannish Water Saturdays</h3>
+        <p>Friday March 4, 2016</p>
+      </div>
+      <hr>
+      <div class="news-item">
+        <img src="http://placehold.it/80">
+        <h3>MIND upcoming scheduled programmes and courses</h3>
+        <p>March 27, 2016</p>
+      </div>
+      <hr>
+      <div class="news-item">
+        <img src="http://placehold.it/80">
+        <h3>Applications for Sagicor Foundation GSAT Scholarship 2016 are now open.</h3>
+        <p>March 27, 2016</p>
+      </div>
+
+    </div>
+  <a href class="more-link">More</a>
+</div>
+
+
+<div class="box-profile">
+  <img src="img/profile-pic.jpg">
+  <div class="box-profile-text"><i class="fa fa-birthday-cake"></i> Happy Birthday Felix!</div>
+</div>
+
+
+
+<div class="rect-box-sm">
+  <h2><i class="fa fa-star-o"></i> Tip of the day</h2>
+  <p>The image of perfection can never be reached. If you’re always chasing it you will never be happy. Instead focus on growth.</p>
+</div>
+
+</div>
+
+<div class="block">
+  <div class="box-rect">
+    <h2><i class="fa fa-bullhorn"></i> Job Vacancies</h2>
+    <div class="box-content">
+      <ul>
+        <li><a href>Data Entry Clerk IT</a></li>
+        <li><a href>Director SEG 6</a></li>
+        <li><a href>Corporate Planning Analyst</a></li>
+        <li><a href>Principal Finance Officer</a></li>
+      </ul>
+
+    </div>
+    <a href class="more-link">More</a>
+  </div>
+
+<div class="box-square-lg">
+  <div class="box-header"><h1>News Feed</h1></div>
+  <div class="news-wrapper">
+      <div class="news-item" ng-repeat="item in news">
+        <img src="img/news.png">
+        <h3><a ng-href="{{item.link}}" ng-bind-html=" item.title | sanitize" target="_blank"></a></h3>
+        <p>{{item.pubDate}}</p>
+      </div>      
+  </div>
+  <a href="/news-feed" class="more-link">More</a>
+</div>
+
+<div class="box-rect-right">
+    <h2><i class="fa fa-question-circle"></i> Staff Poll</h2>
+    <div class="box-rect-right-content">
+      <p><strong>What are your thoughts of the new intranet?</strong></p>
+      <div class="poll-response">
+        <input type="radio" name="gender" value="female"> I like it.<br>
+        <input type="radio" name="gender" value="female"> I would use it everyday.<br>
+        <input type="radio" name="gender" value="female"> It's a great tool.<br>
+        <input type="radio" name="gender" value="female"> It's not for me.<br>
+        <input type="radio" name="gender" value="female"> I don't like the design<br>
+        <input type="radio" name="gender" value="female"> I'm not ready for this.<br>
+        <button>Cast Your Vote</button>
+      </div>
+    </div>
+  </div>
+
+</div>
