@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="intranet">
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<title>Inside MEGJC</title>
+</head>
+<base href="/">
+<body>
+
+	<div class="grid-wrapper">
+		<div class="nav">
+			<a href="/"><div class="nav-left"><h1><span>Inside</span> MEGJC</h1></div></a>
+			<ul class="view-lg">
+				<li><a href="/" class="active"><i class="fa fa-home"></i> Home</a></li>
+				<li><a href="#"><i class="fa fa-book"></i> Policies</a></li>
+				<li><a href="/directory"> <i class="fa fa-users"></i> Directory</a></li>
+				<li><a href><i class="fa fa-info-circle"></i> Help Desk</a></li>
+			</ul>
+		</div>
+
+		<div data-ng-view autoscroll></div>
+
+		</div>
+	</div>	<!-- end of container -->
+	<!-- JS -->
+	<script src="../bower_components/moment/moment.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-route/angular-route.js"></script>
+	<script src="../app/modules/app.module.js"></script>
+	<script src="../app/modules/filter.module.js"></script>
+	<script src="../app/modules/home/home.module.js"></script>
+	<script src="../app/modules/home/home.controller.js"></script>
+
+</body>
+
+</html>
