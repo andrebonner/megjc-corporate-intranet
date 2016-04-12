@@ -13,6 +13,7 @@
 	function Home($scope, $http, $location){
 		$http.get('/api/news?limit=three').then(function(data){			
 			$scope.news = data.data;
+			console.log(data);
 		});		
 	}
 })();

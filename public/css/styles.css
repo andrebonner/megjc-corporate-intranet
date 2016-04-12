@@ -1,0 +1,19 @@
+body{
+	font-family: 'Source Sans Pro', sans-serif;
+}
+.panel-title{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 700;
+	font-size: 18px;
+}
+
+.navbar >.container .navbar-brand{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 700;
+
+}
+
+.navbar-default .navbar-nav>li>a{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 700;
+}

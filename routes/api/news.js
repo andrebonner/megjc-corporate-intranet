@@ -41,8 +41,8 @@
 	 		if(!err && res.statusCode  === 200 && data.status === 'ok'){	 		
 	 			var news_items  = [];
 	 			if(req.query.limit === 'three'){
-	 				// news_items = data.items.slice(0,3);
-	 				news_items = filterFeed(data.items, keywords);
+	 				news_items = data.items.slice(0,3);
+	 				//news_items = filterFeed(data.items, keywords);
 	 			}else if(req.query.limit === 'all'){
 	 				news_items = data.items
 	 			}
