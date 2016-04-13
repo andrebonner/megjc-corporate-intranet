@@ -8,6 +8,7 @@
       bodyParser = require('body-parser'),
       routes = require('./routes/index'),
       news = require('./routes/api/news'),
+      employees = require('./routes/api/employees'),
       helmet = require('helmet'),
       _ = require('underscore'),
       app = express();
@@ -26,6 +27,7 @@
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(helmet());  
   app.use('/api', news);
+  app.use('/api', employees),
   app.use('/', routes);
 
   // catch 404 and forward to error handler

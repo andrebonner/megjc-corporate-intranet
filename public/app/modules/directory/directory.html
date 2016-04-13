@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">ICT Department</h2>
+		
+	</div>		
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h1 class="panel-title">All Departments</h1></div>
+			 <ul class="list-group">
+			  	<li class="list-group-item">Executive Management</li>
+	            <li class="list-group-item">ICT Division</li>
+	            <li class="list-group-item">Human Resource Department</li>
+	            <li class="list-group-item">Finance and Accounts</li>
+	            <li class="list-group-item">Audit</li>
+          	</ul>
+		</div>
+	</div>
+	<div class="col-md-9">
+	
+		<div class="row">
+			<div class="col-md-4" data-ng-repeat="employee in employees">
+				<img src="http://placehold.it/250x200" class="thumbnail">
+				<div class="caption">
+					<p class="name">{{employee.name}}</p>
+					<p class="title">{{employee.position}}</p>
+					<p class="email"><i class="fa fa-envelope" aria-hidden="true"></i> {{employee.email}}</p>
+					<p class="extension"><i class="fa fa-phone" aria-hidden="true"></i> Extension: {{employee.extension}}</p>					
+					<p class="cug"><i class="fa fa-mobile" aria-hidden="true"></i> {{employee.cug}}</p>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>

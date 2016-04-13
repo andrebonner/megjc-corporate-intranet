@@ -8,21 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
 	<title>Inside MEGJC</title>
 	<base href="/">
-	<style type="text/css">
-		body {
-			  /* Margin bottom by footer height */
-			  margin-bottom: 60px;
-			}
-			.footer {
-			  position: absolute;
-			  bottom: 0;
-			  width: 100%;
-			  /* Set the fixed height of the footer here */
-			  height: 60px;
-			  background-color: #f5f5f5;
-			}
-	</style>
-</head>
+	</head>
 <body style="margin: 0; padding-top: 80px;">
 
 	 <nav class="navbar navbar-default navbar-fixed-top">
@@ -34,13 +20,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Inside MEGJC</a>
+          <a class="navbar-brand" href="/">Inside MEGJC</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
          	<ul class="nav navbar-nav navbar-right">
-        		<li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+        		<li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
         		<li><a href="#"><i class="fa fa-book" aria-hidden="true"></i> Policies</a></li>
-        		<li><a href="#"><i class="fa fa-users" aria-hidden="true"></i> Directory</a></li>
+        		<li><a href="/directory"><i class="fa fa-users" aria-hidden="true"></i> Directory</a></li>
         		<li><a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Help Desk</a></li>
      		</ul>
         </div><!--/.navbar-collapse -->
@@ -53,7 +39,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Made with <i class="fa fa-heart" aria-hidden="true"></i> by the ICT Department</p>
+        <p class="text-muted">Made with <i class="fa fa-heart" aria-hidden="true"></i> by the ICT Division</p>
       </div>
     </footer>
 
@@ -64,6 +50,8 @@
 	<script src="../app/modules/filter.module.js"></script>
 	<script src="../app/modules/home/home.module.js"></script>
 	<script src="../app/modules/home/home.controller.js"></script>
+  <script src="../app/modules/directory/directory.module.js"></script>
+  <script src="../app/modules/directory/directory.controller.js"></script>
 
 </body>
 </html>

@@ -2,7 +2,8 @@
 	angular
 	.module('intranet',[
 		'ngRoute',
-		'home'
+		'home',
+		'directory'
 	]).config(config);
 	
 	function config($locationProvider){
