@@ -26,3 +26,4 @@ Currently, the only setup required is Wordpress. Configure the wp-config.php in 
  - Structure and refract Angular
  - Integrate gulp build system
 
+

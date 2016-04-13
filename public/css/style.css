@@ -4,9 +4,13 @@ body{
 	padding: 0;
 	margin: 0;
 	height: 100%;
-	background-color: #EEEEEE;
+	background-color: #F3F3F3;
 }
 
+
+.nav-left > h1 > span{
+	font-weight: 400;
+}
 .news-item{
 	height: auto;
 	width: 100%;
@@ -23,6 +27,11 @@ body{
 
 .news-item h4, h3, p{
 	margin: 0;
+}
+
+.news-item h3 > a{
+	text-decoration: none;
+	color: #000000;
 }
 
 .box-profile{
@@ -178,7 +187,7 @@ body{
 
 .grid-wrapper{
 	max-width: 1020px;
-	background-color: #ffffff;
+	background-color: #F3F3F3;
 	margin: 0 auto;
 	min-height: 100%;
 }
