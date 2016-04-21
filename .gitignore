@@ -1,4 +1,5 @@
-/wordpress/wp-config.php
+api/wordpress/wp-config.php
 bower_components
 node_modules
 .idea/
+#
