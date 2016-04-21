@@ -10,7 +10,7 @@
         $routeProvider
             .when('/notices',{
                 controller: 'Notice',
-                templateUrl: 'app/modules/notice/notice.html'
+                templateUrl: 'public/app/modules/notice/notice.html'
             });
     }
 })();
