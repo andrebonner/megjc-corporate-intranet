@@ -27,7 +27,7 @@
                               <p>{{notice.date}}</p>
                             </div>
                           </div> <!-- end of media -->
-                          <button class="btn btn-link pull-right" data-ng-click="goTo('notices')">MORE</button>
+                          <button class="btn btn-link pull-right" data-ng-click="goTo('notices')" ng-if="notices.length > 3">MORE</button>
                       </div>
                 </div> <!-- end of notice panel -->
         </div>
@@ -39,18 +39,19 @@
                 <i class="fa fa-birthday-cake" aria-hidden="true"></i> Happy Birthday</h1>
             </div>
             <div class="panel-body">
-                <div class="media" data-ng-repeat="birthday in birthdays">
+                <p ng-if="birthdays.length < 1">There are no birthdays at this time.</p>
+                <div class="media" data-ng-repeat="birthday in birthdays" ng-if="birthdays.length > 0">
                     <div class="media-left media-bottom">
                       <a href="#">
-                        <img class="media-object img-circle" src="http://placehold.it/64" alt="">
+                        <img class="media-object img-circle" ng-src="{{birthday.thumbnail}}" width="64px" height="64px" alt="">
                       </a>
                     </div>
                     <div class="media-body">
-                      <h4 class="media-heading">{{birthday.name}}</h4>
-                      <p>{{birthday.department}}</p>
+                      <h4 class="media-heading">{{birthday.title}}</h4>
+                      <p>{{birthday.title}}</p>
                     </div>
                 </div>
-                <button class="btn btn-link pull-right" data-ng-click="goTo('birthdays')">MORE</button>
+                <button class="btn btn-link pull-right" data-ng-click="goTo('birthdays')" ng-if="birthdays.length > 3">MORE</button>
             </div>
           </div> <!-- end of panel -->
         </div>
