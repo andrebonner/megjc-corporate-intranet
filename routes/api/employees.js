@@ -11,5 +11,15 @@
 				]);
 	});
 
+	router.get('/employees/birthday', function(req, res){
+		res.json([{"name": "Tremaine Buchanan",
+			"department": "ICT Division"},
+			{"name": "Nicholas Bailey",
+				"department": "ICT Division"},
+			{"name": "Patrick Thompson",
+				"department": "ICT Division"}
+		]);
+	});
+
 	module.exports = router;
 })();

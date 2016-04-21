@@ -13,92 +13,46 @@
         </div>
         </div>
         <div class="col-md-6">
-          <div class="panel panel-default">
-          <div class="panel-heading"><h1 class="panel-title">Notice Board</h1></div>
-          <div class="panel-body">
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="http://placehold.it/64" alt="">
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading"><strong>Forum: Reversing Diabetes to be held at the Courtleigh Auditorium</strong></h4>
-              <p>April 7, 2016</p>
-            </div>
-          </div>
-
-            <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="http://placehold.it/64" alt="">
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading"><strong>MIND upcoming programmes and courses</strong></h4>
-              <p>Friday, March 4, 2016</p>
-            </div>
-          </div>
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="http://placehold.it/64" alt="">
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading"><strong>Applications for Sagicor Foundation GSAT Scholarships 2016 now open</strong></h4>
-                <p>March 27, 2016</p>
-            </div>
-          </div>
-          
-                  
-          </div>
-        </div>
+              <div class="panel panel-default">
+                  <div class="panel-heading"><h1 class="panel-title">Notice Board</h1></div>
+                      <div class="panel-body">
+                          <div class="media" data-ng-repeat="notice in notices">
+                            <div class="media-left">
+                              <a href="#">
+                                <img class="media-object" src="http://placehold.it/64" alt="">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading"><strong>{{notice.title}}</strong></h4>
+                              <p>{{notice.date}}</p>
+                            </div>
+                          </div> <!-- end of media -->
+                          <button class="btn btn-link pull-right" data-ng-click="goTo('notices')">MORE</button>
+                      </div>
+                </div> <!-- end of notice panel -->
         </div>
         <div class="col-md-3">
         <div class="row">
           <div class="panel panel-default">
-            <div class="panel-heading"><h1 class="panel-title">
-            <i class="fa fa-birthday-cake" aria-hidden="true"></i> Happy Birthday</h1></div>
-            <div class="panel-body">
-                <div class="media">
-                <div class="media-left media-bottom">
-                  <a href="#">
-                    <img class="media-object img-circle" src="http://placehold.it/64" alt="">
-                  </a>
-                </div>
-                <div class="media-body">
-                  <h4 class="media-heading">Tremaine Buchanan</h4>
-                  <p>ICT Department</p>
-                </div>
-              </div>
-
-               <div class="media">
-                <div class="media-left media-middle">
-                  <a href="#">
-                    <img class="media-object img-circle" src="http://placehold.it/64" alt="">
-                  </a>
-                </div>
-                <div class="media-body">
-                  <h4 class="media-heading">Nicholas Bailey</h4>
-                  <p>ICT Department</p>
-                </div>
-              </div>
-
-               <div class="media">
-                <div class="media-left media-middle">
-                  <a href="#">
-                    <img class="media-object img-circle" src="http://placehold.it/64" alt="">
-                  </a>
-                </div>
-                <div class="media-body">
-                  <h4 class="media-heading">Patrick Thompson</h4>
-                  <p>ICT Department</p>
-                </div>
-              </div>
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                <i class="fa fa-birthday-cake" aria-hidden="true"></i> Happy Birthday</h1>
             </div>
-          </div>
+            <div class="panel-body">
+                <div class="media" data-ng-repeat="birthday in birthdays">
+                    <div class="media-left media-bottom">
+                      <a href="#">
+                        <img class="media-object img-circle" src="http://placehold.it/64" alt="">
+                      </a>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">{{birthday.name}}</h4>
+                      <p>{{birthday.department}}</p>
+                    </div>
+                </div>
+                <button class="btn btn-link pull-right" data-ng-click="goTo('birthdays')">MORE</button>
+            </div>
+          </div> <!-- end of panel -->
         </div>
         <div class="row">
           <!-- <div class="thumbnail">
