@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="intranet">
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <title>Inside MEGJC</title>
+    <base href="/">
+</head>
+<body style="margin: 0; padding-top: 80px;">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Corporate MEGJC</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="#"><i class="fa fa-book" aria-hidden="true"></i> Policies</a></li>
+                <li><a href="/directory"><i class="fa fa-users" aria-hidden="true"></i> Directory</a></li>
+                <li><a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Help Desk</a></li>
+            </ul>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+    <div data-ng-view autoscroll></div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Made with <i class="fa fa-heart" aria-hidden="true"></i> by the ICT Division - Ministry of Economic Growth and Job Creation</p>
+    </div>
+</footer>
+
+<script src="../bower_components/moment/moment.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
+<script src="../app/modules/app.module.js"></script>
+<script src="../app/modules/filter.module.js"></script>
+<script src="../app/modules/home/home.module.js"></script>
+<script src="../app/modules/home/home.controller.js"></script>
+<script src="../app/modules/directory/directory.module.js"></script>
+<script src="../app/modules/directory/directory.controller.js"></script>
+<script src="../app/modules/birthday/birthday.module.js"></script>
+<script src="../app/modules/birthday/birthday.controller.js"></script>
+<script src="../app/modules/notice/notice.module.js"></script>
+<script src="../app/modules/notice/notice.controller.js"></script>
+
+</body>
+</html>
