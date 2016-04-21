@@ -3,8 +3,6 @@
 	var express = require('express'),
 		router = express.Router(),
 		request = require('request'),
-		_ = require('underscore'),
-		now = require('performance-now'),
 		keywords = [
 			'agro investment corporation', 'development bank of jamaica', 'dbj', 'factories corporation of jamaica',
 			'harmonization limited', 'imf cordination unit', 'international financial service authority', 
@@ -37,12 +35,10 @@
 	 	request(abs_url, function(err, res, body){
 	 		'use strict';
 	 		var data = JSON.parse(body);
-	 		
 	 		if(!err && res.statusCode  === 200 && data.status === 'ok'){	 		
 	 			var news_items  = [];
 	 			if(req.query.limit === 'three'){
 	 				news_items = data.items.slice(0,3);
-	 				//news_items = filterFeed(data.items, keywords);
 	 			}else if(req.query.limit === 'all'){
 	 				news_items = data.items
 	 			}
@@ -61,20 +57,16 @@
 	 */
 	function filterFeed(items, keywords){
 		var i = keywords.length,
-			k = items.length;
-			result = [],
-			start = now();
+			k = items.length,
+			result = [];
 		while(i--){			
 			k = items.length;
 			while(k--){
 				if(keywordFilter(keywords[i], items[k].title.toLowerCase())){
-					console.log(keywords[i])
 					result.push(items[k]);
 				}
 			}
 		}
-		var end = now();
-		console.log((end-start).toFixed(3));
 		return result;
 	}
 
@@ -88,7 +80,6 @@
 		var found = false;
 		if(title.search(keyword) >= 0){
 			found = true;
-
 		}
 		return found;
 	}
