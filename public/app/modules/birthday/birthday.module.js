@@ -10,7 +10,7 @@
         $routeProvider
             .when('/birthdays',{
                 controller: 'Birthday',
-                templateUrl: 'app/modules/birthday/birthday.html'
+                templateUrl: 'public/app/modules/birthday/birthday.html'
             });
     }
 })();
