@@ -12,7 +12,7 @@
 	 */
 	function Home($scope, $http, $location, API_ROUTE){
 
-		$http.get('/megjc-intranet/api/v3/wordpress/?json=get_category_posts&slug=notices').then(function(data){
+		$http.get('/api/v3/wordpress/?json=get_category_posts&slug=notices').then(function(data){
 			$scope.notices = data.data.posts;
 		});
 
@@ -20,7 +20,7 @@
 		// 	$scope.notices = data.data;
 		// });
         //
-		$http.get('/megjc-intranet/api/v3/wordpress/?json=get_category_posts&slug=birthday').then(function(data){
+		$http.get('/api/v3/wordpress/?json=get_category_posts&slug=birthday').then(function(data){
 			console.log(data.data.posts);
 			$scope.birthdays = data.data.posts;
 		});
