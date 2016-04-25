@@ -6,7 +6,7 @@
 		'directory',
 		'birthday',
 		'notice',
-		'app-services'
+		'help'
 	]).config(config);
 	
 	function config($locationProvider){
