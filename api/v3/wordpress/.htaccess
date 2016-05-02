@@ -2,11 +2,11 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /megjc-intranet/api/v3/wordpress/
+RewriteBase /api/v3/wordpress/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /megjc-intranet/api/v3/wordpress/index.php [L]
+RewriteRule . /api/v3/wordpress/index.php [L]
 </IfModule>
 
 # END WordPress

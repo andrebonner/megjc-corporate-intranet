@@ -1,39 +1,41 @@
 <div class="row">
         <div class="col-md-3">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
           <div class="panel-heading">
             <h1 class="panel-title"><i class="fa fa-cogs" aria-hidden="true"></i> Popular Links</h1>
           </div>
            <ul class="list-group">
-            <li class="list-group-item"><a href>Help Desk</a></li>
+            <li class="list-group-item"><a href="/help-desk">Help Desk</a></li>
             <li class="list-group-item"><a href="/directory">Staff Directory</a></li>
-            <li class="list-group-item">Web Mail</li>
-            <li class="list-group-item">Policies</li>
+            <li class="list-group-item"><a href="https://cloud.infoexchangeja.com/asp/MManager/Login.asp?owa=1" target="_blank">Web Mail</a></li>
+            <!-- <li class="list-group-item">Policies</li> -->
           </ul>
         </div>
         </div>
         <div class="col-md-6">
-              <div class="panel panel-default">
-                  <div class="panel-heading"><h1 class="panel-title">Notice Board</h1></div>
-                      <div class="panel-body">
-                          <div class="media" data-ng-repeat="notice in notices">
-                            <div class="media-left">
-                              <a href="#">
-                                <img class="media-object" src="http://placehold.it/64" alt="">
-                              </a>
-                            </div>
-                            <div class="media-body">
-                              <h4 class="media-heading"><strong>{{notice.title}}</strong></h4>
-                              <p>{{notice.date}}</p>
-                            </div>
-                          </div> <!-- end of media -->
-                          <button class="btn btn-link pull-right" data-ng-click="goTo('notices')" ng-if="notices.length > 3">MORE</button>
-                      </div>
-                </div> <!-- end of notice panel -->
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h1 class="panel-title">Notice Board</h1></div>
+                    <div class="panel-body">
+                        <p ng-if="notices.length < 1">There are no notices at this time.</p>
+                        <div class="media" data-ng-repeat="notice in notices">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="http://placehold.it/64" alt="">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>{{notice.title}}</strong></h4>
+                            <p>{{notice.date}}</p>
+                          </div>
+                        </div> <!-- end of media -->
+                        <button class="btn btn-link pull-right" data-ng-click="goTo('notices')" ng-if="notices.length > 3">MORE</button>
+                    </div>
+              </div> <!-- end of notice panel -->
         </div>
+
         <div class="col-md-3">
         <div class="row">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
             <div class="panel-heading">
                 <h1 class="panel-title">
                 <i class="fa fa-birthday-cake" aria-hidden="true"></i> Happy Birthday</h1>
@@ -66,7 +68,7 @@
 
       <div class="row">
         <div class="col-md-3">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
           <div class="panel-heading">
             <h1 class="panel-title"><i class="fa fa-bullhorn" aria-hidden="true"></i> Job Vacancies</h1>
           </div>
@@ -80,9 +82,10 @@
         </div>
         </div>
         <div class="col-md-6">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
           <div class="panel-heading"><h1 class="panel-title">News Feed</h1></div>
           <div class="panel-body">
+          <p ng-if="news.length < 1">There are no news items at this time.</p>
             <div class="media" data-ng-repeat="item in news">
             <div class="media-left">
               <a href="#">
@@ -95,13 +98,13 @@
               <p>{{item.pubDate}}</p>
             </div>
           </div>
-          <button class="btn btn-link pull-right">MORE</button>
+          <!-- <button class="btn btn-link pull-right" ng-if="news.length > 2" ng-click="goTo('news')">MORE</button> -->
           </div>
         </div>
         </div>
         <div class="col-md-3">
         <div class="row">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
             <div class="panel-heading"><h1 class="panel-title"><i class="fa fa-question" aria-hidden="true"></i> Staff Poll</h1></div>
               <div class="panel-body">
               What do you think about the new intranet?
@@ -140,7 +143,7 @@
 
                 </div>
               </form>
-              <button class="btn">cast your vote</button>
+              <button class="btn btn-primary">cast your vote</button>
               
               </div>
         </div>
@@ -148,3 +151,21 @@
           
         </div>
       </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

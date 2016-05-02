@@ -1,0 +1,72 @@
+<div class="alert alert-info alert-dismissible" role="alert" ng-if="message">
+  <button type="button" class="close" aria-label="Close" ng-click="messageDismiss()"><span aria-hidden="true">&times;</span></button>
+  <strong>Your issue has been submitted.</strong>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">My Help Desk</h2>	
+		<!-- <p>Since you are here, we figure you are having a technical problem. Kindly complete the simple form below and press the submit button once complete.</p>	 -->
+	</div>		
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h1 class="panel-title">Overview</h1></div>
+	        <ul class="list-group">
+	        	<li class="list-group-item"><a href ng-click="toggle('open-tickets')">Open Tickets</a></li>
+	            <li class="list-group-item"><a href ng-click="toggle('create-ticket')">Create a ticket</a></li>	            
+	            <li class="list-group-item"><a href ng-click="toggle('closed-tickets')">Closed Tickets</a></li>
+	            <li class="list-group-item"><a href ng-click="toggle('all-tickets')">Total tickets created</a></li>
+	        </ul>
+		</div>	
+	</div>
+	
+	<div class="col-md-9">
+		<p ng-if="open_issues.length < 1">There are no tickets at this open at this time</p>
+			<div class="help-wrapper" ng-if="create_ticket">
+			<!-- <h3>Create a Ticket </h3> -->
+
+				<form class="form-horizontal" ng-submit="submitIssue()">					
+			 	
+			 	<div class="form-group">
+			 	<label>Issue Category</label>
+			 		<select class="form-control" ng-model="issue.category">
+			 			<option value="" selected="selected">Select Issue Category</option>
+			 			<option value="computer issue">Computer</option>
+			 		</select>
+			 	</div>
+
+			 	<div class="form-group">
+			 	<label>Describe your problem</label>
+			 		<textarea class="form-control" placeholder="Describe your problem as detailed as possible" rows="4" cols="50" ng-model="issue.description">
+			 			
+			 		</textarea>
+			 	</div>
+			 	 <button data-ng-disabled="form.$invalid" class="btn pull-right">Submit Issue</button>
+				</form>
+			</div>	
+
+			<div class="open-ticket-wrapper" ng-if="open_tickets">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Date created</th>
+							<th>Description</th>
+							<th>Status</th>
+							<th>Assigned to</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="issue in open_issues">
+							<td>{{issue.date | date:'medium'}}</td>							
+							<td>{{issue.description}}</td>
+							<td>{{issue.status}}</td>
+							<td>{{issue.assignee}}</td>							
+						</tr>
+					</tbody>					
+				</table>
+			</div>	
+	</div>
+</div>
