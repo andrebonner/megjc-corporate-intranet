@@ -3,6 +3,21 @@ body{
 	margin-bottom: 60px;
 }
 
+hr.section-divider{
+	border-top: 2px solid #2780E3;
+	margin: 0;
+}
+
+hr.item-divider{
+	border-top: 1px solid #F2F2F2;
+}
+
+.section-title{
+	color: #2780E3;
+	font-weight: bold;
+	font-size: 18px;
+}
+
 .footer {
 	position: absolute;
 	bottom: 0;
@@ -27,13 +42,13 @@ a:hover{
 }
 
 .panel-title{
-	font-family: 'Roboto Slab', serif;
+	/*font-family: 'Roboto Slab', serif;*/
 	font-weight: 700;
 	font-size: 18px;
 }
 
 .navbar >.container .navbar-brand{
-	font-family: 'Roboto Slab', serif;
+	/*font-family: 'Roboto Slab', serif;*/
 	font-weight: 700;
 }
 
@@ -42,7 +57,7 @@ a:hover{
 }
 
 .navbar-default .navbar-nav>li>a{
-	font-family: 'Roboto Slab', serif;
+	/*font-family: 'Roboto Slab', serif;*/
 	font-weight: 700;
 }
 
@@ -51,7 +66,7 @@ a:hover{
 	color: #ffffff;
 }
 .department-title{
-	font-family: 'Roboto Slab', serif;
+	/*font-family: 'Roboto Slab', serif;*/
 	font-weight: 700;
 }
 
@@ -65,6 +80,80 @@ a:hover{
 
 .name{
 	font-weight: 700;
-	font-family: 'Roboto Slab', serif;
+	/*font-family: 'Roboto Slab', serif;*/
 	font-size: 16px;
 }
+
+.help-wrapper{
+	margin-left: 15px;
+}
+
+/**
+ * Components
+ */
+
+/*********************
+ * Notices
+ *********************/
+
+.notice h4{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.notice span{
+	color: #999999;
+	font-size: 11px;
+}
+/***************
+ * Main Content
+ ***************/
+.main-content img{
+	max-width: 100%;
+	max-height: 350px;
+}
+
+.main-section-title{
+	font-weight: bold;
+}
+
+.main-content span{
+	font-size: 15px;
+	font-weight: normal;
+	color: #999999;
+}
+
+.main-content p{
+	font-size: 15px;
+}
+
+.main-content hr{
+	border-top: 1px solid #F2F2F2;
+}
+/**
+ * Secondary Content
+ */
+
+.secondary-content img{
+	max-width: 320px;
+}
+
+.thumbnail-sm{
+	max-width: 50px;
+	max-height: 50px;
+	width: 50px;
+	height: 50px;
+}
+
+.thumbnail-md{
+	max-width: 80px;
+	max-height: 80px;
+	width: 80px;
+	height: 80px;
+}
+
+.author{
+	text-transform: uppercase;
+	color: #2780E3;
+}
+
