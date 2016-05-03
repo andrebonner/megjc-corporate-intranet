@@ -40,7 +40,7 @@
 		}
 
 		function showNotices(){
-			var len = 10,
+			var len = 5,
 				notices = [];
 			while(len--){
 				notices.push({"title": "HLTSTUEI's Occasional Paper Series", "time": "11:25pm"});
