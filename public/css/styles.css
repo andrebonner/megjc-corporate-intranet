@@ -128,7 +128,7 @@ a:hover{
 }
 
 .main-content hr{
-	border-top: 1px solid #F2F2F2;
+	margin: 0;
 }
 /**
  * Secondary Content
@@ -155,5 +155,15 @@ a:hover{
 .author{
 	text-transform: uppercase;
 	color: #2780E3;
+}
+
+ol.numbered-list{
+	list-style-type: decimal;
+	padding-left: 10px;
+}
+
+ol.numbered-list li{
+	margin: 0 0 10px 0;
+
 }
 
