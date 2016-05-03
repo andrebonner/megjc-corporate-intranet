@@ -1,171 +1,73 @@
 <div class="row">
-        <div class="col-md-3">
-          <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h1 class="panel-title"><i class="fa fa-cogs" aria-hidden="true"></i> Popular Links</h1>
-          </div>
-           <ul class="list-group">
-            <li class="list-group-item"><a href="/help-desk">Help Desk</a></li>
-            <li class="list-group-item"><a href="/directory">Staff Directory</a></li>
-            <li class="list-group-item"><a href="https://cloud.infoexchangeja.com/asp/MManager/Login.asp?owa=1" target="_blank">Web Mail</a></li>
-            <!-- <li class="list-group-item">Policies</li> -->
-          </ul>
-        </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><h1 class="panel-title">Notice Board</h1></div>
-                    <div class="panel-body">
-                        <p ng-if="notices.length < 1">There are no notices at this time.</p>
-                        <div class="media" data-ng-repeat="notice in notices">
-                          <div class="media-left">
-                            <a href="#">
-                              <img class="media-object" src="http://placehold.it/64" alt="">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h4 class="media-heading"><strong>{{notice.title}}</strong></h4>
-                            <p>{{notice.date}}</p>
-                          </div>
-                        </div> <!-- end of media -->
-                        <button class="btn btn-link pull-right" data-ng-click="goTo('notices')" ng-if="notices.length > 3">MORE</button>
-                    </div>
-              </div> <!-- end of notice panel -->
-        </div>
-
-        <div class="col-md-3">
-        <div class="row">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h1 class="panel-title">
-                <i class="fa fa-birthday-cake" aria-hidden="true"></i> Happy Birthday</h1>
-            </div>
-            <div class="panel-body">
-                <p ng-if="birthdays.length < 1">There are no birthdays at this time.</p>
-                <div class="media" data-ng-repeat="birthday in birthdays" ng-if="birthdays.length > 0">
-                    <div class="media-left media-bottom">
-                      <a href="#">
-                        <img class="media-object img-circle" ng-src="{{birthday.thumbnail}}" width="64px" height="64px" alt="">
-                      </a>
-                    </div>
-                    <div class="media-body">
-                      <h4 class="media-heading">{{birthday.title}}</h4>
-                      <p>{{birthday.title}}</p>
-                    </div>
-                </div>
-                <button class="btn btn-link pull-right" data-ng-click="goTo('birthdays')" ng-if="birthdays.length > 3">MORE</button>
-            </div>
-          </div> <!-- end of panel -->
-        </div>
-        <div class="row">
-          <!-- <div class="thumbnail">
-            <img src="http://placehold.it/200">
-          </div> -->
-        </div>
-          
-        </div>
+  <div class="col-md-3 notice">
+  <h3 class="section-title">STAFF NOTICES</h3>
+    <div class="media" data-ng-repeat="notice in notices">
+      <div class="media-left">
+        <img src="http://placehold.it/50" class="thumbnail-sm">
       </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h1 class="panel-title"><i class="fa fa-bullhorn" aria-hidden="true"></i> Job Vacancies</h1>
-          </div>
-          
-          <ul class="list-group">
-            <li class="list-group-item"><a href>Data Entry Clerk IT</a></li>
-            <li class="list-group-item">Director SEG 6</li>
-            <li class="list-group-item">Corporate Planning Anaylst</li>
-            <li class="list-group-item">Principal Financial Officer</li>
-          </ul>
-        </div>
-        </div>
-        <div class="col-md-6">
-          <div class="panel panel-primary">
-          <div class="panel-heading"><h1 class="panel-title">News Feed</h1></div>
-          <div class="panel-body">
-          <p ng-if="news.length < 1">There are no news items at this time.</p>
-            <div class="media" data-ng-repeat="item in news">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="http://placehold.it/64" alt="">
-              </a>
-            </div>
-            <div class="media-body">
-              <a data-ng-href="{{item.link}}" target="_blank">
-                  <h4 class="media-heading"><strong>{{item.title}}</strong></h4></a>
-              <p>{{item.pubDate}}</p>
-            </div>
-          </div>
-          <!-- <button class="btn btn-link pull-right" ng-if="news.length > 2" ng-click="goTo('news')">MORE</button> -->
-          </div>
-        </div>
-        </div>
-        <div class="col-md-3">
-        <div class="row">
-          <div class="panel panel-primary">
-            <div class="panel-heading"><h1 class="panel-title"><i class="fa fa-question" aria-hidden="true"></i> Staff Poll</h1></div>
-              <div class="panel-body">
-              What do you think about the new intranet?
-              <form>
-                <div class="form-group">
-                  <div class="radio">
-                      <label>
-                        <input type="radio">
-                          I like it
-                      </label>
-
-                    </div>
-                    <div class="radio">
-                      <label>
-                        <input type="radio">
-                          I would use it everyday
-                      </label>
-                      
-                    </div>
-
-                    <div class="radio">
-                      <label>
-                        <input type="radio">
-                          It's a great tool
-                      </label>
-                      
-                    </div>
-
-                    <div class="radio">
-                      <label>
-                        <input type="radio">
-                          Its not for me
-                      </label>
-                      
-                    </div>
-
-                </div>
-              </form>
-              <button class="btn btn-primary">cast your vote</button>
-              
-              </div>
-        </div>
-        </div>
-          
-        </div>
-      </div>
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="media-body">
+        <h4 class="media-heading">{{notice.title}} <span>{{notice.time}}</span></h4>
       </div>
     </div>
+  </div>
+  <div class="col-md-6 main-content">
+      <img src="http://placehold.it/550x300">
+      <h1 class="main-section-title">Welcome to MEGJC</h1>
+      <p>Bacon ipsum dolor amet leberkas sirloin brisket corned beef jowl swine rump kevin short loin chicken. Boudin venison short loin, doner turducken ribeye shank biltong cow kielbasa chicken salami. Meatloaf pig turducken chuck bacon spare ribs tongue tail short loin ball tip flank rump frankfurter. Sausage brisket sirloin t-bone</p>
+      <hr class="section-divider">
+      <!-- Error Message -->
+      <!-- <div class="media">
+        <div class="media-left">          
+        </div>
+        <div class="media-body">
+         <strong>Opps! We could not load your news feed at this time.</strong>
+        </div>
+      </div>  -->
+      <h3 class="section-title">NEWS FEED</h3>
+      <div class="media" data-ng-repeat="item in news">
+        <div class="media-left">
+            <div class="media-body">
+              <h4 class="media-heading"><strong>{{item.title}}</strong> <span>Published on {{item.pubDate}}</span></h4>
+              <p>{{item.description}}</p>
+            </div>
+        </div>
+        <hr>
+      </div>
+  </div>
+
+  <div class="col-md-3 secondary-content">
+      <img src="http://placehold.it/270x230">
+      <h4><strong>How to write a memo</strong></h4>
+      <hr class="section-divider">
+
+      <h3 class="section-title">BLOG</h3>
+      <div class="media">
+        <div class="media-left">
+          <img src="http://placehold.it/80" class="thumbnail-md">
+        </div>
+        <div class="media-body">
+          <span class="author">TREMAINE BUCHANAN</span>
+          <h4 class="media-heading"><strong>Building our intranet</strong></h4>
+        </div>
+        <hr class="item-divider">
+      </div>
+
+      <div class="blog-list">
+           <div class="media">
+            <div class="media-body">
+              <span class="author">PATRICK THOMPSON</span>
+              <h4 class="media-heading"><strong>ICT Division - Our Role</strong></h4>
+            </div>            
+        </div> 
+        
+        <div class="media">
+          <div class="media-body">
+            <span class="author">KADIAN CHIN</span>
+            <h4 class="media-heading"><strong>Implementing Koha - MEGJC Library Management System</strong></h4>
+          </div>
+        </div>
+
+    </div>
+ 
   </div>
 </div>
