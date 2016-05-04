@@ -164,6 +164,12 @@ ol.numbered-list{
 
 ol.numbered-list li{
 	margin: 0 0 10px 0;
-
 }
+
+.staff-pics {
+	max-width: 300px;
+	max-height:200px;
+}
+
+
 
