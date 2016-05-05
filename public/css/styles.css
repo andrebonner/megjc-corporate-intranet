@@ -171,5 +171,27 @@ ol.numbered-list li{
 	max-height:200px;
 }
 
+.list-divider{
+	margin: 0;
+}
 
+.employee-info{
+	width: 100%;
+	height: 350px;
+}
 
+.employee-info p{
+	margin: 0;
+}
+
+.employee-info p > i{
+	color: #2780E3;
+}
+
+.employee-position{
+	text-transform: uppercase;
+	color: #2780E3;
+}
+.employee-name{
+	font-size: 19px;
+}
