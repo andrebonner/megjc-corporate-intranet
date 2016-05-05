@@ -1,36 +1,28 @@
+<h3 class="section-title">{{departments.length}} DEPARTMENTS</h3>
 <div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-9">
-		<h2 class="department-title">ICT Division</h2>		
-	</div>		
-</div>
-
-<div class="row">
-<div class="col-md-3">
-	<div class="panel panel-default">
-        <div class="panel-heading"><h1 class="panel-title">All Departments</h1></div>
-        <ul class="list-group">
-            <li class="list-group-item">Executive Management</li>
-            <li class="list-group-item">ICT Division</li>
-            <li class="list-group-item">Human Resource Department</li>
-            <li class="list-group-item">Finance and Accounts</li>
-            <li class="list-group-item">Audit</li>
-        </ul>
+	<div class="col-md-2">
+		<div class="panel panel-default">
+			<ul class="list-group">
+			    <li class="list-group-item" data-ng-repeat="department in departments track by department.id">
+			    	<a data-ng-href="/directory?dept_id={{department.id}}">{{department.name}}</a>
+			    </li>
+	  		</ul>
+		</div>
 	</div>
-</div>
-	
-	<div class="col-md-9">
+	<div class="col-md-10">
 		<div class="row">
-			<div class="col-md-4" data-ng-repeat="employee in employees">
-				<img src="http://placehold.it/250x200" class="thumbnail">
-				<div class="caption">
-					<p class="name">{{employee.name}}</p>
-					<p class="title">{{employee.position}}</p>
-					<p class="email"><i class="fa fa-envelope" aria-hidden="true"></i> {{employee.email}}</p>
-					<p class="extension"><i class="fa fa-phone" aria-hidden="true"></i> Extension: {{employee.extension}}</p>					
-					<p class="cug"><i class="fa fa-mobile" aria-hidden="true"></i> {{employee.cug}}</p>
+			<div class="col-md-4" data-ng-repeat="employee in employees track by employee.id" >
+				<div class="employee-info">
+					<img data-ng-src="../../../../public/img/staff/{{employee.department_id}}/{{employee.id}}.JPG">
+					<p class="employee-position">{{employee.position}}</p>
+					<p class="employee-name"><strong>{{employee.name}}</strong></p>
+					<p data-ng-if="employee.email"><i class="fa fa-envelope" aria-hidden="true"></i> {{employee.email}}</p>
+					<p data-ng-if="employee.extension"><i class="fa fa-phone-square" aria-hidden="true"></i> {{employee.extension}} </p>
+					<p data-ng-if="employee.cug"><i class="fa fa-phone-square" aria-hidden="true"></i> {{employee.cug}}</p>
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
 </div>
+
+
