@@ -12,20 +12,22 @@
 		// $http.get('/api/employees').then(function(employees){
 		// 	$scope.employees = employees.data;
 		// });
-		console.log($routeParams.dept_id);
 		var employees = getEmployees();
 		$scope.departments = getDepartments();
 		$scope.employees = getEmployeesByDepartmentId(parseInt($routeParams.dept_id) || DEFAULTS.department);
-		
+		/**
+		 * Get all employees
+		 * @return {[type]} [description]
+		 */
 		function getEmployees(){
 			return [{	"id": 1,
-						"name": "Winsome Christie",
+						"first_name": "winsome",
+						"last_name": "christie",
 						"position": "Director, Communication",
 						"department_id": 10,
 						"email": "w.christie@mtw.gov.jm",
 						"extension": "2308",
-						"cug": "876 444 4444",
-						"photo": "pr1-color"},
+						"cug": "876 444 4444"},
 					{	"id": 2,
 						"name": "Dannie Clarke",
 						"position": "Public Relation / Communication Specialist",
@@ -62,6 +64,44 @@
 						"position": "Records Clerk",
 						"email": "s.atkins@mtwh.gov.jm",
 						"extension": "2308"
+					},
+					{	"id": 7,
+						"name": "Natasha Higgins",
+						"department_id": 30,
+						"position": "Secretary",
+						"email": "nastasha.higgins@mwlecc.gov.jm",
+						"extension": "2151"
+					},
+					{	"id": 8,
+						"name": "Shallia Wilks",
+						"department_id": 30,
+						"position": "Records Officer",
+						"email": "shallia.wilks@mwlecc.gov.jm",
+						"extension": "2151"
+					},
+					{	"id": 9,
+						"name": "Tremaine Buchanan",
+						"department_id": 40,
+						"position": "Web Developer",
+						"email": "tremaine.buchanan@megjc.gov.jm",
+						"extension": "2930",
+						"cug": "876 290 8887"
+					},
+					{	"id": 10,
+						"name": "Zane Francis",
+						"department_id": 40,
+						"position": "Systems Development Manager",
+						"email": "zane.francis@megjc.gov.jm",
+						"extension": "2930",
+						"cug": "876 504 5310"
+					}
+					,{	"id": 11,
+						"name": "Patrick Thompson",
+						"department_id": 40,
+						"position": "Director, ICT Division",
+						"email": "patrick.thompson@megjc.gov.jm",
+						"extension": "2918",
+						"cug": "876 564 0131"
 					}];
 		}
 		/**
@@ -71,7 +111,8 @@
 		function getDepartments(){
 			return [{"id": 10, "name": "Public Relations"},
 					{"id": 20, "name": "Documentation, Information and Access Serivces"},
-					{"id": 30, "name": "ICT Division"}];
+					{"id": 30, "name": "Human Resources Department"},
+					{"id": 40, "name": "ICT Divison"}];
 		}
 		/**
 		 * Retrieves employees by department id.
