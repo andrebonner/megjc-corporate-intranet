@@ -21,8 +21,7 @@
 		 */
 		function getEmployees(){
 			return [{	"id": 1,
-						"first_name": "winsome",
-						"last_name": "christie",
+						"name": "Winsome Christie",
 						"position": "Director, Communication",
 						"department_id": 10,
 						"email": "w.christie@mtw.gov.jm",
