@@ -1,22 +1,23 @@
 {
-  "name": "server",
-  "version": "0.0.0",
-  "private": true,
+  "name": "megjc-corporate-intranet",
+  "version": "1.0.0",
+  "description": "This respository contains MEGJC's intranet.",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "body-parser": "1.13.2",
-    "cookie-parser": "1.3.5",
-    "debug": "2.2.0",
-    "ejs": "2.3.1",
-    "express": "4.13.1",
-    "helmet": "^1.3.0",
-    "jsonfile": "^2.2.3",
-    "morgan": "1.6.1",
-    "performance-now": "^0.2.0",
-    "request": "^2.70.0",
-    "serve-favicon": "2.3.0",
-    "underscore": "^1.8.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megjc/megjc-corporate-intranet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/megjc/megjc-corporate-intranet/issues"
+  },
+  "homepage": "https://github.com/megjc/megjc-corporate-intranet#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.0.0"
   }
 }
