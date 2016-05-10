@@ -14,16 +14,16 @@
 		$scope.isSubmitted = false;
 		$scope.message = false;
 
-		var issues = [];		
+		var issues = [];
 		$scope.open_issues = getIssues();
 
 		$scope.submitIssue = function(){
 			$scope.isSubmitted = true;
 			$scope.issue.date = Date.now();
 			$scope.issue.assignee = "zeus";
-			$scope.issue.status = "Forwared to Help Desk";	
-			createIssue($scope.issue);		
-		}
+			$scope.issue.status = "Forwared to Help Desk";
+			createIssue($scope.issue);
+		};
 
 		function getIssues(){
 			console.log(JSON.parse(localStorage.getItem('issues')));
@@ -31,7 +31,7 @@
 		}
 
 		function ticketsCount(){
-			
+
 		}
 
 		function createIssue(issue){
@@ -46,21 +46,21 @@
 
 		$scope.messageDismiss = function(){
 			$scope.message = !$scope.message;
-		}
+		};
 
 		$scope.toggle = function(ticket){
 			switch(ticket){
-				case 'open-tickets': console.log('open')
+				case 'open-tickets': console.log('open');
 				break;
 				case 'create-ticket': $scope.create_ticket = !$scope.create_ticket;
-									  $scope.open_tickets = !$scope.open_tickets;										
+									  $scope.open_tickets = !$scope.open_tickets;
 				break;
-				case 'closed-tickets': console.log('closed')
+				case 'closed-tickets': console.log('closed');
 				break;
-				case 'all-tickets': console.log('all')
+				case 'all-tickets': console.log('all');
 				break;
 			}
-		}
+		};
 
 
 	}

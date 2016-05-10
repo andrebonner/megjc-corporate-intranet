@@ -4,11 +4,11 @@
         .module('intranet')
         .filter('sanitize', sanitize)
         .filter('removeEntities', removeEntities);
-   
+
     function sanitize($sce){
         return function(text){
             return $sce.trustAsHtml(text);
-        }
+        };
     }
 
     function removeEntities(){
@@ -24,7 +24,7 @@
                 return ( text.replace(translate_re, function(match, entity) {
                     return translate[entity];
                 }) );
-            }
+            };
         }
 
 

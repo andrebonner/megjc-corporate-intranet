@@ -93,8 +93,8 @@
 						"email": "zane.francis@megjc.gov.jm",
 						"extension": "2930",
 						"cug": "876 504 5310"
-					}
-					,{	"id": 11,
+					},
+					{	"id": 11,
 						"name": "Patrick Thompson",
 						"department_id": 40,
 						"position": "Director, ICT Division",
@@ -123,7 +123,7 @@
 				result = [];
 			while(len--){
 				if(employees[len].department_id === id){
-					result.push(employees[len])
+					result.push(employees[len]);
 				}
 			}
 			return result;
