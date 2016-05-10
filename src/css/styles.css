@@ -128,7 +128,7 @@ a:hover{
 }
 
 .main-content hr{
-	border-top: 1px solid #F2F2F2;
+	margin: 0;
 }
 /**
  * Secondary Content
@@ -157,3 +157,41 @@ a:hover{
 	color: #2780E3;
 }
 
+ol.numbered-list{
+	list-style-type: decimal;
+	padding-left: 10px;
+}
+
+ol.numbered-list li{
+	margin: 0 0 10px 0;
+}
+
+.staff-pics {
+	max-width: 300px;
+	max-height:200px;
+}
+
+.list-divider{
+	margin: 0;
+}
+
+.employee-info{
+	width: 100%;
+	height: 350px;
+}
+
+.employee-info p{
+	margin: 0;
+}
+
+.employee-info p > i{
+	color: #2780E3;
+}
+
+.employee-position{
+	text-transform: uppercase;
+	color: #2780E3;
+}
+.employee-name{
+	font-size: 19px;
+}

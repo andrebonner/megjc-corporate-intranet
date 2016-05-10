@@ -10,7 +10,7 @@
 
     function Birthday($scope, $http){
         $scope.date = Date.now();
-        
+
         $http.get('/api/employees/birthday').then(function(data){
             $scope.birthdays = data.data;
         });
