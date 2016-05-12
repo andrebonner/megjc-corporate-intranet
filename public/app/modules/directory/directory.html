@@ -1,0 +1,26 @@
+<h3 class="section-title">{{departments.length}} DEPARTMENTS</h3>
+<div class="row">
+	<div class="col-md-2">
+		<div class="panel panel-default">
+			<ul class="list-group">
+			    <li class="list-group-item" data-ng-repeat="department in departments track by department.id">
+			    	<a data-ng-href="/directory?dept_id={{department.id}}">{{department.name}}</a>
+			    </li>
+	  		</ul>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<div class="row">
+			<div class="col-md-4" data-ng-repeat="employee in employees track by employee.id" >
+				<div class="employee-info">
+					<img data-ng-src="../../../../src/img/staff/{{employee.department_id}}/{{employee.id}}.JPG">
+					<p class="employee-position">{{employee.position}}</p>
+					<p class="employee-name"><strong>{{employee.name}}</strong></p>
+					<p data-ng-if="employee.email"><i class="fa fa-envelope" aria-hidden="true"></i> {{employee.email}}</p>
+					<p data-ng-if="employee.extension"><i class="fa fa-phone-square" aria-hidden="true"></i> {{employee.extension}} </p>
+					<p data-ng-if="employee.cug"><i class="fa fa-phone-square" aria-hidden="true"></i> {{employee.cug}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
