@@ -9,12 +9,56 @@
         <h4 class="media-heading">{{notice.title}} <span>{{notice.time}}</span></h4>
       </div>
     </div>
+      <button class="btn btn-primary more">View More</button>
     <hr class="item-divider">
       <h3 class="section-title">DID YOU KNOW</h3>
       <ol class="numbered-list">
           <li>Once you have completed your vacation leave, your resumption letter should be submitted as soon as possible.</li>
-          
       </ol>
+      <hr class="item-divider">
+      <h3 class="section-title">POLL</h3>
+      <p class="poll-question">What are your thoughts on the new intranet?</p>
+      <form novalidate ng-submit="processPoll()">
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                I really like it!
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                I'm ok with it.
+          </label>
+        </div>
+
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                I don't like it.
+          </label>
+        </div>
+
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                I don't think I'm ready for this.
+          </label>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+
+      <hr class="item-divider">
+
+      <h3 class="section-title">VACANCIES</h3>
+      <ol class="numbered-list">
+          <li><a href="">Personnel Manager</a></li>
+          <li><a href="">Driver DR 1</a></li>
+          <li><a href="">Procurement Officer SEG 1</a></li>
+          <li><a href="">Records Officer 1 RIM 2</a></li>
+          <li><a href="">Director, Inspectorate SEG 3</a></li>
+      </ol>
+        <button class="btn btn-primary more">View More</button>
   </div>
   <div class="col-md-6 main-content">
       <img src="http://placehold.it/550x300">
@@ -76,10 +120,11 @@
               ICT Department
           </div>
       </div>
+      <button class="btn btn-primary more">View More</button>
       <hr class="item-divider">
-
+      <h3 class="section-title">VIDEO</h3>
       <img src="http://placehold.it/260x200">
-      <h4><strong>Video - How to write a memo</strong></h4>
+      <h4><strong>How to write a memo</strong></h4>
       <hr class="section-divider">
 
       <h3 class="section-title">BLOG</h3>
@@ -104,8 +149,7 @@
             <h4 class="media-heading"><strong>GOJ HCMES - HR Digital Transformation</strong></h4>
           </div>
         </div>
-
     </div>
-
+    <button class="btn btn-primary more">View More</button>
   </div>
 </div>

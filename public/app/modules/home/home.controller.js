@@ -5,14 +5,14 @@
 	.controller('Home', Home);
 
 
-	Home.$inject = ['$scope', '$http', '$location'];
+	Home.$inject = ['$scope', '$http', '$location', '$window'];
 	/**
 	 * Home Controller
 	 * @param {[type]} $scope    [description]
 	 * @param {[type]} $http     [description]
 	 * @param {[type]} $location [description]
 	 */
-	function Home($scope, $http, $location){
+	function Home($scope, $http, $location, $window){
 
 		// $http.get('/api/v3/wordpress/?json=get_category_posts&slug=notices').then(function(data){
 		// 	$scope.notices = data.data.posts;
@@ -33,11 +33,16 @@
 		// });
 
 		$scope.goTo = function(path){
-			$location.path('/' + path);
+			if(path === 'jobs') $window.open('http://www.osc.gov.jm/OSC_vacancies.html', '_blank');
+			else $location.path('/' + path);
 		};
 
 		$scope.clearCache = function(){
 			$templateCache.removeAll();
+		};
+
+		$scope.processPoll = function(){
+				console.log('Fired');
 		};
 
 		function showNotices(){

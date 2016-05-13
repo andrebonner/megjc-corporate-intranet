@@ -6,6 +6,9 @@
         notify = require('gulp-notify'),
         watch = require('gulp-watch'),
         es = require('event-stream'),
+        concat = require('gulp-concat'),
+        rename = require('gulp-rename'),
+        uglify = require('gulp-uglify'),
         runSequence = require('run-sequence'),
         configs = {
             sources:{
@@ -41,6 +44,34 @@
                 .pipe(inject(sources))
                 .pipe(gulp.dest(configs.dest.root));
       });
+      /**
+       * Minify and concatenate javascript files
+       * @param  {[type]} 'minify-js' [description]
+       * @param  {[type]} function(   [description]
+       * @return {[type]}             [description]
+       */
+      gulp.task('minify-js', function(){
+          return gulp.src(configs.public)
+                    .pipe(concat('app.js'))
+                    .pipe(gulp.dest('./public/dist'))
+                    .pipe(rename('app.min.js'))
+                    .pipe(uglify())
+                    .pipe(gulp.dest('./public/dist'));
+      });
+      /**
+       * JavaScript file linting
+       * @param  {[type]} 'jshint'  Gulp task identifier
+       * @param  {[type]} callback func  Anon callback function
+       * @return {[type]}           [description]
+       */
+      gulp.task('jshint', function() {
+        	return gulp.src(configs.sources.js)
+                    	.pipe(plumber({
+                    		errorHandler: onError
+                    	}))
+                  	.pipe(jshint())
+                  	.pipe(jshint.reporter('default'));
+        });
     /**
      * Watches source folder for file changes.
      * @param  {[type]} 'watch-folder' Gulp task identifier
@@ -52,20 +83,6 @@
                    .pipe(watch(configs.watch_folders, {base: './src'}))
                    .pipe(gulp.dest(configs.dest.public));
     });
-    /**
-     * JavaScript file linting
-     * @param  {[type]} 'jshint'  Gulp task identifier
-     * @param  {[type]} callback func  Anon callback function
-     * @return {[type]}           [description]
-     */
-    gulp.task('jshint', function() {
-      	return gulp.src(configs.sources.js)
-                  	.pipe(plumber({
-                  		errorHandler: onError
-                  	}))
-                	.pipe(jshint())
-                	.pipe(jshint.reporter('default'));
-      });
     /**
      * Watching folders and execute gulp tasks
      * @param  {[type]} 'watch'   [description]
