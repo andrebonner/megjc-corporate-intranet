@@ -48,46 +48,55 @@
         ]
     },
     {
-        "name": "gabordemooij/redbean",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "vlucas/phpdotenv",
+        "version": "v2.2.1",
+        "version_normalized": "2.2.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/gabordemooij/redbean.git",
-            "reference": "261cf343383a8ac6394aab6fda6628b7efe6da44"
+            "url": "https://github.com/vlucas/phpdotenv.git",
+            "reference": "63f37b9395e8041cd4313129c08ece896d06ca8e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/261cf343383a8ac6394aab6fda6628b7efe6da44",
-            "reference": "261cf343383a8ac6394aab6fda6628b7efe6da44",
+            "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/63f37b9395e8041cd4313129c08ece896d06ca8e",
+            "reference": "63f37b9395e8041cd4313129c08ece896d06ca8e",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.4"
+            "php": ">=5.3.9"
         },
-        "time": "2016-04-25 21:40:06",
+        "require-dev": {
+            "phpunit/phpunit": "^4.8 || ^5.0"
+        },
+        "time": "2016-04-15 10:48:49",
         "type": "library",
-        "installation-source": "source",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev"
+            }
+        },
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "RedBeanPHP\\": "RedBeanPHP"
+                "Dotenv\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "New BSD and GPLv2"
+            "BSD-3-Clause-Attribution"
         ],
         "authors": [
             {
-                "name": "Gabor de Mooij",
-                "email": "gabor@redbeanphp.com",
-                "homepage": "http://redbeanphp.com"
+                "name": "Vance Lucas",
+                "email": "vance@vancelucas.com",
+                "homepage": "http://www.vancelucas.com"
             }
         ],
-        "description": "RedBeanPHP ORM",
-        "homepage": "http://redbeanphp.com/",
+        "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
         "keywords": [
-            "orm"
+            "dotenv",
+            "env",
+            "environment"
         ]
     }
 ]

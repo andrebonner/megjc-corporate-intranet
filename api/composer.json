@@ -1,6 +1,6 @@
 {
     "require": {
         "slim/slim": "2.*",
-        "gabordemooij/redbean": "dev-master"
+        "vlucas/phpdotenv": "^2.2"
     }
 }
