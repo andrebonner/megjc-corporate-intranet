@@ -6,8 +6,8 @@
         notify = require('gulp-notify'),
         watch = require('gulp-watch'),
         es = require('event-stream'),
-        concat = require('gulp-concat'),
-        rename = require('gulp-rename'),
+        //concat = require('gulp-concat'),
+        //rename = require('gulp-rename'),
         uglify = require('gulp-uglify'),
         runSequence = require('run-sequence'),
         configs = {

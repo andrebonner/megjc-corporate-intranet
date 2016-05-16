@@ -7,10 +7,10 @@
 		$routeProvider
 		.when('/', {
 			controller: 'Home',
-			templateUrl: 'src/app/modules/home/home.html'
+			templateUrl: 'app/modules/home/home.html'
 		}).when('/news-feed', {
 			controller: 'Home',
-			templateUrl: 'src/app/modules/home/news-feed.html'
+			templateUrl: 'app/modules/home/news-feed.html'
 		});
 	}
 })();

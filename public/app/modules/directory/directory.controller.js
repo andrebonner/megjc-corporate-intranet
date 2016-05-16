@@ -3,7 +3,8 @@
 	.module('directory')
 	.controller('Directory', Directory)
 	.constant("DEFAULTS", {
-		"department" : 1
+		"department" : 1,
+		"min_length" : 3
 	});
 
 	Directory.$inject = ['$scope', '$http', '$routeParams', 'DEFAULTS'];
@@ -15,6 +16,7 @@
 		var employees = getEmployees();
 		$scope.departments = getDepartments();
 		$scope.employees = getEmployeesByDepartmentId(parseInt($routeParams.dept_id) || DEFAULTS.department);
+		$scope.search = search;
 		/**
 		 * Get all employees
 		 * @return {[type]} [description]
@@ -127,6 +129,19 @@
 				}
 			}
 			return result;
+		}
+		/**
+		 * Searches database for a particular staff member
+		 * @return {[type]} [description]
+		 */
+		function search(){
+			$http.get('/api/departments').then(function(data){
+				console.log(data);
+			});
+			//if($scope.searchValue && $scope.searchValue.length > DEFAULTS.min_length) 
+				//console.log($scope.searchValue);
+			//if($scope.searchValue.length > DEFAULTS.min_length) 
+				
 		}
 	}
 })();

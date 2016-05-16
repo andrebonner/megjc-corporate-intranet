@@ -7,7 +7,7 @@
 		$routeProvider
 		.when('/directory',{
 			controller: 'Directory',
-			templateUrl: 'src/app/modules/directory/directory.html'
+			templateUrl: 'app/modules/directory/directory.html'
 		});
 	}
 })();
