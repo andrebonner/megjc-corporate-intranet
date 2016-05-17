@@ -10,11 +10,12 @@
 	Directory.$inject = ['$scope', '$http', '$routeParams', 'DEFAULTS'];
 
 	function Directory($scope, $http, $routeParams, DEFAULTS){
-		// $http.get('/api/employees').then(function(employees){
-		// 	$scope.employees = employees.data;
-		// });
+		
+		$http.get('/api/departments').then(function(departments){
+			$scope.departments = departments.data;
+		});
+
 		var employees = getEmployees();
-		$scope.departments = getDepartments();
 		$scope.employees = getEmployeesByDepartmentId(parseInt($routeParams.dept_id) || DEFAULTS.department);
 		$scope.search = search;
 		/**
@@ -104,16 +105,6 @@
 						"extension": "2918",
 						"cug": "876 564 0131"
 					}];
-		}
-		/**
-		 * Get all departments
-		 * @return {[type]} Array of departments
-		 */
-		function getDepartments(){
-			return [{"id": 10, "name": "Public Relations"},
-					{"id": 20, "name": "Documentation, Information and Access Serivces"},
-					{"id": 30, "name": "Human Resources Department"},
-					{"id": 40, "name": "ICT Divison"}];
 		}
 		/**
 		 * Retrieves employees by department id.
