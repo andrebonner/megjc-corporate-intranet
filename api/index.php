@@ -35,41 +35,85 @@ function setResponseHeader($app){
 	$app->response()->header("Content-Type", "application/json");
 }
 /**
- * Get all deparments
- */
-$app->get('/departments', function() use( $app ) {
-   $sql = 'SELECT * FROM dept_tab';
+* 
+*/
+function handleDBResponse($result){
+	if($result === false) echo json_encode( array() );
+	else echo json_encode( $result );	
+}
+/**
+* Slim group defining version of api
+*/
+$app->group('/v1', function() use ($app){
+	/**
+	* Get all deparments
+	*/
+	$app->get('/departments', function() use( $app ) {
+		$sql = 'SELECT * FROM dept_tab';
 		try{
 			$db = openDBConnection();
 			$stmt = $db->query( $sql );
-			$departments = $stmt->fetchAll( PDO::FETCH_OBJ );
+			$result = $stmt->fetchAll( PDO::FETCH_OBJ );
 			closeDBConnection( $db );
 			setResponseHeader( $app );
-			// echo '{' .json_encode( $departments ). '}';
-			echo json_encode( $departments );
+			handleDBResponse( $result );
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}
-});
-/**
- * Get a department by id
- */
-$app->get('/departments/:id', function($id) use( $app ) {
-   $sql = 'SELECT * FROM dept_tab WHERE dept_id=:id';
+	});
+	/**
+	* Get a department by id
+	*/
+	$app->get('/departments/:id', function($id) use( $app ) {
+		$sql = 'SELECT * FROM dept_tab WHERE dept_id=:id';
 		try{
 			$db = openDBConnection();
 			$stmt = $db->prepare( $sql );
-	        $stmt->bindParam("id", $id);
-	        $stmt->execute();
-	        $department = $stmt->fetchObject();        	
+			$stmt->bindParam("id", $id);
+			$stmt->execute();
+			$result = $stmt->fetchObject();        	
 			closeDBConnection( $db );
 			setResponseHeader( $app );
-			echo json_encode( $department );
+			handleDBResponse( $result );
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}
-});
-
+	});
+	/**
+	* Get all employees
+	*/
+	$app->get('/employees', function() use ( $app ){
+		$sql = 'SELECT * FROM employees';
+		try{
+			$db = openDBConnection();
+			$stmt = $db->query( $sql );
+			$result = $stmt->fetchAll( PDO::FETCH_OBJ );
+			closeDBConnection( $db );
+			setResponseHeader( $app );
+			handleDBResponse( $result );
+		}catch(PDOException $e){
+			echo '{"error":{"text":' .$e->getMessage(). '}}';
+		}
+	});	
+	/**
+	* Get employees by department id
+	*/
+	$app->get('/departments/:id/employees', function( $id ) use ( $app ){
+		$sql = 'SELECT * FROM employees WHERE dept_id=:id';
+		try{
+			$db = openDBConnection();
+			$stmt = $db->prepare( $sql );
+			$stmt->bindParam("id", $id);
+			$stmt->execute();
+			$result = $stmt->fetchObject();        	
+			closeDBConnection( $db );
+			setResponseHeader( $app );			
+			handleDBResponse( $result );
+		}catch(PDOException $e){
+			echo '{"error":{"text":' .$e->getMessage(). '}}';
+		}
+	});
+}); //end of group
 /**
  * Run the Slim application
  */

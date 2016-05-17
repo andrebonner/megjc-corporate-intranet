@@ -3,7 +3,7 @@
 	.module('directory')
 	.controller('Directory', Directory)
 	.constant("DEFAULTS", {
-		"department" : 1,
+		"department" : 10,
 		"min_length" : 3
 	});
 
@@ -11,7 +11,8 @@
 
 	function Directory($scope, $http, $routeParams, DEFAULTS){
 		
-		$http.get('/api/departments').then(function(departments){
+		$http.get('/api/v1/departments').then(function(departments){
+			console.log(departments.data)
 			$scope.departments = departments.data;
 		});
 
