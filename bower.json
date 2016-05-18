@@ -17,6 +17,7 @@
   "dependencies": {
     "angular": "^1.5.3",
     "angular-route": "^1.5.3",
-    "moment": "^2.12.0"
+    "moment": "^2.12.0",
+    "font-awesome": "^4.6.3"
   }
 }
