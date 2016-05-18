@@ -1,5 +1,5 @@
-api/wordpress/wp-config.php
-bower_components
+api/.env
+public/bower_components
 node_modules
 .idea/
-#
+src/
