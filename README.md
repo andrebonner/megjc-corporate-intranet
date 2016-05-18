@@ -28,4 +28,3 @@ is being developed and consumed by an Angular front-end. Gulp will be responsibl
  - Structure and refract Angular
  - Integrate gulp build system
  - Determine a better mechanism to manage images
- - Add

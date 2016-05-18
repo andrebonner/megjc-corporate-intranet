@@ -7,7 +7,7 @@
 		'birthday',
 		'notice',
 		'help'
-	]).config(config).run(intranetTracking)
+	]).config(config).run(intranetTracking);
 
 	function config($locationProvider, $routeProvider){
 		$routeProvider.otherwise({redirectTo: '/'});

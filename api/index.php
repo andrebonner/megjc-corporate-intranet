@@ -35,13 +35,6 @@ function setResponseHeader($app){
 	$app->response()->header("Content-Type", "application/json");
 }
 /**
-* 
-*/
-function handleDBResponse($result){
-	if($result === false) echo json_encode( array() );
-	else echo json_encode( $result );	
-}
-/**
 * Slim group defining version of api
 */
 $app->group('/v1', function() use ($app){
@@ -56,7 +49,7 @@ $app->group('/v1', function() use ($app){
 			$result = $stmt->fetchAll( PDO::FETCH_OBJ );
 			closeDBConnection( $db );
 			setResponseHeader( $app );
-			handleDBResponse( $result );
+			echo json_encode($result);
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}
@@ -71,10 +64,10 @@ $app->group('/v1', function() use ($app){
 			$stmt = $db->prepare( $sql );
 			$stmt->bindParam("id", $id);
 			$stmt->execute();
-			$result = $stmt->fetchObject();        	
+			$result = $stmt->fetchAll( PDO::FETCH_OBJ );	
 			closeDBConnection( $db );
 			setResponseHeader( $app );
-			handleDBResponse( $result );
+			echo json_encode($result);
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}
@@ -90,10 +83,33 @@ $app->group('/v1', function() use ($app){
 			$result = $stmt->fetchAll( PDO::FETCH_OBJ );
 			closeDBConnection( $db );
 			setResponseHeader( $app );
-			handleDBResponse( $result );
+			echo json_encode($result);
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}
+	});	
+	/**
+	* Search for an employee by name
+	*/
+	$app->get('/search/employees', function() use ( $app ){
+		$paramValue = $app->request->get();
+		if(empty($paramValue)){
+			echo '{"error": {"text": "No search term included"}}';		
+		}else{
+			$sql = "SELECT * FROM employees WHERE first_name LIKE CONCAT(:name, '%')";
+			try{
+				$db = openDBConnection();
+				$stmt = $db->prepare( $sql );
+				$stmt->bindParam("name", $paramValue['name']);
+				$stmt->execute();
+				$result = $stmt->fetchAll( PDO::FETCH_OBJ );      	
+				closeDBConnection( $db );
+				setResponseHeader( $app );			
+				echo json_encode($result);
+			}catch(PDOException $e){
+				echo '{"error":{"text":' .$e->getMessage(). '}}';
+			}
+		}		
 	});	
 	/**
 	* Get employees by department id
@@ -105,10 +121,11 @@ $app->group('/v1', function() use ($app){
 			$stmt = $db->prepare( $sql );
 			$stmt->bindParam("id", $id);
 			$stmt->execute();
-			$result = $stmt->fetchObject();        	
+			$result = $stmt->fetchAll( PDO::FETCH_OBJ );       	
 			closeDBConnection( $db );
 			setResponseHeader( $app );			
-			handleDBResponse( $result );
+			// handleDBResponse( $result );
+			echo json_encode($result);
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}

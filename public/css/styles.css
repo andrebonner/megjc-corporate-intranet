@@ -198,10 +198,11 @@ ol.numbered-list li{
 }
 .employee-name{
 	font-size: 19px;
+	text-transform: capitalize;
 }
 
 .poll-question{
-	font-weight: bold;s
+	font-weight: bold;
 }
 
 .more{
@@ -214,4 +215,8 @@ ol.numbered-list li{
 
 .search-box{
 	margin-bottom: 10px;
+}
+
+li.list-group-item a:visited{
+	color: #2780E3;
 }
