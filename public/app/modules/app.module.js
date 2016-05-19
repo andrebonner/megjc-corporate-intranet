@@ -6,7 +6,8 @@
 		'directory',
 		'birthday',
 		'notice',
-		'help'
+		'help',
+		'content'
 	]).config(config).run(intranetTracking);
 
 	function config($locationProvider, $routeProvider){

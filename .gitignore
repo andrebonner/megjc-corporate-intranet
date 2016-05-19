@@ -3,3 +3,5 @@ public/bower_components
 node_modules
 .idea/
 src/
+*.js___jb_tmp___
+
