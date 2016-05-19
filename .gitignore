@@ -2,6 +2,4 @@ api/.env
 public/bower_components
 node_modules
 .idea/
-src/
-*.js___jb_tmp___
-
+*.*___jb_tmp___
