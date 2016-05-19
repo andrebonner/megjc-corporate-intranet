@@ -5,20 +5,16 @@
         jshint = require('gulp-jshint'),
         notify = require('gulp-notify'),
         watch = require('gulp-watch'),
-        es = require('event-stream'),
-        //concat = require('gulp-concat'),
-        //rename = require('gulp-rename'),
         uglify = require('gulp-uglify'),
-        runSequence = require('run-sequence'),
         filesort = require('gulp-angular-filesort'),
         paths = {
             sources:{
-              all:['./src/**/*.css', './src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js'],
-              js: ['./src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js'],
+              all:['./src/**/*.css', './src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js', './src/app/modules/**/*.service.js'],
+              js: ['./src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js', './src/app/modules/**/*.service.js'],
               css: ['./src/**/*.css']
             },
             watch_folders: ['./src/**/**/*'],
-            public: ['./public/app/**/**/*.module.js', './public/app/**/**/*.controller.js'],
+            public: ['./public/app/**/**/*.module.js', './public/app/**/**/*.controller.js', './public/app/**/**/*.service.js'],
             inject_target: './index.html',
             dest: { public: './public', root: './', temp: './temp' }
         },
@@ -41,8 +37,14 @@
     gulp.task('inject-files', function(){
         var target = gulp.src(paths.inject_target),
             sources = gulp.src(paths.public, {read: false});
+       // return target
+                //.pipe(inject(sources))
+                //.pipe(gulp.dest(paths.dest.root));
+
         return target
-                .pipe(inject(sources))
+                .pipe(inject(
+                  gulp.src(['./public/app/**/**/*.module.js', './public/app/**/**/*.controller.js', './public/app/**/**/*.service.js']).pipe(filesort())
+                  ))
                 .pipe(gulp.dest(paths.dest.root));
       });
       /**

@@ -8,7 +8,7 @@
         $routeProvider
             .when('/content/:id',{
                 controller: 'Content',
-                templateUrl: 'app/modules/content/content.html'
+                templateUrl: 'public/app/modules/content/content.html'
             });
     }
 })();
