@@ -7,12 +7,13 @@
 		'birthday',
 		'notice',
 		'help',
-		'content'
+		'content',
+		'shared-services'
 	]).config(config).run(intranetTracking);
 
 	function config($locationProvider, $routeProvider){
 		$routeProvider.otherwise({redirectTo: '/'});
-		$locationProvider.html5Mode(true);
+		// $locationProvider.html5Mode(true);
 	}
 	/**
      * Tracks each page view.

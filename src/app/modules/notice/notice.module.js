@@ -1,6 +1,3 @@
-/**
- * Created by captain-kirk on 4/18/16.
- */
 (function(){
     angular
         .module('notice',[])
@@ -8,9 +5,12 @@
 
     function config($routeProvider){
         $routeProvider
-            .when('/notices',{
+            .when('/notices/:id',{
                 controller: 'Notice',
                 templateUrl: 'public/app/modules/notice/notice.html'
+            }).when('/notices', {
+                controller: 'Notice',
+                templateUrl: 'public/app/modules/notice/notice-list.html'
             });
     }
 })();

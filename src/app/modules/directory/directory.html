@@ -7,7 +7,7 @@
 		<div class="panel panel-default">
 			<ul class="list-group">
 			    <li class="list-group-item" data-ng-repeat="department in departments | orderBy:'dept_name'" >
-			    	<a data-ng-href="/directory?dept_id={{department.dept_id}}">{{department.dept_name}}</a>
+			    	<a data-ng-href="#/directory?dept_id={{department.dept_id}}">{{department.dept_name}}</a>
 			    </li>
 	  		</ul>
 		</div>
