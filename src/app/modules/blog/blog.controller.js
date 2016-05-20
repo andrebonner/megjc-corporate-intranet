@@ -3,9 +3,14 @@
         .module('blog')
         .controller('Blog', Blog);
 
-    Blog.$inject = ['$scope', 'sharedServices'];
+    Blog.$inject = ['$scope', '$routeParams','sharedServices', 'blogService'];
 
-    function Blog($scope, sharedServices){
+    function Blog($scope, $routeParams, sharedServices, blogService){
         $scope.notices = sharedServices.getNotices();
+
+        blogService.getBlogById($routeParams.id).then(function(blog){
+            console.log(blog)
+            $scope.blog = blog;
+        });
     }
 })();

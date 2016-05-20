@@ -124,8 +124,23 @@ $app->group('/v1', function() use ($app){
 			$result = $stmt->fetchAll( PDO::FETCH_OBJ );       	
 			closeDBConnection( $db );
 			setResponseHeader( $app );			
-			// handleDBResponse( $result );
 			echo json_encode($result);
+		}catch(PDOException $e){
+			echo '{"error":{"text":' .$e->getMessage(). '}}';
+		}
+	});
+	
+	$app->get('/blogs/:id', function( $id ) use ( $app ){
+		$sql = 'SELECT * FROM blogs WHERE id=:id';
+		try{
+			$db = openDBConnection();
+			$stmt = $db->prepare( $sql );
+			$stmt->bindParam("id", $id);
+			$stmt->execute();
+			$result = $stmt->fetchObject();       	
+			closeDBConnection( $db );
+			setResponseHeader( $app );			
+			echo json_encode( $result );
 		}catch(PDOException $e){
 			echo '{"error":{"text":' .$e->getMessage(). '}}';
 		}
