@@ -220,3 +220,19 @@ ol.numbered-list li{
 li.list-group-item a:visited{
 	color: #2780E3;
 }
+
+/**
+ * Content Page
+ */
+.time{
+	color:#999999;
+}
+
+.content{
+	font-size: 19px;
+	margin-bottom: 20px;
+}
+.content-author{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

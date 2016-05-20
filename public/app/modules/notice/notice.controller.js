@@ -6,9 +6,17 @@
         .module('notice')
         .controller('Notice', Notice);
 
-    Notice.$inject = ['$scope'];
-
-    function Notice($scope){
+    Notice.$inject = ['$scope', 'sharedServices'];
+    /**
+     * 
+     * @param {[type]} $scope         [description]
+     * @param {[type]} sharedServices [description]
+     */
+    function Notice($scope, sharedServices){
+        $scope.notices = sharedServices.getNotices();
         
+        $scope.getNotices = function(){
+        	sharedServices.goTo('notices');
+        }
     }
 })();
