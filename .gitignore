@@ -2,4 +2,4 @@ api/.env
 public/bower_components
 node_modules
 .idea/
-src/
+*.*___jb_tmp___

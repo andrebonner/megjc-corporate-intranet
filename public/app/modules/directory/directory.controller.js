@@ -2,20 +2,14 @@
 	'use strict';
 	angular
 	.module('directory')
-	.controller('Directory', Directory)
-	.constant("DEFAULTS", {
-		"department" : 5,
-		"min_length" : 2,
-		"api_base_url": "/api/v1/"
-	});
+	.controller('Directory', Directory);
 
-	Directory.$inject = ['$scope', '$http', '$routeParams', 'DEFAULTS', 'directoryService'];
+	Directory.$inject = ['$scope', '$http', '$routeParams', 'directoryService'];
 
-	function Directory($scope, $http, $routeParams, DEFAULTS, directoryService){
-		var url = DEFAULTS.api_base_url + 'departments';
-		$scope.employees = getEmployeesByDepartmentId($routeParams.dept_id || parseInt(DEFAULTS.department));
+	function Directory($scope, $http, $routeParams, directoryService){
+		var url = '/api/v1/departments';
 		$scope.search = search;	
-		$scope.getEmployees = getEmployeesByDepartmentId;
+		activate();
 		/**
 		 * Get all departments
 		 */
@@ -25,29 +19,36 @@
 				$scope.departments = departments;
 			});
 		/**
+		 * [activate description]
+		 * @return {[type]} [description]
+		 */
+		function activate(){
+			getEmployeesByDepartmentId($routeParams.dept_id || 5);
+		}
+		/**
 		 * Retrieves employees by department id.
 		 * @param  {[type]} id Employee department id.
 		 */		
 		function getEmployeesByDepartmentId(id){
 			directoryService
-			.getEmployeesByDepartment(id)
-			.then(function(employees){
-				$scope.employees = employees;
-			});
+				.getEmployeesByDepartment(id)
+				.then(function(employees){
+					$scope.employees = employees;
+				});
 		}		
 		/**
 		 * Searches database for a particular staff member
 		 * @return {[type]} [description]
 		 */
 		function search(){
-			var url = DEFAULTS.api_base_url + 'search/employees?name=';
-			if($scope.searchValue && $scope.searchValue.length > DEFAULTS.min_length){
+			var url = '/api/v1/search/employees?name=';
+			if($scope.searchValue && $scope.searchValue.length > 2){
 				var query = url + $scope.searchValue;
 				$http.get(query).then(function(result){
 					$scope.employees = result.data;
 				});
 			}else{
-				$scope.employees = getEmployeesByDepartmentId(parseInt(DEFAULTS.department));
+				$scope.employees = getEmployeesByDepartmentId(5);
 			}		
 		}			
 	}

@@ -5,19 +5,16 @@
         jshint = require('gulp-jshint'),
         notify = require('gulp-notify'),
         watch = require('gulp-watch'),
-        es = require('event-stream'),
-        //concat = require('gulp-concat'),
-        //rename = require('gulp-rename'),
         uglify = require('gulp-uglify'),
-        runSequence = require('run-sequence'),
-        configs = {
+        filesort = require('gulp-angular-filesort'),
+        paths = {
             sources:{
-              all:['./src/**/*.css', './src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js'],
-              js: ['./src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js'],
+              all:['./src/**/*.css', './src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js', './src/app/modules/**/*.service.js'],
+              js: ['./src/app/modules/**/*.module.js', './src/app/modules/**/*.controller.js', './src/app/modules/**/*.service.js'],
               css: ['./src/**/*.css']
             },
             watch_folders: ['./src/**/**/*'],
-            public: ['./public/app/**/**/*.module.js', './public/app/**/**/*.controller.js'],
+            public: ['./public/app/**/**/*.module.js', './public/app/**/**/*.controller.js', './public/app/**/**/*.service.js'],
             inject_target: './index.html',
             dest: { public: './public', root: './', temp: './temp' }
         },
@@ -38,11 +35,17 @@
      * @return {[type]}                [description]
      */
     gulp.task('inject-files', function(){
-        var target = gulp.src(configs.inject_target),
-            sources = gulp.src(configs.public, {read: false});
+        var target = gulp.src(paths.inject_target),
+            sources = gulp.src(paths.public, {read: false});
+       // return target
+                //.pipe(inject(sources))
+                //.pipe(gulp.dest(paths.dest.root));
+
         return target
-                .pipe(inject(sources))
-                .pipe(gulp.dest(configs.dest.root));
+                .pipe(inject(
+                  gulp.src(['./public/app/**/**/*.module.js', './public/app/**/**/*.controller.js', './public/app/**/**/*.service.js']).pipe(filesort())
+                  ))
+                .pipe(gulp.dest(paths.dest.root));
       });
       /**
        * Minify and concatenate javascript files
@@ -51,7 +54,7 @@
        * @return {[type]}             [description]
        */
       gulp.task('minify-js', function(){
-          return gulp.src(configs.public)
+          return gulp.src(paths.public)
                     .pipe(concat('app.js'))
                     .pipe(gulp.dest('./public/dist'))
                     .pipe(rename('app.min.js'))
@@ -65,7 +68,7 @@
        * @return {[type]}           [description]
        */
       gulp.task('jshint', function() {
-        	return gulp.src(configs.sources.js)
+        	return gulp.src(paths.sources.js)
                     	.pipe(plumber({
                     		errorHandler: onError
                     	}))
@@ -79,9 +82,9 @@
      * @return {[type]}                [description]
      */
     gulp.task('watch-folder', function(){
-        return gulp.src(configs.watch_folders, { base: './src'})
-                   .pipe(watch(configs.watch_folders, {base: './src'}))
-                   .pipe(gulp.dest(configs.dest.public));
+        return gulp.src(paths.watch_folders, { base: './src'})
+                   .pipe(watch(paths.watch_folders, {base: './src'}))
+                   .pipe(gulp.dest(paths.dest.public));
     });
     /**
      * Watching folders and execute gulp tasks
@@ -90,6 +93,6 @@
      * @return {[type]}           [description]
      */
     gulp.watch('watch', function(){
-        gulp.watch(configs.sources.js, ['watch-folder', 'jshint']);
+        gulp.watch(paths.sources.js, ['watch-folder', 'jshint']);
     });
 })();
