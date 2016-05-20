@@ -3,9 +3,9 @@
         .module('content')
         .controller('Content', Content);
 
-    Content.$inject = ['$scope'];
+    Content.$inject = ['$scope', 'sharedServices'];
 
-    function Content($scope) {
-        
+    function Content($scope, sharedServices) {
+        $scope.notices = sharedServices.getNotices();
     }
 })();
