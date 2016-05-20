@@ -8,12 +8,13 @@
 		'notice',
 		'help',
 		'content',
-		'shared-services'
+		'shared-services',
+		'staff',
+		'blog'
 	]).config(config).run(intranetTracking);
 
-	function config($locationProvider, $routeProvider){
+	function config($routeProvider){
 		$routeProvider.otherwise({redirectTo: '/'});
-		// $locationProvider.html5Mode(true);
 	}
 	/**
      * Tracks each page view.

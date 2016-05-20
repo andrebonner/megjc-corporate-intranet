@@ -38,7 +38,7 @@
 			}
 
 			function goTo(path){
-				var page = '#/' + path;
+				// var page = '/' + path;
 				$location.path(path);
 			}
 

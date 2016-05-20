@@ -17,6 +17,6 @@
         
         $scope.getNotices = function(){
         	sharedServices.goTo('notices');
-        }
+        };
     }
 })();

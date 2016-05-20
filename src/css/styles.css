@@ -236,3 +236,11 @@ li.list-group-item a:visited{
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.blog-list a{
+	color: #000000;
+}
+
+.blog-list a:hover{
+	color: #000000;
+}
