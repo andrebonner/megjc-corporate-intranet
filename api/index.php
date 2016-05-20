@@ -15,8 +15,6 @@ $app = new \Slim\Slim(["settings" => $config]);
 function openDBConnection(){
 		$user = getenv('DB_USER');
 		$pass = getenv('DB_PASS');
-		// $user = 'root';
-		// $pass = 'H1gh53cur1ty';
 		$pdo = new PDO('mysql:host=192.168.7.232;port=3306;dbname=mwhintra', $user, $pass);
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $pdo;
