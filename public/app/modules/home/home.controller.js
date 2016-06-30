@@ -4,13 +4,14 @@
 	.module('home')
 	.controller('Home', Home);
 
-
 	Home.$inject = ['$scope', '$http', '$location', '$window', 'sharedServices'];
 	/**
 	 * Home Controller
 	 * @param {[type]} $scope    [description]
 	 * @param {[type]} $http     [description]
 	 * @param {[type]} $location [description]
+	 * @param {[type]} $window
+	 * @param {[type]} sharedServices
 	 */
 	function Home($scope, $http, $location, $window, sharedServices){
 		$scope.notices = sharedServices.getNotices();
@@ -22,7 +23,10 @@
 				$scope.news = data.data.items.splice(0,3);
 			}
 		});
-
+		/**
+		 *
+		 * @param path
+         */
 		$scope.goTo = function(path){
 			if(path === 'jobs') $window.open('http://www.osc.gov.jm/OSC_vacancies.html', '_blank');
 			else $location.path('#/' + path);
@@ -33,6 +37,14 @@
 		 */
 		$scope.getNotices = function(){
         	sharedServices.goTo('notices');
-        }
+        };
+
+		$scope.getBlogs = function(){
+			sharedServices.goTo('blogs');
+		};
+
+		$scope.showStaffFocus = function(){
+			sharedServices.goTo('staff-focus');
+		};
 	}
 })();

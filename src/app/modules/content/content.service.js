@@ -1,13 +1,13 @@
 (function(){
     angular
         .module('content')
-        .factory('contentService', contentService)
+        .factory('contentService', contentService);
 
     contentService.$inject = ['$http'];
 
     function contentService($http){
         var service = {
-            getContentById: getContentById,
+            getContentById: getContentById
         };
         /**
          * Get content details by id
