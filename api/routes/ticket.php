@@ -27,7 +27,7 @@ function routeTicketRequests($app){
     apiResponse($response, $app, $error, $status);
   });
   /**
-  * Get all tickets owned by a user
+  * Get open tickets owned by a user
   */
   $app->get('/:fname/:lname', function($fname, $lname) use ( $app ){
     $sql = 'SELECT tickets.service_ticket_id as id,
@@ -41,6 +41,7 @@ function routeTicketRequests($app){
             INNER JOIN service_ticket_status_type_tab as status
             ON tickets.service_ticket_status = status.service_ticket_status_type_id
             WHERE tickets.owner_fName =:fname AND tickets.owner_lName=:lname
+            AND tickets.service_ticket_status = "1"
             ORDER BY tickets.service_ticket_sdate DESC';
 
     $error = null;
