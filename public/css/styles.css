@@ -244,3 +244,8 @@ li.list-group-item a:visited{
 .blog-list a:hover{
 	color: #000000;
 }
+
+.help-desk{
+	max-height: auto;
+	height: 100vh;
+}

@@ -1,54 +1,63 @@
-<div class="alert alert-info alert-dismissible" role="alert" ng-if="message">
-  <button type="button" class="close" aria-label="Close" ng-click="messageDismiss()"><span aria-hidden="true">&times;</span></button>
-  <strong>Your issue has been submitted.</strong>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9">
+    <div class="alert alert-success alert-dismissible" role="alert" data-ng-if="vm.message">
+      <button type="button" class="close" aria-label="Close" data-ng-click="vm.dismiss()"><span aria-hidden="true">&times;</span></button>
+      <strong>Your issue has been submitted.</strong>
+    </div>
+  </div>
 </div>
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-9">
-		<h2 class="department-title">My Help Desk</h2>	
+		<h2 class="department-title">My Help Desk</h2>
 		<!-- <p>Since you are here, we figure you are having a technical problem. Kindly complete the simple form below and press the submit button once complete.</p>	 -->
-	</div>		
+	</div>
 </div>
 
-<div class="row">
+<div class="row help-desk">
 	<div class="col-md-3">
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h1 class="panel-title">Overview</h1></div>
 	        <ul class="list-group">
-	        	<li class="list-group-item"><a href ng-click="toggle('open-tickets')">Open Tickets</a></li>
-	            <li class="list-group-item"><a href ng-click="toggle('create-ticket')">Create a ticket</a></li>	            
-	            <li class="list-group-item"><a href ng-click="toggle('closed-tickets')">Closed Tickets</a></li>
-	            <li class="list-group-item"><a href ng-click="toggle('all-tickets')">Total tickets created</a></li>
+	        	<li class="list-group-item"><a href data-ng-click="vm.toggle('open-tickets')">Open Tickets</a></li>
+	            <li class="list-group-item"><a href data-ng-click="vm.toggle('create-ticket')">Create a ticket</a></li>
+	            <li class="list-group-item"><a href data-ng-click="vm.toggle('closed-tickets')">Closed Tickets</a></li>
 	        </ul>
-		</div>	
+		</div>
 	</div>
-	
+
 	<div class="col-md-9">
 		<p ng-if="open_issues.length < 1">There are no tickets at this open at this time</p>
-			<div class="help-wrapper" ng-if="create_ticket">
+			<div class="help-wrapper" data-ng-if="vm.create_ticket">
 			<!-- <h3>Create a Ticket </h3> -->
 
-				<form class="form-horizontal" ng-submit="submitIssue()">					
-			 	
+				<form class="form-horizontal" name="issueForm" data-ng-submit="vm.handleForm(issueForm.$valid)">
+
 			 	<div class="form-group">
-			 	<label>Issue Category</label>
-			 		<select class="form-control" ng-model="issue.category">
-			 			<option value="" selected="selected">Select Issue Category</option>
-			 			<option value="computer issue">Computer</option>
+			 	<label>Select Issue Category</label>
+			 		<select class="form-control"
+                data-ng-model="vm.selected"
+                ng-options="category.title for category in vm.categories">
 			 		</select>
 			 	</div>
 
 			 	<div class="form-group">
 			 	<label>Describe your problem</label>
-			 		<textarea class="form-control" placeholder="Describe your problem as detailed as possible" rows="4" cols="50" ng-model="issue.description">
-			 			
+			 		<textarea class="form-control"
+          placeholder="Describe your problem as detailed as possible"
+          rows="4"
+          cols="50"
+          data-ng-model="issue.description"
+          required>
+
 			 		</textarea>
 			 	</div>
-			 	 <button data-ng-disabled="form.$invalid" class="btn pull-right">Submit Issue</button>
+			 	 <button data-ng-disabled="issueForm.$invalid" class="btn btn-success pull-right">Submit Issue</button>
 				</form>
-			</div>	
+			</div>
 
-			<div class="open-ticket-wrapper" ng-if="open_tickets">
+			<div class="open-ticket-wrapper" ng-if="vm.open_tickets">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -59,14 +68,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="issue in open_issues">
-							<td>{{issue.date | date:'medium'}}</td>							
-							<td>{{issue.description}}</td>
-							<td>{{issue.status}}</td>
-							<td>{{issue.assignee}}</td>							
+						<tr ng-repeat="ticket in vm.tickets">
+							<td>{{ticket.created | timestamp | date:'medium'}}</td>
+							<td>{{ticket.description}}</td>
+							<td>{{ticket.ticket_status}}</td>
+							<!-- <td>{{ticket.assignee}}</td> -->
 						</tr>
-					</tbody>					
+					</tbody>
 				</table>
-			</div>	
+			</div>
 	</div>
 </div>
