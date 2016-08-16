@@ -4,3 +4,4 @@ public/bower_components
 node_modules
 .idea/
 *.*___jb_tmp___
+wordpress/wp-config.php
