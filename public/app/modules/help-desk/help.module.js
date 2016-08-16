@@ -7,7 +7,8 @@
 		$routeProvider
 		.when('/help-desk',{
 			templateUrl: "public/app/modules/help-desk/help.html",
-			controller: 'HelpDesk'
+			controller: 'HelpDesk',
+			controllerAs: 'vm'
 		});
 	}
 })();

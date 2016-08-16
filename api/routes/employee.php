@@ -33,6 +33,7 @@ function routeEmployeeRequests($app){
     }
       $error = null;
       $status = 200;
+      //$sql = "SELECT * FROM employees WHERE first_name LIKE CONCAT(:name, '%') OR tag LIKE CONCAT(:tag, '%')";
       $sql = "SELECT * FROM employees WHERE first_name LIKE CONCAT(:name, '%')";
       try{
         $db = openDBConnection();

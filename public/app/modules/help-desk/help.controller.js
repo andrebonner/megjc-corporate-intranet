@@ -3,65 +3,97 @@
 	.module('help')
 	.controller('HelpDesk', HelpDesk);
 
-	HelpDesk.$inject = ['$scope', '$http'];
+	HelpDesk.$inject = ['$scope', '$http', 'helpDeskService'];
 
-	function HelpDesk($scope, $http){
-		$scope.issue = {};
-		$scope.open_tickets = true;
-		$scope.closed_tickets = false;
-		$scope.create_ticket = false;
-		$scope.all_tickets = false;
-		$scope.isSubmitted = false;
-		$scope.message = false;
-
-		var issues = [];
-		$scope.open_issues = getIssues();
-
-		$scope.submitIssue = function(){
-			$scope.isSubmitted = true;
-			$scope.issue.date = Date.now();
-			$scope.issue.assignee = "zeus";
-			$scope.issue.status = "Forwared to Help Desk";
-			createIssue($scope.issue);
-		};
-
-		function getIssues(){
-			console.log(JSON.parse(localStorage.getItem('issues')));
-			return JSON.parse(localStorage.getItem('issues'));
+	function HelpDesk($scope, $http, helpDeskService){
+		var vm = this;
+		vm.open_tickets = true;
+		vm.closed_tickets = false;
+		vm.create_ticket = false;
+		vm.message = false;
+		vm.dismiss = dismissAlert;
+		vm.toggle = toggle;
+		vm.handleForm = handleForm;
+		vm.issue = {};
+		activate();
+		getClosedTickets();
+		/**
+		 * Deals with controller startup logic
+		 * @return {[type]} [description]
+		 */
+		function activate(){
+			helpDeskService
+					.getTickets({fname: 'Courtney', lname: 'Laidlaw'})
+					.then(function(tickets){
+							vm.tickets = tickets;
+					}).catch(function(error){
+							vm.tickets = [];
+					});
 		}
-
-		function ticketsCount(){
-
-		}
-
-		function createIssue(issue){
-			issues = JSON.parse(localStorage.getItem('issues'));
-			issues.push(issue);
-			localStorage.setItem('issues', JSON.stringify(issues));
-			$scope.open_tickets = !$scope.open_tickets;
-			$scope.create_ticket = !$scope.create_ticket;
-			$scope.message = !$scope.message;
-			$scope.open_issues = getIssues();
-		}
-
-		$scope.messageDismiss = function(){
-			$scope.message = !$scope.message;
-		};
-
-		$scope.toggle = function(ticket){
-			switch(ticket){
-				case 'open-tickets': console.log('open');
-				break;
-				case 'create-ticket': $scope.create_ticket = !$scope.create_ticket;
-									  $scope.open_tickets = !$scope.open_tickets;
-				break;
-				case 'closed-tickets': console.log('closed');
-				break;
-				case 'all-tickets': console.log('all');
-				break;
+		/**
+		 * Process issue form
+		 * @param  {[type]} valid [description]
+		 * @return {[type]}       [description]
+		 */
+		function handleForm(valid){
+			if(valid){
+				vm.issue.category = vm.selected.id;
+				vm.issue = {};
+				vm.message = true;
+				activate();
 			}
 		};
+		/**
+		 * Removes bootstrap alert
+		 * @return {[type]} [description]
+		 */
+		function dismissAlert(){ vm.message = false; };
+		/**
+		 * [toggle description]
+		 * @param  {[type]} ticket [description]
+		 * @return {[type]}        [description]
+		 */
+		function toggle(ticket){
+			switch(ticket){
+				case 'open-tickets':
+							activate();
+							vm.open_tickets = true;
+							vm.create_ticket = false;
+							vm.closed_tickets = false;
+				break;
+				case 'create-ticket':
+										getCategories();
+										vm.create_ticket = true;
+									  vm.open_tickets = false;
+										vm.closed_tickets = false;
+				break;
+				case 'closed-tickets': vm.open_tickets = false;
+															vm.create_ticket = false;
+															vm.closed_tickets = true;
+				break;
+			}
+		}
+		/**
+		 * Get categories for issue creation
+		 * @return {[type]} [description]
+		 */
+		function getCategories(){
+			helpDeskService.getCategories().then(function(categories){
+				vm.selected = categories[0];
+				vm.categories = categories;
+			}).catch(function(error){
+				vm.categories = [];
+			});
+		}
 
-
+		function getClosedTickets(){
+			helpDeskService
+					.getClosedTickets({fname: 'Courtney', lname: 'Laidlaw'})
+					.then(function(tickets){
+							vm.tickets_closed = tickets;
+					}).catch(function(error){
+							vm.tickets_closed = [];
+					});
+		}
 	}
 })();

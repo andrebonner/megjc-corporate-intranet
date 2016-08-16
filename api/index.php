@@ -12,8 +12,17 @@ $app->group('/v1', function() use ($app){
 		$app->group('/departments', function() use ($app){
 				routeDepartmentRequests($app);
 		});
+
 		$app->group('/employees', function() use($app){
 				routeEmployeeRequests($app);
+		});
+
+		$app->group('/tickets', function() use($app){
+				routeTicketRequests($app);
+		});
+
+		$app->group('/admin', function() use($app){
+				routeAdminRequests($app);
 		});
 }); //end of group
 /**

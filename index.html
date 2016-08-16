@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="public/bower_components/font-awesome/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>    
-    <link rel="stylesheet" type="text/css" href="public/css/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="public/css/styles.css">
     <title>Inside MEGJC</title>
     <!-- <base href="/"> -->
 </head>
@@ -30,7 +30,7 @@
                 <!-- <li><a href="#">POLICIES</a></li> -->
                 <li><a href="#/directory"><i class="fa fa-book" aria-hidden="true"></i> DIRECTORY</a></li>
                 <li><a href="#/committees"><i class="fa fa-users" aria-hidden="true"></i> COMMITTEES</a></li>
-                <li><a href="#/"><i class="fa fa-info" aria-hidden="true"></i> HELP DESK</a></li>
+                <li><a href="#/help-desk"><i class="fa fa-info" aria-hidden="true"></i> HELP DESK</a></li>
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
@@ -43,8 +43,22 @@
 <div class="footer">
   <div class="container">
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
+      <div class="col-md-3">
+        <h3>Menu</h3>
+        <p>Home</p>
+        <p>Vacancies</p>
+        <p>Directory</p>
+        <p>Committees</p>
+        <p>Help Desk</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Contact Us</h3>
+        <p>ICT Division</p>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> 7th Floor, 25 Dominica Drive, Kingston 5</p>
+        <p><i class="fa fa-envelope" aria-hidden="true"></i> Email: </p>
+        <p><i class="fa fa-phone-square" aria-hidden="true"></i> For Software Related Issues: ext. 2930</p>
+        <p><i class="fa fa-phone-square" aria-hidden="true"></i> Infrastructure Related Issues: ext. </p>
+      </div>
       <div class="col-md-4"></div>
     </div>
   </div>
@@ -72,6 +86,7 @@
 <script src="/public/app/modules/home/home.controller.js"></script>
 <script src="/public/app/modules/help-desk/help.module.js"></script>
 <script src="/public/app/modules/help-desk/help.controller.js"></script>
+<script src="/public/app/modules/help-desk/help.service.js"></script>
 <script src="/public/app/modules/content/content.controller.js"></script>
 <script src="/public/app/modules/directory/directory.controller.js"></script>
 <script src="/public/app/modules/birthday/birthday.module.js"></script>

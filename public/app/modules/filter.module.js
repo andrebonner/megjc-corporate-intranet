@@ -3,7 +3,13 @@
     angular
         .module('intranet')
         .filter('sanitize', sanitize)
-        .filter('removeEntities', removeEntities);
+        .filter('removeEntities', removeEntities)
+        .filter('timestamp', function(){
+		          return function(dateString){
+			             var dateObject = new Date(dateString).toISOString();
+			                return dateObject;
+		          }
+        });
 
     function sanitize($sce){
         return function(text){

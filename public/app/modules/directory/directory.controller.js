@@ -7,9 +7,9 @@
 	Directory.$inject = ['$http', '$routeParams', 'directoryService'];
 
 	function Directory($http, $routeParams, directoryService){
-		//var url = '/api/v1/departments';
 		var vm = this;
 		vm.search = search;
+		vm.getEmployees = getEmployeesByDepartmentId;
 		activate();
 		/**
 		 * Get all departments
@@ -24,7 +24,7 @@
 		 * @return {[type]} [description]
 		 */
 		function activate(){
-			getEmployeesByDepartmentId($routeParams.dept_id || 5);
+			getEmployeesByDepartmentId(5);
 		}
 		/**
 		 * Retrieves employees by department id.
@@ -35,6 +35,8 @@
 				.getEmployeesByDepartment(id)
 				.then(function(employees){
 					vm.employees = employees;
+				}).catch(function(error){
+					vm.employees = [];
 				});
 		}
 		/**
@@ -43,10 +45,6 @@
 		 */
 		function search(){
 			if(vm.query && vm.query.length > 2){
-				// var query = url + $scope.searchValue;
-				// $http.get(query).then(function(result){
-				// 	$scope.employees = result.data;
-				// });
 				directoryService.search(vm.query)
 					.then(function(result){
 						vm.employees = result;
