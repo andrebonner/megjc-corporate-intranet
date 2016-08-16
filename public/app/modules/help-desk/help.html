@@ -23,7 +23,8 @@
 	        	<li class="list-group-item">
               <a href data-ng-click="vm.toggle('open-tickets')"> Open Tickets <span style="float: right">{{vm.tickets.length}}</span></a></li>
 	            <li class="list-group-item"><a href data-ng-click="vm.toggle('create-ticket')">Create a ticket</a></li>
-	            <li class="list-group-item"><a href data-ng-click="vm.toggle('closed-tickets')">Closed Tickets</a></li>
+	            <li class="list-group-item"><a href data-ng-click="vm.toggle('closed-tickets')">Closed Tickets
+                <span style="float: right">{{vm.tickets_closed.length}}</span></a></li>
 	        </ul>
 		</div>
 	</div>
@@ -34,7 +35,6 @@
 			<!-- <h3>Create a Ticket </h3> -->
 
 				<form class="form-horizontal" name="issueForm" data-ng-submit="vm.handleForm(issueForm.$valid)">
-
 			 	<div class="form-group">
 			 	<label>Select Issue Category</label>
 			 		<select class="form-control"
@@ -49,12 +49,11 @@
           placeholder="Describe your problem as detailed as possible"
           rows="4"
           cols="50"
-          data-ng-model="issue.description"
+          data-ng-model="vm.issue.description"
           required>
-
 			 		</textarea>
 			 	</div>
-			 	 <button data-ng-disabled="issueForm.$invalid" class="btn btn-success pull-right">Submit Issue</button>
+			 	 <button  class="btn btn-success pull-left">Submit Issue</button>
 				</form>
 			</div>
 
@@ -71,6 +70,28 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="ticket in vm.tickets">
+							<td>{{ticket.created | timestamp | date:'medium'}}</td>
+							<td>{{ticket.description}}</td>
+							<td>{{ticket.ticket_status}}</td>
+							<!-- <td>{{ticket.assignee}}</td> -->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+      <div class="open-ticket-wrapper" data-ng-if="vm.closed_tickets">
+        <div class="well" data-ng-show="vm.tickets_closed.length < 1">There are {{vm.tickets_closed.length}} tickets open.</div>
+				<table class="table table-hover" data-ng-show="vm.tickets_closed.length > 0">
+					<thead>
+						<tr>
+							<th>Date created</th>
+							<th>Description</th>
+							<th>Status</th>
+							<th>Assigned to</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="ticket in vm.tickets_closed">
 							<td>{{ticket.created | timestamp | date:'medium'}}</td>
 							<td>{{ticket.description}}</td>
 							<td>{{ticket.ticket_status}}</td>

@@ -5,6 +5,7 @@ $dotenv->load();
  * Opens database connection
  * @return [type] [description]
  */
+// TODO: implement try catch block for db connection
 function openDBConnection(){
     $user = getenv('DB_USER');
     $pass = getenv('DB_PASS');
