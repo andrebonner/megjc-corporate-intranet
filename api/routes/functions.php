@@ -9,7 +9,7 @@ $dotenv->load();
 function openDBConnection(){
     $user = getenv('DB_USER');
     $pass = getenv('DB_PASS');
-    $pdo = new PDO('mysql:host='.getenv('DB_HOST').';port=3306;dbname='.getenv('DB_NAME'), $user, $pass);
+    $pdo = new PDO('mysql:host='.getenv('DB_HOST').';port='.getenv('DB_PORT').';dbname='.getenv('DB_NAME'), $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 }
@@ -76,5 +76,17 @@ function paramCheck($params){
       if($params['q'] === "") $checked = false;
     }
     return $checked;
+}
+/**
+ * Connects to a LDAP server.
+ * @return [type] [description]
+ */
+function openLDAPConnection(){
+  $ldaphost = '192.168.7.5'; //getenv('LDAP_HOST');
+  $ldapport = getenv('LDAP_PORT');
+  $ldapconn = ldap_connect($ldaphost, $ldapport);
+  ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+  ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
+  return $ldapconn;
 }
 ?>

@@ -1,28 +1,17 @@
 <h3 class="section-title">BLOG</h3>
 <div class="blog-list">
-    <div class="media">
+    <div class="media" data-ng-repeat="blog in vm.blogs">
         <div class="media-body">
-            <span class="author">PATRICK THOMPSON</span>
+            <span class="author">{{blog.author.first_name}} {{blog.author.last_name}}</span>
             <h4 class="media-heading">
-                <a href="#/blogs/1"><strong>ICT Division - Our Role</strong></a></h4>
-        </div>
-    </div>
-
-    <div class="media">
-        <div class="media-body">
-            <span class="author">KADIAN CHIN</span>
-            <h4 class="media-heading">
-                <a href="#/blogs/1" ><strong>Implementing Koha - MEGJC Library Management System</strong></a>
-            </h4>
-        </div>
-    </div>
-
-    <div class="media">
-        <div class="media-body">
-            <span class="author">ZANE FRANCIS</span>
-            <h4 class="media-heading">
-                <a href="#/blogs/1"><strong>GOJ HCMES - HR Digital Transformation</strong></a></h4>
+                <strong>
+                  <a data-ng-href
+                     data-ng-bind-html="blog.title | sanitize"></a>
+               </strong>
+          </h4>
         </div>
     </div>
 </div>
-<button class="btn btn-primary more" data-ng-click="getBlogs()">View More</button>
+<button class="btn btn-primary more"
+        data-ng-click="getBlogs()"
+        data-ng-show="vm.blogs.length > 1">View More</button>

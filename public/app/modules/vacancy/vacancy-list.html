@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-3 notice" data-ng-include="'public/app/partials/sidebar.html'"></div>
+    <div class="col-md-9">
+      <h1 class="main-section-title">Vacancies</h1>
+      <hr class="section-divider">
+      <div class="content">
+        <ol class="numbered-list">
+          <li data-ng-repeat="vacancy in vm.vacancies">
+            <a data-ng-href="#/vacancies/{{vacancy.slug}}"
+            data-ng-bind-html="vacancy.title | sanitize"></a>
+          </li>
+        </ol>
+      </div>
+    </div>
+</div

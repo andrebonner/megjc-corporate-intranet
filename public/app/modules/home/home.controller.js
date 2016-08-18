@@ -4,7 +4,8 @@
 	.module('home')
 	.controller('Home', Home);
 
-	Home.$inject = ['$scope', '$http', '$location', '$window', 'sharedServices'];
+	Home.$inject = ['$http', '$location', '$window', '$routeParams', 'homeService',
+									'sharedServices'];
 	/**
 	 * Home Controller
 	 * @param {[type]} $scope    [description]
@@ -13,38 +14,84 @@
 	 * @param {[type]} $window
 	 * @param {[type]} sharedServices
 	 */
-	function Home($scope, $http, $location, $window, sharedServices){
-		$scope.notices = sharedServices.getNotices();
+	function Home($http, $location, $window, $routeParams, homeService, sharedServices){
+		var vm = this;
+		//vm.notices = sharedServices.getNotices();
+		getVacancies();
+		getLeadStory();
+		getDidYouKnow();
+		getRSSFeed();
+		getNotices();
+		getStaffFocus();
+		getBlogPosts();
 
-		$http.get('http://rss2json.com/api.json?rss_url=http://jamaica-gleaner.com/feed/rss.xml').then(function(data){
-			if(data.data.errorMessage){
+		vm.goTo = goTo;
+		vm.getNotices = getNotices;
+		vm.getBlogs = getBlogs;
+		vm.getStaffFocus = getStaffFocus;
 
-			}else{
-				$scope.news = data.data.items.splice(0,3);
-			}
-		});
-		/**
-		 *
-		 * @param path
-         */
-		$scope.goTo = function(path){
-			if(path === 'jobs') $window.open('http://www.osc.gov.jm/OSC_vacancies.html', '_blank');
-			else $location.path('#/' + path);
-		};
-		/**
-		 * Show list of notices
-		 * @return {[type]} [description]
-		 */
-		$scope.getNotices = function(){
-        	sharedServices.goTo('notices');
-        };
-
-		$scope.getBlogs = function(){
-			sharedServices.goTo('blogs');
+		function goTo(path){
+			$location.path('#/' + path);
 		};
 
-		$scope.showStaffFocus = function(){
-			sharedServices.goTo('staff-focus');
+		function getNotices(){
+			homeService.getPostsByCategory('staff-notice').then(function(notices){
+					vm.notices = notices;
+			}).catch(function(error){
+				vm.notices = [];
+			})
 		};
+
+		function getBlogs(){ sharedServices.goTo('blogs'); };
+
+		function getStaffFocus(){ sharedServices.goTo('staff-focus'); };
+
+		function getVacancies(){
+			homeService.getPostsByCategory('vacancies').then(function(vacancies){
+				vm.vacancies = vacancies;
+			}).catch(function(error){
+				vm.vacancies = [];
+			});
+		}
+
+		function getLeadStory(){
+			homeService.getPostsByCategory('front-page').then(function(lead){
+				vm.lead = lead;
+			}).catch(function(error){
+				vm.lead = {};
+			});
+		}
+
+		function getDidYouKnow(){
+			homeService.getPostsByCategory('did-you-know').then(function(advice){
+				vm.advices = advice;
+			}).catch(function(error){
+				vm.advices = [];
+			});
+		}
+
+		function getRSSFeed(){
+			homeService.getRSSFeed().then(function(items){
+				vm.news = items.splice(0,3);
+			}).catch(function(error){
+				vm.news = [];
+			})
+		}
+
+		function getStaffFocus(){
+			homeService.getPostsByCategory('staff-focus').then(function(staff){
+				vm.staff = staff;
+			}).catch(function(error){
+				vm.staff = [];
+			});
+		}
+
+		function getBlogPosts(){
+			homeService.getPostsByCategory('blog').then(function(blogs){
+					vm.blogs = blogs;
+			}).catch(function(error){
+				vm.blogs = [];
+			})
+		}
 	}
 })();
