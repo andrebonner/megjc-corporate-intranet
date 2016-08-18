@@ -27,6 +27,5 @@ function routeAdminRequests($app){
     }
     apiResponse($response, $app, $error, $status);
   });
-
 }
 ?>

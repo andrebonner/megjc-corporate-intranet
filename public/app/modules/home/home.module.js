@@ -7,9 +7,11 @@
 		$routeProvider
 		.when('/', {
 			controller: 'Home',
+			controllerAs: 'vm',
 			templateUrl: 'public/app/modules/home/home.html'
 		}).when('/news-feed', {
 			controller: 'Home',
+			controllerAs: 'vm',
 			templateUrl: 'public/app/modules/home/news-feed.html'
 		});
 	}

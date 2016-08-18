@@ -1,23 +1,20 @@
 <div class="row">
-  <div class="col-md-3 notice" data-ng-include="'public/app/partials/sidebar.html'"></div>
+  <div class="col-md-3 notice"
+      data-ng-include="'public/app/partials/sidebar.html'"></div>
   <div class="col-md-6 main-content">
-      <img src="http://placehold.it/550x300">
-      <h1 class="main-section-title">Welcome to MEGJC</h1>
-      <p>Bacon ipsum dolor amet leberkas sirloin brisket corned beef jowl swine rump kevin short loin chicken. Boudin venison short loin, doner turducken ribeye shank biltong cow kielbasa chicken salami. Meatloaf pig turducken chuck bacon spare ribs tongue tail short loin ball tip flank rump frankfurter. Sausage brisket sirloin t-bone</p>
+      <img data-ng-src="{{vm.lead[0].attachments[0].url}}" class="lead-image">
+      <div class="photo-caption">{{vm.lead[0].attachments[0].caption}}</div>
+      <h1 class="main-section-title">{{vm.lead[0].title}}</h1>
       <hr class="section-divider">
-      <!-- Error Message -->
-      <!-- <div class="media">
-        <div class="media-left">
-        </div>
-        <div class="media-body">
-         <strong>Opps! We could not load your news feed at this time.</strong>
-        </div>
-      </div>  -->
       <h3 class="section-title">NEWS FEED</h3>
-      <div class="media" data-ng-repeat="item in news">
+      <div class="media" data-ng-repeat="item in vm.news">
         <div class="media-left">
             <div class="media-body">
-              <h4 class="media-heading"><strong>{{item.title}}</strong> <span>Published on {{item.pubDate}}</span></h4>
+              <h4 class="media-heading">
+                <strong><a data-ng-href="{{item.link}}"
+                  data-ng-bind-html="item.title | sanitize"></a>
+                </strong>
+                <span>Published on {{item.pubDate}}</span></h4>
               <p>{{item.description}}</p>
             </div>
         </div>
@@ -25,5 +22,6 @@
       </div>
   </div>
 
-  <div class="col-md-3 secondary-content" data-ng-include="'public/app/partials/sidebar-right.html'"></div>
+  <div class="col-md-3 secondary-content"
+       data-ng-include="'public/app/partials/sidebar-right.html'"></div>
 </div>

@@ -1,4 +1,5 @@
 <h3 class="section-title">DID YOU KNOW</h3>
 <ol class="numbered-list">
-  <li>Once you have completed your vacation leave, your resumption letter should be submitted as soon as possible.</li>
+  <li data-ng-repeat="advice in vm.advices"
+  data-ng-bind-html="advice.content | sanitize"></li>
 </ol>

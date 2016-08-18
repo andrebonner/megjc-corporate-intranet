@@ -1,34 +1,15 @@
 <h3 class="section-title">STAFF FOCUS</h3>
-<div class="media">
+<div class="media" data-ng-repeat="staff in vm.staff">
     <div class="media-left">
-        <img src="http://placehold.it/80x80" class="thumbnail-md">
+        <img data-ng-src={{staff.attachments[$index].url}} class="thumbnail-md">
     </div>
     <div class="media-body">
-        <span class="author">NEW MEMBERS OF STAFF</span>
-        <h4 class="media-heading"><strong>Grace Young</strong></h4>
-        Human Resource Department
+        <span class="author">{{staff.title}}</span>
+        <h4 class="media-heading"><strong>{{staff.attachments[$index].title}}</strong></h4>
+        {{staff.attachments[$index].caption}}
     </div>
 </div>
 
-<div class="media">
-    <div class="media-left">
-        <img src="public/img/staff/thumbnails/80/thumbnail.jpg" class="thumbnail-md">
-    </div>
-    <div class="media-body">
-        <span class="author">HAPPY BIRTHDAY</span>
-        <h4 class="media-heading"><strong>Patrick Thompson</strong></h4>
-        ICT Department
-    </div>
-</div>
-
-<div class="media">
-    <div class="media-left">
-        <img src="http://placehold.it/80x80" class="thumbnail-md">
-    </div>
-    <div class="media-body">
-        <span class="author">HAPPY BIRTHDAY</span>
-        <h4 class="media-heading"><strong>Matthew Ferguson</strong></h4>
-        ICT Department
-    </div>
-</div>
-<button class="btn btn-primary more" data-ng-click="showStaffFocus()">View More</button>
+<button class="btn btn-primary more"
+        data-ng-click="showStaffFocus()"
+        data-ng-show="staff.length > 1">View More</button>

@@ -10,7 +10,8 @@
 		'content',
 		'shared-services',
 		'staff',
-		'blog'
+		'blog',
+		'vacancy'
 	]).config(config).run(intranetTracking);
 
 	function config($routeProvider){
@@ -27,5 +28,5 @@
             console.log(pageName);
         });
     }
-	
+
 })();
