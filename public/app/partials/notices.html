@@ -1,9 +1,6 @@
 <h3 class="section-title">STAFF NOTICES</h3>
-    <div class="media" data-ng-repeat="notice in vm.notices">
-      <div class="media-left">
-        <img src="http://placehold.it/50" class="thumbnail-sm">
-      </div>
-      <div class="media-body">
+   <div class="media" data-ng-repeat="notice in vm.notices"> 
+	<div class="media-body">
         <h4 class="media-heading">
           <a data-ng-href data-ng-bind-html="notice.title | sanitize"></a>
           <span>{{notice.date}}</span></h4>
