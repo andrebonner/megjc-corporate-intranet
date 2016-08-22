@@ -89,4 +89,20 @@ function openLDAPConnection(){
   ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
   return $ldapconn;
 }
+
+function startSession(){
+  session_start();
+}
+
+function deleteSession(){
+  unset($_SESSION['username']);
+}
+
+function setSession($key, $value){
+  $_SESSION[$key] = $value;
+}
+
+function getSession($key){
+  return $_SESSION[$key];
+}
 ?>

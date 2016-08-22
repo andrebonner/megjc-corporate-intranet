@@ -53,6 +53,10 @@ hr.item-divider{
 		color: #ffffff;
 }
 
+div.footer a{
+	color: #ffffff;
+}
+
 .fa.fa-heart{
 	color: red;
 }
@@ -280,4 +284,10 @@ li.list-group-item a:visited{
 .help-desk{
 	max-height: auto;
 	height: 100vh;
+}
+
+.login{
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
 }
