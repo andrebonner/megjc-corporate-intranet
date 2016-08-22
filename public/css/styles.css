@@ -53,6 +53,10 @@ hr.item-divider{
 		color: #ffffff;
 }
 
+div.footer a{
+	color: #ffffff;
+}
+
 .fa.fa-heart{
 	color: red;
 }
