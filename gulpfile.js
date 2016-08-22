@@ -11,7 +11,11 @@
         uglify = require('gulp-uglify'),
         ngmin = require('gulp-ngmin'),
         ngAnnotate = require('gulp-ng-annotate'),
-        del = require('del');
+        del = require('del'),
+        js = ['./public/app/**/**/*.module.js',
+             './public/app/**/**/*.controller.js',
+             './public/app/**/**/*.service.js'];
+
 
   gulp.task('clean', ['production'], ()=>{
       return del(["./public/build"]);
@@ -35,6 +39,12 @@
         sources = gulp.src(['./public/dist/*.js']);
 
        return target.pipe(inject(sources)).pipe(gulp.dest('./'));
+  });
+
+  gulp.task('inject-dev', ()=>{
+    let target = gulp.src('./index.html'),
+        sources = gulp.src(js);
+    return target.pipe(inject(sources)).pipe(gulp.dest('./'));
   });
 
   gulp.task('default', ['production', 'inject-files', 'clean']);

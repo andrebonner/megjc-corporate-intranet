@@ -5,6 +5,7 @@
 		'home',
 		'directory',
 		'birthday',
+		'login',
 		'notice',
 		'help',
 		'content',
@@ -12,7 +13,9 @@
 		'staff',
 		'blog',
 		'vacancy'
-	]).config(config).run(intranetTracking);
+	]).config(config)
+	  .run(intranetTracking)
+	  .run(routeLogin);
 
 	function config($routeProvider){
 		$routeProvider.otherwise({redirectTo: '/'});
@@ -24,9 +27,22 @@
      */
     function intranetTracking($rootScope, $location){
         $rootScope.$on('$routeChangeStart', function(event, current){
-            var pageName = $location.path();
-            console.log(pageName);
+            var route = $location.path();
+            console.log(route);
         });
+    }
+
+    function routeLogin($rootScope, $location, sharedServices){
+    	var protectedRoutes = ['/help-desk'];
+    	$rootScope.$on('$routeChangeStart', function(){
+    		if(protectedRoutes.indexOf($location.path) !== ''){
+    			sharedServices.isAuth().then(function(response){
+    				
+    			}).catch(function(error){
+    				$location.path('/login');
+    			});
+    		}
+    	});
     }
 
 })();
