@@ -16,7 +16,8 @@
 			var services = {
 				goTo: goTo,
 				getVacancies: getVacancies,
-				getVacancyBySlug: getVacancyBySlug
+				getVacancyBySlug: getVacancyBySlug,
+				isAuth: isAuth
 			};
 
 			function goTo(path){
@@ -40,9 +41,17 @@
                     .then(handleSuccess)
                     .catch(handleError);
         function handleSuccess(response){ return response.data.post};
-        function handleError(response) {return error; }
+        function handleError(error) {return error; }
       }
 
-			return services;
-		}
+      function isAuth(){
+      	return $http.get('/api/v1/auth/user')
+      				.then(handleSuccess)
+      				.catch(handleError);
+      	function handleSuccess(response){ return response.data; }
+      	function handleError(error){ return error; }
+      }
+
+	  return services;
+	}
 })();
