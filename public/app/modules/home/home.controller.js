@@ -4,8 +4,7 @@
 	.module('home')
 	.controller('Home', Home);
 
-	Home.$inject = ['$http', '$location', '$window', '$routeParams', 'homeService',
-									'sharedServices'];
+	Home.$inject = ['$http', '$location', '$window', '$routeParams', 'homeService', 'sharedServices'];
 	/**
 	 * Home Controller
 	 * @param {[type]} $scope    [description]

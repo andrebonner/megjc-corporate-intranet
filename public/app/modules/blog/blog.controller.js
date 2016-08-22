@@ -9,7 +9,6 @@
         $scope.notices = sharedServices.getNotices();
 
         blogService.getBlogById($routeParams.id).then(function(blog){
-            console.log(blog)
             $scope.blog = blog;
         });
     }

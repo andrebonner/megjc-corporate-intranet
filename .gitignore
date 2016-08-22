@@ -6,3 +6,4 @@ node_modules
 *.*___jb_tmp___
 wordpress/wp-config.php
 wordpress/wp-content/uploads/
+./idea
