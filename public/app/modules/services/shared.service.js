@@ -22,7 +22,7 @@
 			};
 
 			function goTo(path){
-				$location.path('#/'+path);
+				$location.path('/'+path);
 			}
 
       function isAuth(){

@@ -10,6 +10,7 @@
 
     function Notice($routeParams, sharedServices){
         var vm = this;
+        vm.goTo = goTo;
         getNotices();
 
         function getNotices(){
@@ -25,5 +26,7 @@
         }).catch(function(error){
             vm.notice = {};
         });
+
+        function goTo(path){ sharedServices.goTo(path); }
     }
 })();
