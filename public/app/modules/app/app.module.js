@@ -29,7 +29,6 @@
     function intranetTracking($rootScope, $location){
         $rootScope.$on('$routeChangeStart', function(event, current){
             var route = $location.path();
-            console.log(route);
         });
     }
 
