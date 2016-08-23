@@ -22,13 +22,13 @@
   });
 
   gulp.task('production', ()=>{
-      return gulp.src(['./public/app/**/**/*.module.js', 
-                    './public/app/**/**/*.controller.js', 
+      return gulp.src(['./public/app/**/**/*.module.js',
+                    './public/app/**/**/*.controller.js',
                     './public/app/**/**/*.service.js'])
               .pipe(concat('./public/build/concat.js'))
               .pipe(ngmin())
               .pipe(gulp.dest('./public/build'))
-              .pipe(rename('./src.js'))
+              .pipe(rename('./src.min.js'))
               .pipe(ngAnnotate())
               .pipe(uglify())
               .pipe(gulp.dest('./public/dist'));

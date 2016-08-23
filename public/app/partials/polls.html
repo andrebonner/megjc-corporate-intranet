@@ -48,10 +48,10 @@
       <div data-ng-show="vm.showResults">
         <h3 class="section-title">POLL RESULTS</h3>
         Below are the results to the question<p class="poll-question">What are your thoughts on the new intranet?</p>
-        <p>I really like it - <strong>14</strong> </p>
-        <p>I'm ok with it - <strong>14</strong> </p>
-        <p>I don't like it - <strong>14</strong> </p>
-        <p>I don't think I'm ready for this - <strong>14</strong> </p>
+        <p>I really like it - <strong>{{vm.results.really_like_responses}}</strong> </p>
+        <p>I'm ok with it - <strong>{{vm.results.ok_responses}}</strong> </p>
+        <p>I don't like it - <strong>{{vm.results.dont_like_responses}}</strong> </p>
+        <p>I don't think I'm ready for this - <strong>{{vm.results.not_ready_responses}}</strong> </p>
         <button class="btn btn-primary" data-ng-click="vm.viewPoll()">View Poll</button>
       </div>
 </div>

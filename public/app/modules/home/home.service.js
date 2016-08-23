@@ -7,7 +7,7 @@
 
     function homeService($http){
       var folder = "/intranet";
-      var apiBaseUrl =  "/wordpress/api";
+      var apiBaseUrl = folder + "/wordpress/api";
       var service = {
           getVacancies: getVacancies,
           getVacancyBySlug: getVacancyBySlug,

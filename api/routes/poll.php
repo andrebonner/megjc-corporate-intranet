@@ -49,11 +49,22 @@
     });
 
     function processResult($responses){
-      
-      // $results = array('ok_responses' => $ok_count,
-      //                  'really_like_responses' => $really_like,
-      //                  'dont_like_responses' => $dont_like,
-      //                  'not_ready_responses' => $not_ready);
+      $i = 0;
+      $len = count($responses);
+      $count_ok = 0;
+      $count_dont = 0;
+      $count_really_like = 0;
+      $count_not_ready  = 0;
+      while($len--){
+        if($responses[$len]->response === "ok") $count_ok += 1;
+        if($responses[$len]->response === "dont like") $count_dont +=1;
+        if($responses[$len]->response === "really like") $count_really_like += 1;
+        if($responses[$len]->response === "not ready") $count_not_ready += 1;
+      }
+      $results = array('ok_responses' => $count_ok,
+                       'really_like_responses' => $count_really_like,
+                       'dont_like_responses' => $count_dont,
+                       'not_ready_responses' => $count_not_ready);
       echo json_encode($results);
     }
   }
