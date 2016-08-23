@@ -6,13 +6,18 @@
 
   function Vacancy($routeParams, sharedServices){
     var vm = this;
+    getVacancies();
 
-    sharedServices.getVacancyBySlug($routeParams.slug).then(function(vacancy){
+    sharedServices.getPostBySlug($routeParams.slug).then(function(vacancy){
       vm.vacancy = vacancy;
     });
 
-    sharedServices.getVacancies().then(function(vacancies){
-      vm.vacancies = vacancies;
-    })
+    function getVacancies(){
+      sharedServices.getPostsByCategory('vacancies').then(function(vacancies){
+        vm.vacancies = vacancies;
+      }).catch(function(error){
+        vm.vacancies = [];
+      });
+    }
   }
 })();

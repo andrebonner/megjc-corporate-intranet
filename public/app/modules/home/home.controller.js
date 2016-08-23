@@ -15,17 +15,15 @@
 	 */
 	function Home($http, $location, $window, $routeParams, homeService, sharedServices){
 		var vm = this;
-		//vm.notices = sharedServices.getNotices();
-		getVacancies();
+		//getVacancies();
 		getLeadStory();
 		getDidYouKnow();
 		getRSSFeed();
-		getNotices();
 		getStaffFocus();
 		getBlogPosts();
 
 		vm.goTo = goTo;
-		vm.getNotices = getNotices;
+		//vm.getNotices = getNotices;
 		vm.getBlogs = getBlogs;
 		vm.getStaffFocus = getStaffFocus;
 
@@ -33,25 +31,9 @@
 			$location.path('#/' + path);
 		};
 
-		function getNotices(){
-			homeService.getPostsByCategory('staff-notice').then(function(notices){
-				 vm.notices = notices.splice(0,5);
-			}).catch(function(error){
-				vm.notices = [];
-			})
-		};
-
 		function getBlogs(){ sharedServices.goTo('blogs'); };
 
 		function getStaffFocus(){ sharedServices.goTo('staff-focus'); };
-
-		function getVacancies(){
-			homeService.getPostsByCategory('vacancies').then(function(vacancies){
-				 vm.vacancies = vacancies.splice(0,5);
-			}).catch(function(error){
-				vm.vacancies = [];
-			});
-		}
 
 		function getLeadStory(){
 			homeService.getPostsByCategory('front-page').then(function(lead){

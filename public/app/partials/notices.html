@@ -1,10 +1,13 @@
+<div data-ng-controller="Notice as vm">
 <h3 class="section-title">STAFF NOTICES</h3>
-   <div class="media" data-ng-repeat="notice in vm.notices"> 
+   <div class="media" data-ng-repeat="notice in vm.notices">
 	<div class="media-body">
         <h4 class="media-heading">
-          <a data-ng-href data-ng-bind-html="notice.title | sanitize"></a>
+          <a data-ng-href="#/notices/{{notice.slug}}"
+          data-ng-bind-html="notice.title | sanitize"></a>
           <span>{{notice.date}}</span></h4>
       </div>
     </div>
-<button class="btn btn-primary more" data-ng-click="getNotices()"
+<button class="btn btn-primary more" data-ng-click="vm.goTo('notices')"
         data-ng-show="vm.notices.length > 1">View More</button>
+</div>

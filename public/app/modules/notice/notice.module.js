@@ -5,11 +5,14 @@
 
     function config($routeProvider){
         $routeProvider
-            .when('/notices/:id',{
+            .when('/notices/:slug',{
                 controller: 'Notice',
+                controllerAs: 'vm',
                 templateUrl: 'public/app/modules/notice/notice.html'
+
             }).when('/notices', {
                 controller: 'Notice',
+                controllerAs: 'vm',
                 templateUrl: 'public/app/modules/notice/notice-list.html'
             });
     }

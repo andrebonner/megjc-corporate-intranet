@@ -1,31 +1,57 @@
+<div data-ng-controller="Poll as vm">
+<div data-ng-show="vm.showPoll">
+  <div class="alert alert-success alert-dismissible" role="alert"
+       data-ng-if="vm.showPollMessage">
+    <button type="button" class="close" aria-label="Close"
+            data-ng-click="vm.dismiss()"><span aria-hidden="true">&times;</span></button>
+    <strong>Thank you for responding.</strong>
+  </div>
 <h3 class="section-title">POLL</h3>
       <p class="poll-question">What are your thoughts on the new intranet?</p>
-      <form novalidate ng-submit="processPoll()">
+      <form novalidate name="poll">
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+            <input type="radio" name="pollResponse"
+                  value="really like"
+                  data-ng-model="vm.response" checked="checked">
                 I really like it!
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+            <input type="radio" name="pollResponse" value="ok"
+                  data-ng-model="vm.response">
                 I'm ok with it.
           </label>
         </div>
 
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+            <input type="radio" name="pollResponse" value="dont like"
+                  data-ng-model="vm.response">
                 I don't like it.
           </label>
         </div>
 
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+            <input type="radio" name="pollResponse" value="not ready"
+                  data-ng-model="vm.response">
                 I don't think I'm ready for this.
           </label>
         </div>
-        <button class="btn btn-primary">Submit</button>
       </form>
+      <button class="btn btn-primary" data-ng-click="vm.processPoll()">Submit</button>
+      <button class="btn btn-primary" data-ng-click="vm.viewResults()">View Results</button>
+      <p><em>Your response is totally anonymous.</em></p>
+</div>
+      <div data-ng-show="vm.showResults">
+        <h3 class="section-title">POLL RESULTS</h3>
+        Below are the results to the question<p class="poll-question">What are your thoughts on the new intranet?</p>
+        <p>I really like it - <strong>14</strong> </p>
+        <p>I'm ok with it - <strong>14</strong> </p>
+        <p>I don't like it - <strong>14</strong> </p>
+        <p>I don't think I'm ready for this - <strong>14</strong> </p>
+        <button class="btn btn-primary" data-ng-click="vm.viewPoll()">View Poll</button>
+      </div>
+</div>

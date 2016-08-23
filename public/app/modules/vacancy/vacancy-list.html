@@ -6,7 +6,7 @@
       <div class="content">
         <ol class="numbered-list">
           <li data-ng-repeat="vacancy in vm.vacancies">
-            <a data-ng-href="#/vacancies/{{vacancy.slug}}"
+            <a data-ng-href="{{vacancy.attachments[$index].url}}"
             data-ng-bind-html="vacancy.title | sanitize"></a>
           </li>
         </ol>

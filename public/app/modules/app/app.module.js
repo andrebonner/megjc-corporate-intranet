@@ -12,7 +12,8 @@
 		'shared-services',
 		'staff',
 		'blog',
-		'vacancy'
+		'vacancy',
+		'poll'
 	]).config(config)
 	  .run(intranetTracking)
 	  .run(routeLogin);
@@ -37,7 +38,7 @@
     	$rootScope.$on('$routeChangeStart', function(){
     		if(protectedRoutes.indexOf($location.path) !== ''){
     			sharedServices.isAuth().then(function(response){
-    				
+
     			}).catch(function(error){
     				$location.path('/login');
     			});

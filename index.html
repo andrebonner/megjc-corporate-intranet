@@ -26,10 +26,11 @@
                 <li><a href="#/vacancies"><i class="fa fa-list-ul" aria-hidden="true"></i>  VACANCIES</a></li>
                 <!-- <li><a href="#">POLICIES</a></li> -->
                 <li><a href="#/directory"><i class="fa fa-users" aria-hidden="true"></i> DIRECTORY</a></li>
-                <li><a href="#/directory"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> POLICIES</a></li>
-                <li><a href="#/directory"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> FORMS</a></li>
+                <!-- <li><a href="#/directory"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> POLICIES</a></li>
+                <li><a href="#/directory"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> FORMS</a></li> -->
                 <!-- <li><a href="#/committees"><i class="fa fa-users" aria-hidden="true"></i> COMMITTEES</a></li> -->
-                <li><a href="#/help-desk"><i class="fa fa-info" aria-hidden="true"></i> HELP DESK</a></li>
+                <li><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket" target="_blank">
+                  <i class="fa fa-info" aria-hidden="true"></i> HELP DESK</a></li>
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
@@ -48,19 +49,27 @@
         <p><a href="#/vacancies">Vacancies</a></p>
         <p><a href="#/directory">Directory</a></p>
         <!-- <p>Committees</p> -->
-        <p><a href="#/policies">Policies</a></p>
-        <p><a href="#forms">Forms</a></p>
-        <p><a href="#/help-desk">Help Desk</a></p>
+        <!-- <p><a href="#/policies">Policies</a></p>
+        <p><a href="#forms">Forms</a></p> -->
+        <p><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket">Help Desk</a></p>
       </div>
       <div class="col-md-4">
         <h3>Contact Us</h3>
         <p>ICT Division</p>
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> 7th Floor, 25 Dominica Drive, Kingston 5</p>
-        <p><i class="fa fa-envelope" aria-hidden="true"></i> Email: </p>
-        <p><i class="fa fa-phone-square" aria-hidden="true"></i> For Software Related Issues: ext. 2930</p>
-        <p><i class="fa fa-phone-square" aria-hidden="true"></i> Infrastructure Related Issues: ext. </p>
+        <p><i class="fa fa-envelope" aria-hidden="true"></i>
+          Email: <a href="mailto:helpdesk@megjc.gov.jm">helpdesk@megjc.gov.jm</a></p>
+        <p><i class="fa fa-info" aria-hidden="true"></i>
+          For ICT Related Issues click
+          <strong><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket">here</a></strong></p>
+        <!-- <p><i class="fa fa-phone-square" aria-hidden="true"></i> Infrastructure Related Issues: ext. </p> -->
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <h3>Want to contribute?</h3>
+        <p>Do you have a blog article, upcoming event in your department, staff promotion or achievement that you would like to share
+            and have published on the intranet? Kindly submit an email with your article to
+            <a href="mailto:ictsoftwareteam@megjc.gov.jm">ictsoftwareteam@megjc.gov.jm</a>.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -69,36 +78,6 @@
 <script src="public/bower_components/angular/angular.js"></script>
 <script src="public/bower_components/angular-route/angular-route.min.js"></script>
 <!-- inject:js -->
-<script src="/public/app/modules/birthday/birthday.module.js"></script>
-<script src="/public/app/modules/directory/directory.module.js"></script>
-<script src="/public/app/modules/app/app.module.js"></script>
-<script src="/public/app/modules/blog/blog.module.js"></script>
-<script src="/public/app/modules/content/content.module.js"></script>
-<script src="/public/app/modules/filters/filter.module.js"></script>
-<script src="/public/app/modules/help-desk/help.module.js"></script>
-<script src="/public/app/modules/home/home.module.js"></script>
-<script src="/public/app/modules/login/login.module.js"></script>
-<script src="/public/app/modules/navigation/navigation.module.js"></script>
-<script src="/public/app/modules/notice/notice.module.js"></script>
-<script src="/public/app/modules/staff/staff.module.js"></script>
-<script src="/public/app/modules/vacancy/vacancy.module.js"></script>
-<script src="/public/app/modules/birthday/birthday.controller.js"></script>
-<script src="/public/app/modules/directory/directory.controller.js"></script>
-<script src="/public/app/modules/blog/blog.controller.js"></script>
-<script src="/public/app/modules/content/content.controller.js"></script>
-<script src="/public/app/modules/help-desk/help.controller.js"></script>
-<script src="/public/app/modules/home/home.controller.js"></script>
-<script src="/public/app/modules/login/login.controller.js"></script>
-<script src="/public/app/modules/notice/notice.controller.js"></script>
-<script src="/public/app/modules/staff/staff.controller.js"></script>
-<script src="/public/app/modules/vacancy/vacancy.controller.js"></script>
-<script src="/public/app/modules/directory/directory.service.js"></script>
-<script src="/public/app/modules/blog/blog.service.js"></script>
-<script src="/public/app/modules/content/content.service.js"></script>
-<script src="/public/app/modules/help-desk/help.service.js"></script>
-<script src="/public/app/modules/home/home.service.js"></script>
-<script src="/public/app/modules/home/rss.service.js"></script>
-<script src="/public/app/modules/services/shared.service.js"></script>
 <!-- endinject -->
 </body>
 </html>

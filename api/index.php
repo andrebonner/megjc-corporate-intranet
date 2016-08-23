@@ -9,7 +9,7 @@ $app = new \Slim\Slim(["settings" => $config]);
 * Slim group defining version of api
 */
 $app->group('/v1', function() use ($app){
-	
+
 		$app->group('/departments', function() use ($app){
 				routeDepartmentRequests($app);
 		});
@@ -28,6 +28,10 @@ $app->group('/v1', function() use ($app){
 
 		$app->group('/auth', function() use($app){
 					routeAuthRequests($app);
+		});
+
+		$app->group('/poll', function() use($app){
+					routePollRequests($app);
 		});
 }); //end of group
 /**
