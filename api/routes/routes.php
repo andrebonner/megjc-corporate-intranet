@@ -4,4 +4,5 @@
   require 'ticket.php';
   require 'admin.php';
   require 'auth.php';
+  require 'poll.php';
 ?>

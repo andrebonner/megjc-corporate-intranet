@@ -21,7 +21,7 @@
         * Get all departments
         */
        function getDepartments(){
-           var url = '/api/v1/departments';
+           var url = '/intranet/api/v1/departments';
            return $http.get(url)
                         .then(getDepartmentsSuccess)
                         .catch(getDepartmentsFailure);
@@ -39,7 +39,7 @@
         * @param id Deparment id
         */
        function getEmployeesByDepartment(id){
-           var url = '/api/v1/departments/' + id + '/employees';
+           var url = '/intranet/api/v1/departments/' + id + '/employees';
 
            return $http.get(url)
                         .then(getEmployeesSuccess)
@@ -59,7 +59,7 @@
         * @return {[type]}       [description]
         */
        function search(query){
-             var url = '/api/v1/employees/search?q=' + query;
+             var url = '/intranet/api/v1/employees/search?q=' + query;
              return $http.get(url)
                          .then(handleSuccess)
                          .catch(handleError);

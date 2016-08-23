@@ -3,7 +3,9 @@
     .module('poll')
     .controller('Poll', Poll);
 
-    function Poll(){
+    Poll.$inject = ['$http'];
+
+    function Poll($http){
       var vm = this;
       vm.response = "ok";
       vm.processPoll = processPoll;
@@ -11,13 +13,21 @@
       vm.showPoll = true;
       vm.viewResults = viewResults;
       vm.viewPoll = viewPoll;
-      //vm.showMessage = showMessage;
+      vm.showPollMessage = false;
+      vm.dismiss = dismissAlert;
 
       function processPoll(){
-        console.log(vm.response);
+        $http.post('/api/v1/poll/responses', {poll_id: 1, response: vm.response})
+              .then(function(response){
+                vm.showPollMessage = true;
+                console.log(response.data);
+              }).catch(function(error){
+                console.log('Erorr');
+              })
       }
 
       function viewResults(){
+        vm.showPollMessage = false;
         vm.showResults = true;
         vm.showPoll = false;
       }
@@ -26,5 +36,7 @@
         vm.showResults = false;
         vm.showPoll = true;
       }
+
+      function dismissAlert(){ vm.showPollMessage = false; };
     }
 })();

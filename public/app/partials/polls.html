@@ -1,5 +1,11 @@
 <div data-ng-controller="Poll as vm">
 <div data-ng-show="vm.showPoll">
+  <div class="alert alert-success alert-dismissible" role="alert"
+       data-ng-if="vm.showPollMessage">
+    <button type="button" class="close" aria-label="Close"
+            data-ng-click="vm.dismiss()"><span aria-hidden="true">&times;</span></button>
+    <strong>Thank you for responding.</strong>
+  </div>
 <h3 class="section-title">POLL</h3>
       <p class="poll-question">What are your thoughts on the new intranet?</p>
       <form novalidate name="poll">
