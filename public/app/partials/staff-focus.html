@@ -1,15 +1,11 @@
-<h3 class="section-title">STAFF FOCUS</h3>
-<div class="media" data-ng-repeat="staff in vm.staff">
-    <div class="media-left">
-        <img data-ng-src={{staff.attachments[$index].url}} class="thumbnail-md">
-    </div>
-    <div class="media-body">
-        <span class="author">{{staff.title}}</span>
-        <h4 class="media-heading"><strong>{{staff.attachments[$index].title}}</strong></h4>
-        {{staff.attachments[$index].caption}}
-    </div>
-</div>
-
+<h3 class="section-title">NEW EMPLOYEES</h3>
+<ol class="numbered-list">
+    <li data-ng-repeat="staff in vm.staff"
+	 data-ng-bind-html="staff.title | sanitize">
+    </li>
+  </ol>
+<!-- 
 <button class="btn btn-primary more"
         data-ng-click="showStaffFocus()"
         data-ng-show="staff.length > 1">View More</button>
+-->

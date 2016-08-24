@@ -51,7 +51,7 @@
       function dismissAlert(){ vm.showPollMessage = false; };
 
       function getResponses(){
-        $http.get('/api/v1/poll/responses').then(function(response){
+        $http.get('/intranet/api/v1/poll/responses').then(function(response){
           vm.results = response.data;
         }).catch(function(error){
             vm.results = {};

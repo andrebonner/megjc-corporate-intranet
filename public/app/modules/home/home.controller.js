@@ -61,7 +61,7 @@
 
 		function getStaffFocus(){
 			homeService.getPostsByCategory('staff-focus').then(function(staff){
-				 vm.staff = staff.splice(0,5);
+				 vm.staff = staff;
 			}).catch(function(error){
 				vm.staff = [];
 			});
