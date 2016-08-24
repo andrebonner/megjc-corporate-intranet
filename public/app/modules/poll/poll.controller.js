@@ -3,9 +3,9 @@
     .module('poll')
     .controller('Poll', Poll);
 
-    Poll.$inject = ['$http'];
+    Poll.$inject = ['$http', '$cookies'];
 
-    function Poll($http){
+    function Poll($http, $cookies){
       var vm = this;
       vm.response = "ok";
       vm.processPoll = processPoll;
@@ -16,16 +16,20 @@
       vm.showPollMessage = false;
       vm.dismiss = dismissAlert;
 
-      $http.get('/api/v1/poll/responses').then(function(response){
-        vm.results = response.data;
-      }).catch(function(error){
-          vm.results = {};
-      });
-      
+      getResponses();
+
+      console.log(typeof $cookies.get('PHPSESSID'));
       function processPoll(){
-        $http.post('/api/v1/poll/responses', {poll_id: 1, response: vm.response})
-              .then(function(response){
+        var response = {
+          poll_id: 1,
+          answer: vm.response,
+          session_id : $cookies.get('PHPSESSID')
+        };
+
+        $http.post('/api/v1/poll/responses', response)
+             .then(function(response){
                 vm.showPollMessage = true;
+                vm.response = "ok";
               }).catch(function(error){
                 console.log('Erorr');
               });
@@ -35,7 +39,7 @@
         vm.showPollMessage = false;
         vm.showResults = true;
         vm.showPoll = false;
-
+        getResponses();
       }
 
       function viewPoll(){
@@ -44,5 +48,14 @@
       }
 
       function dismissAlert(){ vm.showPollMessage = false; };
+
+      function getResponses(){
+        $http.get('/api/v1/poll/responses').then(function(response){
+          vm.results = response.data;
+        }).catch(function(error){
+            vm.results = {};
+        });
+      }
+
     }
 })();

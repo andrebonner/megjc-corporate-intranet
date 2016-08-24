@@ -20,16 +20,17 @@
       $response = json_decode($app->request->getBody());
       try {
         $db = openDBConnection();
-        $sql = 'INSERT INTO responses (poll_id, response)
-                            VALUES (:poll_id, :response)';
+        $sql = 'INSERT INTO responses (id, poll_id, answer)
+                            VALUES (:id, :poll_id, :answer)';
         $stmt = $db->prepare($sql);
-        $stmt->execute(array(":poll_id" => $response->poll_id,
-                            ":response" => $response->response));
+        $stmt->execute(array(":id" => $response->session_id,
+                            ":poll_id" => $response->poll_id,
+                            ":answer" => $response->answer));
         $result = $db->lastInsertId();
+        closeDBConnection($db);
       } catch (PDOException $e) {
         $result = '{"error":{"text":' .$e->getMessage(). '}}';
       }
-      closeDBConnection($db);
       setResponseHeader($app);
       echo json_encode($result);
     });
@@ -56,10 +57,10 @@
       $count_really_like = 0;
       $count_not_ready  = 0;
       while($len--){
-        if($responses[$len]->response === "ok") $count_ok += 1;
-        if($responses[$len]->response === "dont like") $count_dont +=1;
-        if($responses[$len]->response === "really like") $count_really_like += 1;
-        if($responses[$len]->response === "not ready") $count_not_ready += 1;
+        if($responses[$len]->answer === "ok") $count_ok += 1;
+        if($responses[$len]->answer === "dont like") $count_dont +=1;
+        if($responses[$len]->answer === "really like") $count_really_like += 1;
+        if($responses[$len]->answer === "not ready") $count_not_ready += 1;
       }
       $results = array('ok_responses' => $count_ok,
                        'really_like_responses' => $count_really_like,
