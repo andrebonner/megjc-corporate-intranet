@@ -18,7 +18,6 @@
 
       getResponses();
 
-      console.log(typeof $cookies.get('PHPSESSID'));
       function processPoll(){
         var response = {
           poll_id: 1,
@@ -26,13 +25,14 @@
           session_id : $cookies.get('PHPSESSID')
         };
 
-        $http.post('/api/v1/poll/responses', response)
-             .then(function(response){
+        $http.post('/intranet/api/v1/poll/responses', response)
+              .then(function(response){
                 vm.showPollMessage = true;
                 vm.response = "ok";
+                getResponses();
               }).catch(function(error){
                 console.log('Erorr');
-              });
+            });
       }
 
       function viewResults(){
@@ -45,6 +45,7 @@
       function viewPoll(){
         vm.showResults = false;
         vm.showPoll = true;
+        getResponses();
       }
 
       function dismissAlert(){ vm.showPollMessage = false; };
@@ -56,6 +57,5 @@
             vm.results = {};
         });
       }
-
     }
 })();
