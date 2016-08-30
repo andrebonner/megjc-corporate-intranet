@@ -19,7 +19,7 @@
 
     function getVacancies(){
       sharedServices.getPostsByCategory('vacancies').then(function(vacancies){
-       	vm.vacancies = vacancies;
+	        vm.vacancies = vacancies;
       }).catch(function(error){
         vm.vacancies = [];
       });
