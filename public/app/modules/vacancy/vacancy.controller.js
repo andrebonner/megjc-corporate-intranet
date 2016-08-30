@@ -1,4 +1,4 @@
-(function(){
+	(function(){
   angular.module('vacancy')
          .controller('Vacancy', Vacancy);
 
