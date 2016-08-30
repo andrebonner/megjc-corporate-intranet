@@ -15,8 +15,8 @@
 		'vacancy',
 		'poll'
 	]).config(config)
-	  .run(intranetTracking)
-	  .run(routeLogin);
+	  .run(intranetTracking);
+	  //.run(routeLogin);
 
 	function config($routeProvider){
 		$routeProvider.otherwise({redirectTo: '/'});
