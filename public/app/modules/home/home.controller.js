@@ -53,7 +53,7 @@
 
 		function getRSSFeed(){
 			homeService.getRSSFeed().then(function(items){
-				 vm.news = items.splice(0,3);
+				 vm.news = items;
 			}).catch(function(error){
 				vm.news = [];
 			})
