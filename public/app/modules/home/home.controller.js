@@ -21,7 +21,7 @@
 		getRSSFeed();
 		getStaffFocus();
 		getBlogPosts();
-
+		console.log('Reach');
 		vm.goTo = goTo;
 		//vm.getNotices = getNotices;
 		vm.getBlogs = getBlogs;

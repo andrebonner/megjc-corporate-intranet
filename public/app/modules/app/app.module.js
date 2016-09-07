@@ -13,7 +13,9 @@
 		'staff',
 		'blog',
 		'vacancy',
-		'poll'
+		'poll',
+		'policy',
+		'form'
 	]).config(config)
 	  .run(intranetTracking);
 	  //.run(routeLogin);
