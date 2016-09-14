@@ -4,7 +4,7 @@
   <div class="col-md-6 main-content">
       <img data-ng-src="{{vm.lead[0].attachments[0].url}}" class="lead-image">
       <div class="photo-caption">{{vm.lead[0].attachments[0].caption}}</div>
-      <h1 class="main-section-title">{{vm.lead[0].title}}</h1>
+      <h1 class="main-section-title" data-ng-bind-html="vm.lead[0].title | sanitize"></h1>
       <hr class="section-divider">
       <h3 class="section-title">NEWS FEED</h3>
       <div class="media" data-ng-repeat="item in vm.news | limitTo: 6">

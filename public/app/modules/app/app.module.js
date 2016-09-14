@@ -15,7 +15,8 @@
 		'vacancy',
 		'poll',
 		'policy',
-		'form'
+		'form',
+		'promotion'
 	]).config(config)
 	  .run(intranetTracking);
 	  //.run(routeLogin);

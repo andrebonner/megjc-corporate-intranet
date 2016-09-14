@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-md-3 notice" data-ng-include="'public/app/partials/sidebar.html'"></div>
+    <div class="col-md-9">
+      <h1 class="main-section-title">{{vm.promo[0].title_plain}}</h1>
+      <hr class="section-divider">
+      <div class="content">
+     	<div data-ng-bind-html="vm.promo[0].content | sanitize"></div>
+      </div>
+    </div>
+</div>
