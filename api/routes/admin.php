@@ -27,5 +27,9 @@ function routeAdminRequests($app){
     }
     apiResponse($response, $app, $error, $status);
   });
+ 
+ $app->get('/cookies', function() use($app){
+	echo json_encode('Cookie');
+ });
 }
 ?>

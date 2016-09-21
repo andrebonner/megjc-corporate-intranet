@@ -4,7 +4,7 @@
 
   function config($routeProvider){
     $routeProvider
-      .when('/promotion', {
+      .when('/events', {
         controller: 'Promotion',
         controllerAs: 'vm',
         templateUrl: 'public/app/modules/promotion/promotion.html'
