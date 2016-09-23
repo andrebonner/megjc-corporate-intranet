@@ -29,7 +29,7 @@ function setResponseHeader($app){
   $app->response()->header("Content-Type", "application/json");
 }
 /**
- * Sets the http response
+ * Sets the http response code
  * @param [type] $app    [description]
  * @param [type] $status [description]
  */
@@ -82,12 +82,26 @@ function paramCheck($params){
  * @return [type] [description]
  */
 function openLDAPConnection(){
-  $ldaphost = '192.168.7.5'; //getenv('LDAP_HOST');
+  $ldaphost = "ldap://192.168.7.5"; //getenv('LDAP_HOST');
   $ldapport = getenv('LDAP_PORT');
   $ldapconn = ldap_connect($ldaphost, $ldapport);
   ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
   ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
   return $ldapconn;
+}
+
+function getDnFromLDAP($conn, $q){
+	$dn = getenv('LDAP_ROOT_DN');
+	$filter = "(|(name=$q*)(samaccountname=$q)(sn=$q*))";
+	$attrs = array("displayname","cn", "sn", "givenname", "userPrincipalName", "samaccountname", "telephonenumber", "memberOf", "distinguisedName", "ou");
+	$results = ldap_search($conn, $dn, $filter, $attrs);
+	$info = ldap_get_entries($conn, $results);
+	return $info[0]["dn"]; 
+}
+
+function bindLDAP($conn, $dn, $password){
+	$ldap_bind = @ldap_bind($conn, $dn, $password);
+	return $ldap_bind;
 }
 
 function startSession(){

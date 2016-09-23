@@ -1,26 +1,38 @@
 <?php
   include_once 'functions.php';
-
+  $dotenv = new Dotenv\Dotenv(__DIR__);
+  $dotenv->load();
   function routeAuthRequests($app){
 
-    $app->get('/', function() use ( $app ){
-        $conn = openLDAPConnection();
-        if($conn){
-          $bind = ldap_bind($conn);
-          $message = "Bind result is ".$bind.".";
-          ldap_close($conn);
-        }else{
-          $message = "Unable to connect to LDAP Server";
-        }
-        try{
-          $bind = ldap_bind($conn);
-          $message = "Bind result is ".$bind.".";
-          ldap_close($conn);
+    $app->post('/', function() use ( $app ){
+       	$user = json_decode($app->request->getBody());
+	$message = array("message" => "", "description"=>""); 
+	try{
+          $conn = openLDAPConnection();
+          $ldapbind = bindLDAP($conn, getenv('LDAP_ADMIN'), getenv('LDAP_PASS'));
+	  if($ldapbind){
+		$dn = getDnFromLDAP($conn, $user->name);
+		$ldap_bind = bindLDAP($conn, $dn, $user->password);
+		if($ldap_bind){
+			$message["message"] = "User authenticated successful";
+			$message["description"] = "The username/password entered was valid";
+			setHTTPStatus($app, 200);
+		}else{
+			$message["message"] = "User authentication failed";
+			$message["description"] = "The username/password entered was invalid";
+			setHTTPStatus($app, 400);
+		 }
+	   }else{
+		$message["message"] = "Admin binding to LDAP failed";
+		$message["description"] = "The admin username/password combination was invalid"; 
+		setHTTPStatus($app, 500);
+	   }
+	  ldap_close($conn);
         }catch(ErrorException $e){
-          $message = $e->getMessage();
+		setHTTPStatus($app, 500);
+         	$message["message"] = $e->getMessage();
+		$message["description"] = "An error exception was raised";
         }
-        $message = "Connection result is ". $r."";
-        //$message = "Test";
         setResponseHeader($app);
         echo json_encode($message);
     });
