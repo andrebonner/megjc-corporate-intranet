@@ -8,7 +8,8 @@
 		.when('/help-desk',{
 			templateUrl: "public/app/modules/help-desk/help.html",
 			controller: 'HelpDesk',
-			controllerAs: 'vm'
+			controllerAs: 'vm',
+			access: {restricted: false}
 		});
 	}
 })();

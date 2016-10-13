@@ -7,7 +7,8 @@
       .when('/forms', {
         controller: 'Form',
         controllerAs: 'vm',
-        templateUrl: 'public/app/modules/forms/form-list.html'
+        templateUrl: 'public/app/modules/forms/form-list.html',
+        access: {restricted: false}
       });
   }
 })();

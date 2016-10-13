@@ -7,7 +7,8 @@
       .when('/policies', {
         controller: 'Policy',
         controllerAs: 'vm',
-        templateUrl: 'public/app/modules/policy/policy-list.html'
+        templateUrl: 'public/app/modules/policy/policy-list.html',
+        access: {restricted: false}
       });
   }
 })();

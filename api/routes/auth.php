@@ -6,32 +6,34 @@
 
     $app->post('/', function() use ( $app ){
        	$user = json_decode($app->request->getBody());
-	$message = array("message" => "", "description"=>""); 
+	      $message = array("message" => "", "description"=>"", "dn" => "");
 	try{
           $conn = openLDAPConnection();
           $ldapbind = bindLDAP($conn, getenv('LDAP_ADMIN'), getenv('LDAP_PASS'));
-	  if($ldapbind){
-		$dn = getDnFromLDAP($conn, $user->name);
-		$ldap_bind = bindLDAP($conn, $dn, $user->password);
-		if($ldap_bind){
-			$message["message"] = "User authenticated successful";
-			$message["description"] = "The username/password entered was valid";
-			setHTTPStatus($app, 200);
-		}else{
-			$message["message"] = "User authentication failed";
-			$message["description"] = "The username/password entered was invalid";
-			setHTTPStatus($app, 400);
-		 }
-	   }else{
-		$message["message"] = "Admin binding to LDAP failed";
-		$message["description"] = "The admin username/password combination was invalid"; 
-		setHTTPStatus($app, 500);
-	   }
-	  ldap_close($conn);
+      	  if($ldapbind){
+          		$dn = getDnFromLDAP($conn, $user->name);
+          		$ldap_bind = bindLDAP($conn, $dn, $user->password);
+            		if($ldap_bind){
+            			$message["message"] = "User authenticated successful";
+            			$message["description"] = "The username/password entered was valid";
+                  $message["dn"] = $dn;
+            			setHTTPStatus($app, 200);
+            		}else{
+            			$message["message"] = "User authentication failed";
+            			$message["description"] = "The username/password entered was invalid";
+            			setHTTPStatus($app, 400);
+            		 }
+      	   }else{
+            		$message["message"] = "Admin binding to LDAP failed";
+            		$message["description"] = "The admin username/password combination was invalid";
+            		setHTTPStatus($app, 500);
+      	   }
+      	  ldap_close($conn);
+
         }catch(ErrorException $e){
-		setHTTPStatus($app, 500);
-         	$message["message"] = $e->getMessage();
-		$message["description"] = "An error exception was raised";
+		        setHTTPStatus($app, 500);
+         	  $message["message"] = $e->getMessage();
+		        $message["description"] = "An error exception was raised";
         }
         setResponseHeader($app);
         echo json_encode($message);
@@ -64,8 +66,8 @@
         $message = "Logged out";
       }else{
         $message = "Not logged in";
-      } 
-      setResponseHeader($app);   
+      }
+      setResponseHeader($app);
       echo json_encode($message);
     });
 

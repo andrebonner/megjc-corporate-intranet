@@ -4,12 +4,12 @@
     <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="public/css/styles.css">
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600' rel='stylesheet' type='text/css'>
+    <!-- <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600' rel='stylesheet' type='text/css'> -->
     <title>Corporate MEGJC</title>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" data-ng-controller="Nav as vm">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -31,6 +31,15 @@
                 <!-- <li><a href="#/committees"><i class="fa fa-users" aria-hidden="true"></i> COMMITTEES</a></li> -->
                 <li><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket" target="_blank">
                   <i class="fa fa-info" aria-hidden="true"></i> HELP DESK</a></li>
+                  <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                       <li><a href>Logged in as <br/> <span class="medium-font"> {{vm.user.us_email}}</span></a></li>
+                       <li role="separator" class="divider"></li>
+                       <!--<li><a>Settings</a></li>-->
+                       <li><a href data-ng-click="vm.logout()">Logout</a></li>
+                     </ul>
+                   </li>
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
@@ -75,11 +84,58 @@
 </div>
 
 <!-- <script src="../intranet/public/bower_components/moment/moment.js"></script> -->
-<script src="../intranet/public/bower_components/angular/angular.min.js"></script>
+<!-- <script src="../intranet/public/bower_components/angular/angular.min.js"></script>
 <script src="../intranet/public/bower_components/angular-route/angular-route.min.js"></script>
-<script src="../intranet/public/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="../intranet/public/bower_components/angular-cookies/angular-cookies.min.js"></script> -->
+<script src="public/bower_components/angular/angular.js"></script>
+<script src="public/bower_components/angular-route/angular-route.min.js"></script>
+<script src="public/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="public/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- inject:js -->
-<script src="../intranet/public/dist/src.min.js"></script>
+<script src="/public/app/modules/app/app.module.js"></script>
+<script src="/public/app/modules/birthday/birthday.module.js"></script>
+<script src="/public/app/modules/blog/blog.module.js"></script>
+<script src="/public/app/modules/content/content.module.js"></script>
+<script src="/public/app/modules/directory/directory.module.js"></script>
+<script src="/public/app/modules/filters/filter.module.js"></script>
+<script src="/public/app/modules/forms/form.module.js"></script>
+<script src="/public/app/modules/help-desk/help.module.js"></script>
+<script src="/public/app/modules/home/home.module.js"></script>
+<script src="/public/app/modules/mail/mail.module.js"></script>
+<script src="/public/app/modules/navigation/navigation.module.js"></script>
+<script src="/public/app/modules/notice/notice.module.js"></script>
+<script src="/public/app/modules/policy/policy.module.js"></script>
+<script src="/public/app/modules/poll/poll.module.js"></script>
+<script src="/public/app/modules/promotion/promotion.module.js"></script>
+<script src="/public/app/modules/staff/staff.module.js"></script>
+<script src="/public/app/modules/vacancy/vacancy.module.js"></script>
+<script src="/public/app/modules/login/login.module.js"></script>
+<script src="/public/app/modules/birthday/birthday.controller.js"></script>
+<script src="/public/app/modules/blog/blog.controller.js"></script>
+<script src="/public/app/modules/content/content.controller.js"></script>
+<script src="/public/app/modules/directory/directory.controller.js"></script>
+<script src="/public/app/modules/forms/form.controller.js"></script>
+<script src="/public/app/modules/help-desk/help.controller.js"></script>
+<script src="/public/app/modules/home/home.controller.js"></script>
+<script src="/public/app/modules/mail/mail.controller.js"></script>
+<script src="/public/app/modules/navigation/navigation.controller.js"></script>
+<script src="/public/app/modules/notice/notice.controller.js"></script>
+<script src="/public/app/modules/policy/policy.controller.js"></script>
+<script src="/public/app/modules/poll/poll.controller.js"></script>
+<script src="/public/app/modules/promotion/promotion.controller.js"></script>
+<script src="/public/app/modules/staff/staff.controller.js"></script>
+<script src="/public/app/modules/vacancy/vacancy.controller.js"></script>
+<script src="/public/app/modules/login/login.controller.js"></script>
+<script src="/public/app/modules/blog/blog.service.js"></script>
+<script src="/public/app/modules/content/content.service.js"></script>
+<script src="/public/app/modules/directory/directory.service.js"></script>
+<script src="/public/app/modules/help-desk/help.service.js"></script>
+<script src="/public/app/modules/home/home.service.js"></script>
+<script src="/public/app/modules/home/rss.service.js"></script>
+<script src="/public/app/modules/mail/mail.service.js"></script>
+<script src="/public/app/modules/services/shared.service.js"></script>
+<script src="/public/app/modules/login/login.service.js"></script>
 <!-- endinject -->
 </body>
 </html>

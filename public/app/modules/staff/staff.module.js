@@ -10,7 +10,8 @@
         $routeProvider
             .when('/staff-focus',{
                 controller: 'Staff',
-                templateUrl: 'public/app/modules/staff/staff.html'
+                templateUrl: 'public/app/modules/staff/staff.html',
+                access: {restricted: false}
             });
     }
 })();

@@ -3,6 +3,7 @@
 	.module('intranet',[
 		'ngRoute',
 		'ngCookies',
+		'navigation',
 		'home',
 		'directory',
 		'birthday',
@@ -17,46 +18,31 @@
 		'poll',
 		'policy',
 		'form',
-		'promotion'
-	]).config(config)
-	  .run(intranetTracking);
-	  //.run(routeLogin);
+		'promotion',
+		'mail'
+	]).run(routeLogin)
+		.config(config)
+		.constant("API_URLS", {
+				base_url : '/api/v1/'
+		});
 
 	function config($routeProvider){
 		$routeProvider.otherwise({redirectTo: '/'});
 	}
 	/**
-     * Tracks each page view.
-     * @param $rootScope
-     * @param $location
-     */
-    function intranetTracking($rootScope, $location, $cookies){
-        $rootScope.$on('$routeChangeStart', function(event, current){
-            var route = $location.path(),
-	 	tracking_cookie = $cookies.get('_ma');
-	    if(tracking_cookie == null){
-		var exp = new Date(new Date(2038, 0, 19, 3, 14, 7));
-			
-	     }else{
-	     } 
-	    
-//check if cookie exists
-//if not, set cookie to expire on the conventional date the world ends
-        });
-    }
-    
-    
-    function routeLogin($rootScope, $location, sharedServices){
-    	var protectedRoutes = ['/help-desk'];
-    	$rootScope.$on('$routeChangeStart', function(){
-    		if(protectedRoutes.indexOf($location.path) !== ''){
-    			sharedServices.isAuth().then(function(response){
-
-    			}).catch(function(error){
-    				$location.path('/login');
-    			});
-    		}
-    	});
-    }
+	 * Checks if an application route is protected.
+	 * @param  {[type]} $rootScope     [description]
+	 * @param  {[type]} $location      [description]
+	 * @param  {[type]} sharedServices [description]
+	 * @return {[type]}                [description]
+	 */
+  function routeLogin($rootScope, $location, $route){
+  	$rootScope.$on('$routeChangeStart', function(event, next, current){
+  		if(next.access.restricted){
+				 $location.path('/login');
+				 $route.reload();
+			}
+  	});
+  }
 
 })();

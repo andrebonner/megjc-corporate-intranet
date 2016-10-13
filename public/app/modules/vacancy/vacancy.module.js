@@ -7,11 +7,13 @@
       .when('/vacancies', {
         controller: 'Vacancy',
         controllerAs: 'vm',
-        templateUrl: 'public/app/modules/vacancy/vacancy-list.html'
+        templateUrl: 'public/app/modules/vacancy/vacancy-list.html',
+        access: {restricted: false}
       }).when('/vacancies/:slug',{
         controller: 'Vacancy',
         controllerAs: 'vm',
-        templateUrl: 'public/app/modules/vacancy/vacancy.html'
+        templateUrl: 'public/app/modules/vacancy/vacancy.html',
+        access: {restricted: false}
       });
   }
 })();
