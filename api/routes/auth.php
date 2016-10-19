@@ -6,25 +6,31 @@
 
     $app->post('/', function() use ( $app ){
        	$user = json_decode($app->request->getBody());
-	      $message = array("message" => "", "description"=>"", "dn" => "");
-	try{
+	      $message = array("success" => "", "description"=>"");
+	  try{
           $conn = openLDAPConnection();
           $ldapbind = bindLDAP($conn, getenv('LDAP_ADMIN'), getenv('LDAP_PASS'));
       	  if($ldapbind){
           		$dn = getDnFromLDAP($conn, $user->name);
           		$ldap_bind = bindLDAP($conn, $dn, $user->password);
             		if($ldap_bind){
-            			$message["message"] = "User authenticated successful";
+            			$message["success"] = true;
             			$message["description"] = "The username/password entered was valid";
-                  $message["dn"] = $dn;
+                  $user = findUser($dn);
+                  if($user === false){
+                     $uid = createUser($dn);
+                     $message["uid"] = $uid;
+                  }else{
+                    $message["uid"] = $user;
+                  }
             			setHTTPStatus($app, 200);
             		}else{
-            			$message["message"] = "User authentication failed";
+            			$message["success"] = false;
             			$message["description"] = "The username/password entered was invalid";
             			setHTTPStatus($app, 400);
             		 }
       	   }else{
-            		$message["message"] = "Admin binding to LDAP failed";
+            		$message["success"] = false;
             		$message["description"] = "The admin username/password combination was invalid";
             		setHTTPStatus($app, 500);
       	   }
@@ -80,6 +86,43 @@
       setResponseHeader($app);
       echo json_encode($user);
     });
+
+    /**
+     * Find a user by dn or create a user if not found by dn.
+     * @return [type] [description]
+     */
+    function findUser($dn){
+      $sql = 'SELECT * FROM users WHERE dn=:dn';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare( $sql );
+        $stmt->bindParam("dn", $dn);
+        $stmt->execute();
+        $result = $stmt->fetch( PDO::FETCH_OBJ );
+        closeDBConnection( $db );
+        return $result->id;
+      }catch(PDOException $e){
+        return false;
+      }
+    }
+    /**
+     * Creates a user if user not found in database.
+     * @param  string $dn User domain name
+     * @return boolean
+     */
+    function createUser($dn){
+      $sql = 'INSERT INTO users (dn, created_on) VALUES (:dn, :created_on)';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array(":dn" => $dn,":created_on" => date("Y-m-d H:i:s")));
+        $result = $db->lastInsertId();
+        closeDBConnection($db);
+        return $result;
+      }catch(PDOException $e){
+        return false;
+      }
+    }
   }
 
 ?>

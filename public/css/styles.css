@@ -298,3 +298,7 @@ li.list-group-item a:visited{
 	padding: 15px;
 	margin: 0 auto;
 }
+
+.table>tbody>tr>td{
+	cursor: pointer;
+}

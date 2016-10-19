@@ -20,6 +20,7 @@
 		'form',
 		'promotion',
 		'mail'
+
 	]).run(routeLogin)
 		.config(config)
 		.constant("API_URLS", {
@@ -36,9 +37,9 @@
 	 * @param  {[type]} sharedServices [description]
 	 * @return {[type]}                [description]
 	 */
-  function routeLogin($rootScope, $location, $route){
+  function routeLogin($rootScope, $location, $route, loginService){
   	$rootScope.$on('$routeChangeStart', function(event, next, current){
-  		if(next.access.restricted){
+  		if(next.access.restricted && !loginService.isAuthenticated()){
 				 $location.path('/login');
 				 $route.reload();
 			}

@@ -7,7 +7,8 @@
 		$routeProvider.when('/login',{
 			controller: 'Login',
 			controllerAs: 'vm',
-			templateUrl: 'public/app/modules/login/login.html'
+			templateUrl: 'public/app/modules/login/login.html',
+			access: {restricted: false}
 		});
 	}
 })();

@@ -1,101 +1,45 @@
 <div class="row">
   <div class="col-md-3"></div>
-  <!-- <div class="col-md-9">
-    <div class="alert alert-success alert-dismissible" role="alert" data-ng-if="vm.message">
-      <button type="button" class="close" aria-label="Close" data-ng-click="vm.dismiss()"><span aria-hidden="true">&times;</span></button>
-      <strong>Your issue has been submitted.</strong>
-    </div>
-  </div> -->
 </div>
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-9">
-		<h2 class="department-title">Mail Correspondence</h2>
-		<!-- <p>Since you are here, we figure you are having a technical problem. Kindly complete the simple form below and press the submit button once complete.</p>	 -->
+		<h2 class="department-title">All Mails</h2>
 	</div>
 </div>
 
 <div class="row help-desk">
-	<div class="col-md-3">
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h1 class="panel-title">Overview</h1></div>
-	        <ul class="list-group">
-	        	<li class="list-group-item">
-              <a href data-ng-click="vm.toggle('open-tickets')">Mails <span style="float: right">20</span></a></li>
-	            <li class="list-group-item"><a href data-ng-click="vm.toggle('create-ticket')">Create Mail</a></li>
-	            <li class="list-group-item"><a href data-ng-click="vm.toggle('closed-tickets')">Search
-                <span style="float: right">{{vm.tickets_closed.length}}</span></a></li>
-	        </ul>
-		</div>
-	</div>
+	<div class="col-md-3"
+       data-ng-include="'public/app/modules/mail/partials/menu.html'">
+  </div>
 
 	<div class="col-md-9">
-		<p ng-if="open_issues.length < 1">There are no tickets at this open at this time</p>
-			<div class="help-wrapper" data-ng-if="vm.create_ticket">
-			<!-- <h3>Create a Ticket </h3> -->
-
-				<form class="form-horizontal" name="issueForm" data-ng-submit="vm.handleForm(issueForm.$valid)">
-			 	<div class="form-group">
-			 	<label>Select Issue Category</label>
-			 		<select class="form-control"
-                data-ng-model="vm.selected"
-                ng-options="category.title for category in vm.categories">
-			 		</select>
-			 	</div>
-
-			 	<div class="form-group">
-			 	<label>Describe your problem</label>
-			 		<textarea class="form-control"
-          placeholder="Describe your problem as detailed as possible"
-          rows="4"
-          cols="50"
-          data-ng-model="vm.issue.description"
-          required>
-			 		</textarea>
-			 	</div>
-			 	 <button  class="btn btn-success pull-left">Submit Issue</button>
-				</form>
-			</div>
-
-			<div class="open-ticket-wrapper" data-ng-if="vm.open_tickets">
-        <div class="well" data-ng-show="vm.tickets.length < 1">There are {{vm.tickets.length}} tickets open.</div>
-				<table class="table table-hover" data-ng-show="vm.tickets.length > 0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <input type="text"
+                class="form-control"
+                placeholder="Search mail"
+                ng-model="search">
+        </div>
+      </div>
+    </div>
+			<div class="open-ticket-wrapper">
+				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Date created</th>
-							<th>Description</th>
-							<th>Status</th>
-							<th>Assigned to</th>
+              <th></th>
+							<th>Sender</th>
+							<th>Subject of Mail</th>
+							<th>Received</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="ticket in vm.tickets">
-							<td>{{ticket.created | timestamp | date:'medium'}}</td>
-							<td>{{ticket.description}}</td>
-							<td>{{ticket.ticket_status}}</td>
-							<!-- <td>{{ticket.assignee}}</td> -->
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-      <div class="open-ticket-wrapper" data-ng-if="vm.closed_tickets">
-        <div class="well" data-ng-show="vm.tickets_closed.length < 1">There are {{vm.tickets_closed.length}} tickets open.</div>
-				<table class="table table-hover" data-ng-show="vm.tickets_closed.length > 0">
-					<thead>
-						<tr>
-							<th>Date created</th>
-							<th>Description</th>
-							<th>Status</th>
-							<th>Assigned to</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="ticket in vm.tickets_closed">
-							<td>{{ticket.created | timestamp | date:'medium'}}</td>
-							<td>{{ticket.description}}</td>
-							<td>{{ticket.ticket_status}}</td>
-							<!-- <td>{{ticket.assignee}}</td> -->
+						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
+              <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td>
+							<td>{{mail.sender}}</td>
+							<td>{{mail.subject}}</td>
+							<td>{{mail.receipt_date | timestamp | date:'medium'}}</td>
 						</tr>
 					</tbody>
 				</table>

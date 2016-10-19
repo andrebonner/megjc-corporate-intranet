@@ -3,9 +3,9 @@
 	.module('login')
 	.controller('Login', Login);
 
-	Login.$inject = ['loginService'];
+	Login.$inject = ['$location','loginService'];
 
-	function Login(loginService){
+	function Login($location, loginService){
 		var vm = this;
 		vm.handleForm = handleForm;
 		vm.user = {
@@ -16,11 +16,15 @@
 		 * Handles login form to authenticate user.
 		 * @param  {[type]} user User email and password.
 		 */
-		function handleForm(user){
+		function handleForm(credentials){
 			loginService
-					.authUser(user)
+					.authUser(credentials)
 					.then(function(response){
-							console.log(response)
+							if(response.success){
+								vm.user = {};
+								loginService.setUser(response.uid);
+								$location.path('/mails');
+							}
 					}).catch(function (error){
 							console.log(error);
 					});
