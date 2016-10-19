@@ -37,8 +37,6 @@
 			 * @param  {[type]} id Id of a mail correspondence.
 			 */
 			function show (id){
-				//vm.mail = mailService.getMail(id);
-				// $location.path('/mails/' + id + '/view');
 				mailService
 					.getMail(id)
 					.then(function(mail){
@@ -74,10 +72,12 @@
 				if($scope.file && $scope.file.length > 0){
 						var files = $scope.file[0];
 						$scope.mail.file_title = "none";
-						mailService.createMail($scope.mail, files).then(function(res){
-							console.log(res);
-							clearForm();
-							$scope.message = true;
+						mailService
+							.createMail($scope.mail, files)
+							.then(function(res){
+								clearForm();
+								$scope.message = true;
+								getMails();
 						}).catch(function(err){
 
 						});
@@ -90,23 +90,9 @@
 			function dimiss(){
 				$scope.message = false;
 			}
-			/*d list
-			 * @param  {[type]} file [description]
-			 * @return {[type]}      [description]
-			 */
+
 			function removeFile(){
 				$scope.files = [];
-			}
-			/**
-			 * Initials form
-			 * @return {[type]} [description]
-			 */
-			function initForm() {
-					$scope.mail = {
-					 mail_type : "letter",
-					 file_title : "none"
-				 };
-				 //$scope.mailForm.$setPristine();
 			}
 	}
 })();
