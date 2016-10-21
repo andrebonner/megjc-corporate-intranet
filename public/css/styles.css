@@ -24,6 +24,12 @@ hr.item-divider{
 	font-size: 18px;
 }
 
+.logo{
+	margin-top: -25px;
+	width: 48px;
+	height: 48px;
+}
+
 /*.footer {
   position: absolute;
   bottom: 0;
@@ -291,4 +297,8 @@ li.list-group-item a:visited{
 	max-width: 330px;
 	padding: 15px;
 	margin: 0 auto;
+}
+
+.table>tbody>tr>td{
+	cursor: pointer;
 }

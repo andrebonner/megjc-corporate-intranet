@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <!-- <div class="col-md-9">
+    <div class="alert alert-success alert-dismissible" role="alert" data-ng-if="vm.message">
+      <button type="button" class="close" aria-label="Close" data-ng-click="vm.dismiss()"><span aria-hidden="true">&times;</span></button>
+      <strong>Your issue has been submitted.</strong>
+    </div>
+  </div> -->
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">{{vm.mail.subject}} - {{vm.mail.sender}} - {{vm.mail.received}}</h2>
+		<!-- <p>Since you are here, we figure you are having a technical problem. Kindly complete the simple form below and press the submit button once complete.</p>	 -->
+	</div>
+</div>
+
+<div class="row help-desk">
+	<div class="col-md-3"
+       data-ng-include="'public/app/modules/mail/partials/menu.html'"></div>
+  <div class="col-md-9">
+    <form class="form-horizontal" novalidate>
+      
+    </form>
+  </div>
+</div>

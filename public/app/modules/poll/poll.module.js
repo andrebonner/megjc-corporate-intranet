@@ -1,3 +1,5 @@
 (function(){
-  angular.module('poll',[]);
+  angular.module('poll',[
+    'ngCookies'
+  ]);
 })();

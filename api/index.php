@@ -33,6 +33,14 @@ $app->group('/v1', function() use ($app){
 		$app->group('/poll', function() use($app){
 					routePollRequests($app);
 		});
+
+		$app->group('/test', function() use($app){
+					routeTestRequests($app);
+		});
+
+		$app->group('/mails', function() use($app){
+					routeMailRequests($app);
+		});
 }); //end of group
 /**
  * Run the Slim application

@@ -1,18 +1,18 @@
 <div class="row">
   <div class="col-md-3 notice"
-      data-ng-include="'public/app/partials/sidebar.html'"></div> 
+      data-ng-include="'public/app/partials/sidebar.html'"></div>
   <div class="col-md-6 main-content">
       <img data-ng-src="{{vm.lead[0].attachments[0].url}}" class="lead-image">
       <div class="photo-caption">{{vm.lead[0].attachments[0].caption}}</div>
-      <h1 class="main-section-title">{{vm.lead[0].title}}</h1>
+      <h1 class="main-section-title" data-ng-bind-html="vm.lead[0].title | sanitize"></h1>
       <hr class="section-divider">
       <h3 class="section-title">NEWS FEED</h3>
-      <div class="media" data-ng-repeat="item in vm.news">
+      <div class="media" data-ng-repeat="item in vm.news | limitTo: 6">
         <div class="media-left">
             <div class="media-body">
               <h4 class="media-heading">
                 <strong><a data-ng-href="{{item.link}}"
-                  data-ng-bind-html="item.title | sanitize"></a>
+                  data-ng-bind-html="item.title | sanitize" target="_blank"></a>
                 </strong>
                 <span>Published on {{item.pubDate}}</span></h4>
               <p>{{item.description}}</p>

@@ -1,0 +1,15 @@
+<div data-ng-controller="Vacancy as vm">
+<h3 class="section-title">VACANCIES</h3>
+  <ol class="numbered-list">
+    <li data-ng-repeat="vacancy in vm.vacancies | limitTo: 5">
+      <a data-ng-href="{{vacancy.attachments[0].url}}"
+      data-ng-bind-html="vacancy.title | sanitize" target=
+></a>
+    </li>
+  </ol>
+<button class="btn btn-primary more"
+        data-ng-click="vm.goTo('vacancies')"
+        data-ng-show="vm.vacancies.length > 1">
+        View More
+</button>
+</div>

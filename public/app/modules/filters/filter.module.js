@@ -9,7 +9,14 @@
 			             var dateObject = new Date(dateString).toISOString();
 			                return dateObject;
 		          }
-        });
+        }).filter('toMB', toMB);
+
+    function toMB(){
+      return function(bytes){
+        var result = bytes/1048576;
+        return result.toFixed(2);
+      }
+    }
 
     function sanitize($sce){
         return function(text){

@@ -21,7 +21,6 @@
 		getRSSFeed();
 		getStaffFocus();
 		getBlogPosts();
-
 		vm.goTo = goTo;
 		//vm.getNotices = getNotices;
 		vm.getBlogs = getBlogs;
@@ -53,7 +52,7 @@
 
 		function getRSSFeed(){
 			homeService.getRSSFeed().then(function(items){
-				 vm.news = items.splice(0,3);
+				 vm.news = items;
 			}).catch(function(error){
 				vm.news = [];
 			})
@@ -61,7 +60,7 @@
 
 		function getStaffFocus(){
 			homeService.getPostsByCategory('staff-focus').then(function(staff){
-				 vm.staff = staff.splice(0,5);
+				 vm.staff = staff;
 			}).catch(function(error){
 				vm.staff = [];
 			});

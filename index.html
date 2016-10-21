@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html ng-app="intranet">
 <head>
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="public/css/styles.css">
+    <!-- <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600' rel='stylesheet' type='text/css'> -->
     <title>Corporate MEGJC</title>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" data-ng-controller="Nav as vm">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -18,19 +18,28 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/">Corporate MEGJC</a>
+            <a class="navbar-brand" href="#/">Corporate Intranet</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/"><i class="fa fa-home" aria-hidden="true"></i>  HOME</a></li>
                 <li><a href="#/vacancies"><i class="fa fa-list-ul" aria-hidden="true"></i>  VACANCIES</a></li>
                 <!-- <li><a href="#">POLICIES</a></li> -->
-                <!-- <li><a href="#/directory"><i class="fa fa-users" aria-hidden="true"></i> DIRECTORY</a></li> -->
-                <!-- <li><a href="#/directory"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> POLICIES</a></li>
-                <li><a href="#/directory"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> FORMS</a></li> -->
+                <li><a href="#/directory"><i class="fa fa-users" aria-hidden="true"></i> STAFF DIRECTORY</a></li>
+                <li><a href="#/policies"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> POLICIES</a></li>
+                <li><a href="#/forms"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> FORMS</a></li>
                 <!-- <li><a href="#/committees"><i class="fa fa-users" aria-hidden="true"></i> COMMITTEES</a></li> -->
                 <li><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket" target="_blank">
                   <i class="fa fa-info" aria-hidden="true"></i> HELP DESK</a></li>
+                  <!-- <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                       <li><a href>Logged in as <br/> <span class="medium-font"> {{vm.user.us_email}}</span></a></li>
+                       <li role="separator" class="divider"></li>
+
+                       <li><a href data-ng-click="vm.logout()">Logout</a></li>
+                     </ul>
+                   </li> -->
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
@@ -47,10 +56,10 @@
         <h3>Menu</h3>
         <p><a href="#/">Home</a></p>
         <p><a href="#/vacancies">Vacancies</a></p>
-        <!-- <p><a href="#/directory">Directory</a></p> -->
+        <p><a href="#/directory">Staff Directory</a></p>
         <!-- <p>Committees</p> -->
-        <!-- <p><a href="#/policies">Policies</a></p>
-        <p><a href="#forms">Forms</a></p> -->
+        <p><a href="#/policies">Policies</a></p>
+        <!-- <p><a href="#forms">Forms</a></p> -->
         <p><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket">Help Desk</a></p>
       </div>
       <div class="col-md-4">
@@ -58,7 +67,7 @@
         <p>ICT Division</p>
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> 7th Floor, 25 Dominica Drive, Kingston 5</p>
         <p><i class="fa fa-envelope" aria-hidden="true"></i>
-          Email: <strong><a href="mailto:helpdesk@megjc.gov.jm">helpdesk@megjc.gov.jm</a></strong></p>
+          Email: <strong><a href="mailto:support.ict@megjc.gov.jm">support.ict@megjc.gov.jm</a></strong></p>
         <p><i class="fa fa-info" aria-hidden="true"></i>
           For ICT Related Issues click
           <strong><a href="http://cloud.mwlecc.gov.jm/?app=service_ticket">here</a></strong></p>
@@ -74,10 +83,23 @@
   </div>
 </div>
 
-<script src="public/bower_components/moment/moment.js"></script>
+<!-- <script src="../intranet/public/bower_components/angular/angular.min.js"></script>
+    <script src="../intranet/public/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="../intranet/public/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="../intranet/public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../intranet/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../intranet/public/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="../intranet/public/bower_components/angular-messages/angular-messages.min.js"></script>
+-->
 <script src="public/bower_components/angular/angular.js"></script>
 <script src="public/bower_components/angular-route/angular-route.min.js"></script>
+<script src="public/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="public/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="public/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="public/bower_components/angular-messages/angular-messages.min.js"></script>
 <!-- inject:js -->
+<script src="/public/dist/src.min.js"></script>
 <!-- endinject -->
 </body>
 </html>
