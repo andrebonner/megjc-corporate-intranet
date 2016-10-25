@@ -22,7 +22,7 @@
 					.then(function(response){
 							if(response.success){
 								vm.user = {};
-								loginService.setUser(response.uid);
+								loginService.setUser(response.uid.id);
 								$location.path('/mails');
 							}
 					}).catch(function (error){
