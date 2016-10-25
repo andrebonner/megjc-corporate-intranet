@@ -19,7 +19,7 @@
        */
       function createMail(mail, files){
          mail.created_by = loginService.getUser();
-         var url = API_URLS.base_url + '/mails';
+         var url = API_URLS.base_url + 'mails';
          return	Upload.upload({
        					 url: url,
        					 file: files,
@@ -55,7 +55,7 @@
        * @return {[type]}    [description]
        */
       function getMail (id) {
-        var url = API_URLS.base_url + '/mails/' + id;
+        var url = API_URLS.base_url + 'mails/' + id;
         return $http
                 .get(url)
                 .then(handleSuccess)
@@ -69,7 +69,7 @@
       }
 
       function getMails(uid) {
-        var url = API_URLS.base_url + '/mails/users/' + id;
+        var url = API_URLS.base_url + 'mails/users/' + uid;
         return $http
                 .get(url)
                 .then(handleSuccess)
