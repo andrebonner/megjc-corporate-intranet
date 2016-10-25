@@ -17,11 +17,11 @@
              './public/app/**/**/*.service.js'];
 
 
-  gulp.task('clean', ['production'], ()=>{
+  gulp.task('clean', ['dist'], ()=>{
       return del(["./public/build"]);
   });
 
-  gulp.task('production', ()=>{
+  gulp.task('dist', ()=>{
       return gulp.src(['./public/app/**/**/*.module.js',
                     './public/app/**/**/*.controller.js',
                     './public/app/**/**/*.service.js'])
@@ -30,7 +30,7 @@
               .pipe(gulp.dest('./public/dist'));
   });
 
-  gulp.task('inject-files', ['production'], ()=>{
+  gulp.task('inject-files', ['dist'], ()=>{
     let target = gulp.src('./index.html'),
         sources = gulp.src(['./public/dist/*.js']);
 
@@ -43,10 +43,12 @@
     return target.pipe(inject(sources)).pipe(gulp.dest('./'));
   });
 
+  gulp.task('production', ['dist', 'inject-files', 'clean']);
+
   gulp.task('default', ['watch']);
 
   gulp.task('watch', function () {
-    gulp.watch(js, ['production', 'inject-files', 'clean']);
+    gulp.watch(js, ['dist', 'inject-files', 'clean']);
   });
 
 })();
