@@ -100,7 +100,7 @@
         $stmt->execute();
         $result = $stmt->fetch( PDO::FETCH_OBJ );
         closeDBConnection( $db );
-        return $result->id;
+        return $result;
       }catch(PDOException $e){
         return false;
       }

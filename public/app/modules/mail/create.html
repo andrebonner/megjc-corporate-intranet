@@ -24,17 +24,39 @@
           <label>Type of correspondence</label>
           <br>
           <label class="radio-inline">
-              <input type="radio" value="letter" ng-model="mail.mail_type"> Letter
+              <input type="radio" value="letter" ng-model="mail.mail_type" ng-click="toggle(mail.mail_type)"> Letter
           </label>
           <label class="radio-inline">
-            <input type="radio" value="memo" ng-model="mail.mail_type"> Memo
+            <input type="radio" value="memo" ng-model="mail.mail_type" ng-click="toggle(mail.mail_type)"> Memo
           </label>
           <label class="radio-inline">
-            <input type="radio" value="email" ng-model="mail.mail_type"> Email
+            <input type="radio" value="email" ng-model="mail.mail_type" ng-click="toggle(mail.mail_type)"> Email
           </label>
           <label class="radio-inline">
-            <input type="radio" value="file" ng-model="mail.mail_type"> File
+            <input type="radio" value="file" ng-model="mail.mail_type" ng-click="toggle(mail.mail_type)"> File
           </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="other" ng-model="mail.mail_type" ng-click="toggle(mail.mail_type)"> Other
+          </label>
+      </div>
+
+      <div class="form-group" ng-show="showFile">
+        <label>Title of File</label>
+          <input class="form-control" type="text" ng-model="mail.file_title">
+      </div>
+
+      <div class="form-group" ng-show="showOther">
+        <label>Other</label>
+          <input class="form-control" type="text" ng-model="mail.other_type">
+      </div>
+
+      <div class="form-group">
+        <label>Receipt Date</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          <input class="form-control" type="date" ng-model="mail.receipt_date">
+        </div>
       </div>
 
       <div class="form-group">
@@ -45,13 +67,7 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Receipt Date</label>
-        <div class="input-group">
-           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
-          <input class="form-control" type="date" ng-model="mail.receipt_date">
-        </div>
-      </div>
+
 
       <div class="form-group">
         <label>From (Organization)</label>

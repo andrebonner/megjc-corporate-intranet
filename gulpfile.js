@@ -43,6 +43,10 @@
     return target.pipe(inject(sources)).pipe(gulp.dest('./'));
   });
 
-  gulp.task('default', ['production', 'inject-files', 'clean']);
+  gulp.task('default', ['watch']);
+
+  gulp.task('watch', function () {
+    gulp.watch(js, ['production', 'inject-files', 'clean']);
+  });
 
 })();

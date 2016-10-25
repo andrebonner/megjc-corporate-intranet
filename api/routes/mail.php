@@ -6,7 +6,7 @@
     /**
      * Get all mails by a user's id.
      */
-     $app->get('/:id', function($id) use($app){
+     $app->get('/users/:id', function($id) use($app){
       $sql = 'SELECT id, mail_type, file_title, mail_date,
                       receipt_date, from_org, sender,
                       receipent, subject, created_on
@@ -24,6 +24,35 @@
       }catch(PDOException $e){
         echo '{"error":{"text":' .$e->getMessage(). '}}';
       }
+     });
+     /**
+      * Get a mail correspondence by id.
+      */
+     $app->get('/:id', function($id) use($app){
+      $sql = 'SELECT id, mail_type, file_title, mail_date,
+                      receipt_date, from_org, sender,
+                      receipent, subject, created_on
+                      FROM mails WHERE id=:id
+                      ORDER BY created_on DESC';
+      $sql_attachments = 'SELECT id, file_name, mail_id, created_on
+                          FROM uploads WHERE mail_id=:id';
+        try{
+          $db = openDBConnection();
+          $stmt = $db->prepare( $sql );
+          $stmt->bindParam("id", $id);
+          $stmt->execute();
+          $mails = $stmt->fetch( PDO::FETCH_OBJ );
+          $stmt = null;
+          $stmt = $db->prepare( $sql_attachments );
+          $stmt->bindParam("id", $id);
+          $stmt->execute();
+          $uploads = $stmt->fetchAll( PDO::FETCH_OBJ );
+          closeDBConnection( $db );
+          setResponseHeader( $app );
+          echo json_encode(array("mail" => $mails, "uploads"=> $uploads));
+        }catch(PDOException $e){
+          echo '{"error":{"text":' .$e->getMessage(). '}}';
+        }
      });
 
     $app->post('/', function() use ( $app ){
@@ -69,7 +98,15 @@
       setResponseHeader($app);
       echo json_encode($mail_id);
     });
+
+    $app->post('/:id/actions', function($id) use ( $app ){
+
+      setResponseHeader($app);
+      echo json_encode($id);
+    });
   }
+
+
   /**
    * Creates an attachment for a mail correspondence.
    * @param  [type] $mail_id The id of a mail correspondence.

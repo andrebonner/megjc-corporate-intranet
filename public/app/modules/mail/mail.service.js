@@ -19,6 +19,7 @@
        */
       function createMail(mail, files){
          mail.created_by = loginService.getUser();
+
          return	Upload.upload({
        					 url: '/api/v1/mails',
        					 file: files,
@@ -43,7 +44,9 @@
   				sender: "",
   				receipent : "",
   				from_org: "",
-  				subject: ""
+  				subject: "",
+          receipt_date: new Date(),
+          file_title: ''
         }
       }
       /**
@@ -53,7 +56,7 @@
        */
       function getMail (id) {
         return $http
-                .get(API_URLS.base_url + 'mails/' + id)
+                .get('/api/v1/mails/' + id)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess (response){
@@ -64,9 +67,9 @@
         }
       }
 
-      function getMails(user_id) {
+      function getMails(uid) {
         return $http
-                .get(API_URLS.base_url + 'mails/' + user_id)
+                .get('/api/v1/mails/users/' + uid)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess (response){
