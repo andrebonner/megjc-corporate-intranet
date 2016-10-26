@@ -10,7 +10,7 @@
           getMails: getMails,
           getMail: getMail,
           createMail: createMail,
-          initMail, initMail
+          initMail: initMail
       };
       /**
        * Creates a mail correspondence.
