@@ -24,7 +24,8 @@
 	]).run(routeLogin)
 		.config(config)
 		.constant("API_URLS", {
-				base_url : '/intranet/api/v1/'
+				base_url : '/intranet/api/v1/',
+				root: '/intranet/'
 		});
 
 	function config($routeProvider, $httpProvider){

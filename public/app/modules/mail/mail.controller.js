@@ -3,9 +3,9 @@
 	.module('mail')
 	.controller('Mail', Mail);
 
-	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService'];
+	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService' , 'API_URLS'];
 
-	function Mail($routeParams, $location, $scope, mailService, loginService){
+	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS){
 			$scope.message = false;
 			$scope.showOther = false;
 			$scope.mail = mailService.initMail();
@@ -18,6 +18,7 @@
 			$scope.clearForm = clearForm;
 			$scope.createMail = createMail;
 			$scope.toggle = toggle;
+			$scope.root = API_URLS.root;
 
 			getMails();
 
