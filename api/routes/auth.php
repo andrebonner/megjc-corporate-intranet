@@ -16,12 +16,19 @@
             		if($ldap_bind){
             			$message["success"] = true;
             			$message["description"] = "The username/password entered was valid";
-                  $user = findUser($dn);
-                  if($user === false){
-                     $uid = createUser($dn);
-                     $message["uid"] = $uid;
+                  $user = findUserByDn($dn);
+                  $department = findDepartmentByName(getDeptFromDn($dn));
+                  if(!$user && !$department){
+                    $dept_id = createDepartmentFromDn($dn);
+                    $uid = createUser($dn, $dept_id);
+                    if(!$dept_id || !$uid){
+                      $message["uid"] = "user not created";
+                      $message["department"] = "department not created";
+                    }else{
+                      $message["uid"] = findUserByID($uid);
+                    }
                   }else{
-                    $message["uid"] = $user;
+                    $message["user"] = $user;
                   }
             			setHTTPStatus($app, 200);
             		}else{
@@ -38,6 +45,7 @@
 
         }catch(ErrorException $e){
 		        setHTTPStatus($app, 500);
+            $message["success"] = false;
          	  $message["message"] = $e->getMessage();
 		        $message["description"] = "An error exception was raised";
         }
@@ -91,7 +99,7 @@
      * Find a user by dn or create a user if not found by dn.
      * @return [type] [description]
      */
-    function findUser($dn){
+    function findUserByDn($dn){
       $sql = 'SELECT * FROM users WHERE dn=:dn';
       try{
         $db = openDBConnection();
@@ -106,18 +114,84 @@
       }
     }
     /**
+     * Find a user by id.
+     * @return [type] [description]
+     */
+    function findUserByID($id){
+      $sql = 'SELECT * FROM users WHERE id=:id';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare( $sql );
+        $stmt->bindParam("id", $id);
+        $stmt->execute();
+        $result = $stmt->fetch( PDO::FETCH_OBJ );
+        closeDBConnection( $db );
+        return $result;
+      }catch(PDOException $e){
+        return false;
+      }
+    }
+    /**
      * Creates a user if user not found in database.
      * @param  string $dn User domain name
      * @return boolean
      */
-    function createUser($dn){
-      $sql = 'INSERT INTO users (dn, created_on) VALUES (:dn, :created_on)';
+    function createUser($dn, $dept_id){
+      $sql = 'INSERT INTO users (dn, dept_id, created_on) VALUES (:dn, :dept_id, :created_on)';
       try{
         $db = openDBConnection();
         $stmt = $db->prepare($sql);
-        $stmt->execute(array(":dn" => $dn,":created_on" => date("Y-m-d H:i:s")));
+        $stmt->execute(array(":dn" => $dn,":dept_id"=>$dept_id,":created_on" => date("Y-m-d H:i:s")));
         $result = $db->lastInsertId();
         closeDBConnection($db);
+        return $result;
+      }catch(PDOException $e){
+        return false;
+      }
+    }
+    /**
+     * Get the department name of the user from the dn string.
+     * @param  [type] $dn [description]
+     * @return [type]     [description]
+     */
+    function getDeptFromDn($dn){
+      list($cn, $dept, $ou, $dc_one, $dc_two, $dc_three) = explode(',', $dn);
+      $dept_name = explode('=', $dept);
+      return $dept_name[1];
+    }
+    /**
+     * [createDepartmentFromDn description]
+     * @param  [type] $dn [description]
+     * @return [type]     [description]
+     */
+    function createDepartmentFromDn($dn){
+      $name = getDeptFromDn($dn);
+      $sql = 'INSERT INTO departments (name, created_on) VALUES (:name, :created_on)';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array(":name" => $name,":created_on" => date("Y-m-d H:i:s")));
+        $result = $db->lastInsertId();
+        closeDBConnection($db);
+        return $result;
+      }catch(PDOException $e){
+        return false;
+      }
+    }
+    /**
+     * Find a department by name.
+     * @param  [type] $name [description]
+     * @return [type]       [description]
+     */
+    function findDepartmentByName($name){
+      $sql = 'SELECT * FROM departments WHERE name=:name';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare( $sql );
+        $stmt->bindParam("name", $name);
+        $stmt->execute();
+        $result = $stmt->fetch( PDO::FETCH_OBJ );
+        closeDBConnection( $db );
         return $result;
       }catch(PDOException $e){
         return false;
