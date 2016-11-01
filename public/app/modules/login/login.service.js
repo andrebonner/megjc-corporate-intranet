@@ -32,12 +32,18 @@
         }
      }
 
-     function setUser(id) {
-       localStorage.setItem('uid', id);
+     function setUser(user) {
+       localStorage.setItem('user', JSON.stringify(user));
      }
 
-     function getUser(){
-       return localStorage.getItem('uid');
+     function getUserId(){
+       var user = JSON.parse(localStorage.getItem('user'));
+       return user.id;
+       //return localStorage.getItem('uid');
+     }
+     function getDepartmentId() {
+       var user = JSON.parse(localStorage.getItem('user'));
+       return user.dept_id;
      }
 
      function isAuthenticated() {

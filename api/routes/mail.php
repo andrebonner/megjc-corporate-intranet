@@ -9,7 +9,7 @@
      $app->get('/users/:id', function($id) use($app){
       $sql = 'SELECT id, mail_type, file_title, mail_date,
                       receipt_date, from_org, sender,
-                      receipent, subject, created_on
+                      receipent, subject, created_on, dept_id
                       FROM mails WHERE created_by=:id
                       ORDER BY created_on DESC';
       try{
@@ -25,13 +25,36 @@
         echo '{"error":{"text":' .$e->getMessage(). '}}';
       }
      });
+
+     /**
+      * Get all mails by a department id.
+      */
+      $app->get('/departments/:id', function($id) use($app){
+       $sql = 'SELECT id, mail_type, file_title, mail_date,
+                       receipt_date, from_org, sender,
+                       receipent, subject, created_on, dept_id
+                       FROM mails WHERE dept_id=:id
+                       ORDER BY created_on DESC';
+       try{
+         $db = openDBConnection();
+         $stmt = $db->prepare( $sql );
+         $stmt->bindParam("id", $id);
+         $stmt->execute();
+         $result = $stmt->fetchAll( PDO::FETCH_OBJ );
+         closeDBConnection( $db );
+         setResponseHeader( $app );
+         echo json_encode($result);
+       }catch(PDOException $e){
+         echo '{"error":{"text":' .$e->getMessage(). '}}';
+       }
+      });
      /**
       * Get a mail correspondence by id.
       */
      $app->get('/:id', function($id) use($app){
       $sql = 'SELECT id, mail_type, file_title, mail_date,
                       receipt_date, from_org, sender,
-                      receipent, subject, created_on
+                      receipent, subject, created_on, dept_id
                       FROM mails WHERE id=:id
                       ORDER BY created_on DESC';
       $sql_attachments = 'SELECT id, file_name, mail_id, created_on
@@ -62,11 +85,11 @@
         $sql = 'INSERT INTO mails (mail_type, file_title,
                                   mail_date, receipt_date,
                                   from_org, sender, receipent, subject,
-                                  created_by, created_on)
+                                  created_by, created_on, dept_id)
                             VALUES (:mail_type, :file_title, :mail_date,
                                     :receipt_date, :from_org, :sender,
                                     :receipent, :subject, :created_by,
-                                    :created_on)';
+                                    :created_on, :dept_id)';
         $stmt = $db->prepare($sql);
         $stmt->execute(array(":mail_type" => $mail['mail_type'],
                             ":file_title" => $mail['file_title'],
@@ -77,7 +100,8 @@
                             ":receipent" => $mail['receipent'],
                             ":subject" => $mail['subject'],
                             ":created_by" => $mail['created_by'],
-                            ":created_on" => date("Y-m-d H:i:s")));
+                            ":created_on" => date("Y-m-d H:i:s")),
+                            ":dept_id" => $mail['dept_id']);
         $mail_id = $db->lastInsertId();
 
         if(!empty($_FILES)){

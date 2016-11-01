@@ -7,7 +7,7 @@
 
     function mailService($http, API_URLS, loginService, Upload){
       var service = {
-          getMails: getMails,
+          getMailsByDepartmentId: getMailsByDepartmentId,
           getMail: getMail,
           createMail: createMail,
           initMail: initMail
@@ -18,7 +18,8 @@
        * @return {[type]}      [description]
        */
       function createMail(mail, files){
-         mail.created_by = loginService.getUser();
+         mail.created_by = loginService.getUserId();
+         mail.dept_id = loginService.getDepartmentId();
          var url = API_URLS.base_url + 'mails';
          return	Upload.upload({
        					 url: url,
@@ -68,8 +69,8 @@
         }
       }
 
-      function getMails(uid) {
-        var url = API_URLS.base_url + 'mails/users/' + uid;
+      function getMailsByDepartmentId(dept_id) {
+        var url = API_URLS.base_url + 'mails/users/' + dept_od;
         return $http
                 .get(url)
                 .then(handleSuccess)
