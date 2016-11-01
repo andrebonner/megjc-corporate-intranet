@@ -100,8 +100,8 @@
                             ":receipent" => $mail['receipent'],
                             ":subject" => $mail['subject'],
                             ":created_by" => $mail['created_by'],
-                            ":created_on" => date("Y-m-d H:i:s")),
-                            ":dept_id" => $mail['dept_id']);
+                            ":created_on" => date("Y-m-d H:i:s"),
+                            ":dept_id" => $mail['dept_id']));
         $mail_id = $db->lastInsertId();
 
         if(!empty($_FILES)){

@@ -10,8 +10,10 @@
        authUser: authUser,
        setUser: setUser,
        getDepartmentId: getDepartmentId,
+       getUser: getUser,
        getUserId: getUserId,
-       isAuthenticated: isAuthenticated
+       isAuthenticated: isAuthenticated,
+       logout: logout
      };
      /**
       * Authenticates a user based on email and password.
@@ -37,19 +39,28 @@
        localStorage.setItem('user', JSON.stringify(user));
      }
 
+     function getUser() {
+       return JSON.parse(localStorage.getItem('user'));
+     }
+
      function getUserId(){
        var user = JSON.parse(localStorage.getItem('user'));
        return user.id;
-       //return localStorage.getItem('uid');
      }
+
      function getDepartmentId() {
        var user = JSON.parse(localStorage.getItem('user'));
        return user.dept_id;
      }
 
      function isAuthenticated() {
-       if(localStorage.getItem('uid') == null) return false
-       else if(typeof localStorage.getItem('uid') === 'string') return true;
+       var user = JSON.parse(localStorage.getItem('user'));
+       if(user == null) return false
+       else if(typeof user === 'object') return true;
+     }
+
+     function logout() {
+       localStorage.removeItem('user');
      }
 
      return service;

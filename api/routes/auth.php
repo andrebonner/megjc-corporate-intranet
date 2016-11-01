@@ -137,11 +137,13 @@
      * @return boolean
      */
     function createUser($dn, $dept_id){
-      $sql = 'INSERT INTO users (dn, dept_id, created_on) VALUES (:dn, :dept_id, :created_on)';
+      $sql = 'INSERT INTO users (dn, dept_id, created_on)
+              VALUES (:dn, :dept_id, :created_on)';
       try{
         $db = openDBConnection();
         $stmt = $db->prepare($sql);
-        $stmt->execute(array(":dn" => $dn,":dept_id"=>$dept_id,":created_on" => date("Y-m-d H:i:s")));
+        $stmt->execute(array(":dn" => $dn,":dept_id"=> $dept_id,
+                              ":created_on" => date("Y-m-d H:i:s")));
         $result = $db->lastInsertId();
         closeDBConnection($db);
         return $result;
@@ -196,6 +198,12 @@
       }catch(PDOException $e){
         return false;
       }
+    }
+
+    function getNameFromDn($dn){
+        list($cn, $dept, $ou, $dc_one, $dc_two, $dc_three) = explode(',', $dn);
+        $name = explode('=', $ou);
+        return $name[1];
     }
   }
 

@@ -56,10 +56,9 @@
 			 * @return {[type]} [description]
 			 */
 			function getMails (){
-				//var uid = loginService.getUser();
 				var dept_id = loginService.getDepartmentId();
 				mailService
-					.getMails(dept_id)
+					.getMailsByDepartmentId(dept_id)
 					.then(function(mails){
 						$scope.mails = mails;
 					}).catch(function(error){

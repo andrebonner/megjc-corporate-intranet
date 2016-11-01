@@ -12,6 +12,7 @@
 			name : '',
 			password : ''
 		};
+		activate();
 		/**
 		 * Handles login form to authenticate user.
 		 * @param  {[type]} user User email and password.
@@ -28,6 +29,12 @@
 					}).catch(function (error){
 							console.log(error);
 					});
+		}
+
+		function activate() {
+			if(loginService.isAuthenticated()){
+				$location.path('/mails');
+			}
 		}
 	}
 })();
