@@ -9,7 +9,8 @@
      var service = {
        authUser: authUser,
        setUser: setUser,
-       getUser: getUser,
+       getDepartmentId: getDepartmentId,
+       getUserId: getUserId,
        isAuthenticated: isAuthenticated
      };
      /**
