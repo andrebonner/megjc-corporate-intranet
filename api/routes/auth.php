@@ -28,7 +28,7 @@
                       $message["uid"] = findUserByID($uid);
                     }
                   }else{
-                    $message["user"] = $user;
+                    $message["uid"] = $user;
                   }
             			setHTTPStatus($app, 200);
             		}else{
