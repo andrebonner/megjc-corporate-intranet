@@ -21,11 +21,25 @@
 			loginService
 					.authUser(credentials)
 					.then(function(response){
-							if(response.success){
-								vm.user = {};
-								loginService.setUser(response.uid);
-								$location.path('/mails');
-							}
+						console.log(response);
+						loginService
+								.getDepartment(response.dn)
+								.then(function (department) {
+										loginService
+												.getUser(response.dn, department.id)
+												.then(function(user){
+													if(user.success){
+														vm.user = {};
+														loginService.setUser(user.user);
+														$location.path('/mails');
+													}
+												}).catch(function(error){
+													console.log('Error in getting user');
+												})
+								}).catch(function(error){
+									console.log('Error in getting department');
+								});
+
 					}).catch(function (error){
 							console.log(error);
 					});

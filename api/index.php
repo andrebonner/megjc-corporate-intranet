@@ -34,8 +34,8 @@ $app->group('/v1', function() use ($app){
 					routePollRequests($app);
 		});
 
-		$app->group('/test', function() use($app){
-					routeTestRequests($app);
+		$app->group('/users', function() use($app){
+					routeUserRequests($app);
 		});
 
 		$app->group('/mails', function() use($app){

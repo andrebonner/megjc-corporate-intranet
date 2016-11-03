@@ -13,7 +13,9 @@
        getUser: getUser,
        getUserId: getUserId,
        isAuthenticated: isAuthenticated,
-       logout: logout
+       logout: logout,
+       getDepartment: getDepartment,
+       getUser: getUser
      };
      /**
       * Authenticates a user based on email and password.
@@ -63,6 +65,29 @@
        localStorage.removeItem('user');
      }
 
+     function getDepartment(dn) {
+       return $http.post(API_URLS.base_url + 'departments', {dn: dn})
+                   .then(handleSuccess)
+                   .catch(handleError);
+           function handleSuccess(response){
+             return response.data;
+           }
+           function handleError(error){
+             return error;
+           }
+     }
+
+     function getUser(dn, dept_id) {
+       return $http.post(API_URLS.base_url + 'users', {dn: dn, dept_id: dept_id})
+                   .then(handleSuccess)
+                   .catch(handleError);
+           function handleSuccess(response){
+             return response.data;
+           }
+           function handleError(error){
+             return error;
+           }
+     }
      return service;
    }
 })();
