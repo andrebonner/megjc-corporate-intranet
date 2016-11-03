@@ -25,7 +25,7 @@
 		.config(config)
 		.constant("API_URLS", {
 				base_url : '/intranet/api/v1/',
-				root: '/intranet/'
+				root: '/intranet/api'
 		});
 
 	function config($routeProvider, $httpProvider){
@@ -45,11 +45,10 @@
 	 * @param  {[type]} sharedServices [description]
 	 * @return {[type]}                [description]
 	 */
-  function routeLogin($rootScope, $location, $route, loginService){
+  function routeLogin($rootScope, $location, loginService){
   	$rootScope.$on('$routeChangeStart', function(event, next, current){
   		if(next.access.restricted && !loginService.isAuthenticated()){
 				 $location.path('/login');
-				 $route.reload();
 			}
   	});
   }

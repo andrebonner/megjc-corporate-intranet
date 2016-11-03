@@ -7,7 +7,7 @@ function routeAuthRequests($app){
 
   $app->post('/', function() use ( $app ){
      	$user = json_decode($app->request->getBody());
-      $message = array("success" => "", "description"=>"", "dn" => "");
+      $message = array("success" => "", "description"=>"", "dn" => "no dn found");
   try{
         $conn = openLDAPConnection();
         $ldapbind = bindLDAP($conn, getenv('LDAP_ADMIN'), getenv('LDAP_PASS'));

@@ -55,7 +55,7 @@
           <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
           <td>{{upload.file_name}}</td>
           <td>{{upload.created_on | timestamp | date: 'fullDate'}}</td>
-          <td><a ng-href="/{{root}}/api/routes/uploads/{{upload.file_name}}"> View</a></td>
+          <td><a ng-href="{{root}}/routes/uploads/{{upload.file_name}}"> View</a></td>
         </tr>
 
     </table>
