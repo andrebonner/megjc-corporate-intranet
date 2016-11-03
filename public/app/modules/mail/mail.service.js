@@ -70,7 +70,7 @@
       }
 
       function getMailsByDepartmentId(dept_id) {
-        var url = API_URLS.base_url + 'mails/users/' + dept_id;
+        var url = API_URLS.base_url + 'mails/departments/' + dept_id;
         return $http
                 .get(url)
                 .then(handleSuccess)
