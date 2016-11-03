@@ -10,8 +10,7 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-9">
-		<h2 class="department-title">{{vm.mail.subject}} - {{vm.mail.sender}} - {{vm.mail.received}}</h2>
-		<!-- <p>Since you are here, we figure you are having a technical problem. Kindly complete the simple form below and press the submit button once complete.</p>	 -->
+		<h2 class="department-title">{{mail.subject}} - {{mail.sender}} </h2>
 	</div>
 </div>
 
@@ -19,8 +18,65 @@
 	<div class="col-md-3"
        data-ng-include="'public/app/modules/mail/partials/menu.html'"></div>
   <div class="col-md-9">
-    <form class="form-horizontal" novalidate>
-      
-    </form>
+    <label>Received on </label>
+    <div class="well well-sm ">
+      {{mail.receipt_date | timestamp | date:'fullDate'}}
+    </div>
+
+    <label>Letter dated</label>
+    <div class="well well-sm">
+      {{mail.mail_date | timestamp | date:'fullDate'}}
+    </div>
+
+    <label>Receipent</label>
+    <div class="well well-sm">
+      {{mail.receipent}}
+    </div>
+
+    <label>From Organization</label>
+    <div class="well well-sm">
+      {{mail.from_org}}
+    </div>
+
+    <label>Type of Mail</label>
+    <div class="well well-sm">
+      {{mail.mail_type}}
+    </div>
+
+    <label>Entered on</label>
+    <div class="well well-sm">
+      {{mail.created_on | timestamp | date:'fullDate'}}
+    </div>
+
+    <label>Attachments</label>
+    <p ng-show="uploads.length < 1">There are no attachments for this mail correspondence.</p>
+    <table class="table table-hover" ng-show="uploads.length > 0">
+        <tr ng-repeat="upload in uploads">
+          <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+          <td>{{upload.file_name}}</td>
+          <td>{{upload.created_on | timestamp | date: 'fullDate'}}</td>
+          <td><a ng-href="{{root}}/routes/uploads/{{upload.file_name}}"> View</a></td>
+        </tr>
+
+    </table>
+
+    <label>Actions</label>
+    <p ng-show="uploads.length < 1"> There are no actions for this mail correspondence.</p>
+    <table class="table table-hover" ng-show="uploads.length > 0">
+      <thead>
+        <th></th>
+        <th>Date</th>
+        <th>Action</th>
+        <th>Entered by</th>
+      </thead>
+        <!-- <tr ng-repeat="upload in uploads">
+          <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+          <td>{{upload.file_name}}</td>
+          <td>{{upload.created_on | timestamp | date: 'fullDate'}}</td>
+          <td>View</td>
+        </tr> -->
+
+    </table>
+
   </div>
 </div>

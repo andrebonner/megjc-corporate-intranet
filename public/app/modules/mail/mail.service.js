@@ -7,10 +7,10 @@
 
     function mailService($http, API_URLS, loginService, Upload){
       var service = {
-          getMails: getMails,
+          getMailsByDepartmentId: getMailsByDepartmentId,
           getMail: getMail,
           createMail: createMail,
-          initMail, initMail
+          initMail: initMail
       };
       /**
        * Creates a mail correspondence.
@@ -18,9 +18,11 @@
        * @return {[type]}      [description]
        */
       function createMail(mail, files){
-         mail.created_by = loginService.getUser();
+         mail.created_by = loginService.getUserId();
+         mail.dept_id = loginService.getDepartmentId();
+         var url = API_URLS.base_url + 'mails';
          return	Upload.upload({
-       					 url: '/api/v1/mails',
+       					 url: url,
        					 file: files,
        					 data: mail
    			      }).then(handleSuccess)
@@ -43,7 +45,9 @@
   				sender: "",
   				receipent : "",
   				from_org: "",
-  				subject: ""
+  				subject: "",
+          receipt_date: new Date(),
+          file_title: ''
         }
       }
       /**
@@ -52,8 +56,9 @@
        * @return {[type]}    [description]
        */
       function getMail (id) {
+        var url = API_URLS.base_url + 'mails/' + id;
         return $http
-                .get(API_URLS.base_url + 'mails/' + id)
+                .get(url)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess (response){
@@ -64,9 +69,10 @@
         }
       }
 
-      function getMails(user_id) {
+      function getMailsByDepartmentId(dept_id) {
+        var url = API_URLS.base_url + 'mails/departments/' + dept_id;
         return $http
-                .get(API_URLS.base_url + 'mails/' + user_id)
+                .get(url)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess (response){
