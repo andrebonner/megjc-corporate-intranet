@@ -19,7 +19,7 @@
         <div class="form-group">
           <input type="text"
                 class="form-control"
-                placeholder="Search mail"
+                placeholder="Type here to filter mail by sender or subject"
                 ng-model="search">
         </div>
       </div>
@@ -47,7 +47,7 @@
 							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>
               <!-- <td>{{mail.mail_date | timestamp | date:'MMM d'}}</td> -->
-							<td style="text-align:right;width:150px;" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
+							<td style="text-align:right;width:150px;font-weight:600" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
 						</tr>
 					</tbody>
 				</table>

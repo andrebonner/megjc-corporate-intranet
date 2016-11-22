@@ -82,15 +82,18 @@
 			 * @return {[type]}      [description]
 			 */
 			function createMail(){
-				if($scope.mail.file_title === '' || $scope.mail.file_title == null){
-						$scope.mail.file_title = 'none';
-				}
+				if($scope.mail.file_title === '' || $scope.mail.file_title == null)
+						$scope.mail.file_title = 'none'
+
+				if($scope.mail.mail_type === 'other')
+					$scope.mail.mail_type = $scope.mail.other_type
+
 				mailService
 					.createMail($scope.mail)
 					.then(function(res){
 						clearForm();
 						$scope.message = true;
-						getMails();
+						getMails()
 				}).catch(function(err){
 					 console.log('Error in creating mail');
 				});
@@ -102,7 +105,10 @@
 			function dimiss(){
 				$scope.message = false;
 			}
-
+			/**
+			 * Clears file upload array
+			 * @return {[type]} [description]
+			 */
 			function removeFile(){
 				$scope.file = []
 			}
@@ -123,16 +129,26 @@
 										 $scope.showFile = false;
 					}
 			}
-
+			/**
+			 * Toggles mail action form
+			 * @return {[type]} [description]
+			 */
 			function revealActionForm() {
 				$scope.revealAction = !$scope.revealAction
 			}
-
+			/**
+			 * Clears and hides mail action form
+			 * @return {[type]} [description]
+			 */
 			function cancel() {
 					$scope.revealAction = false
 					$scope.description = ''
 			}
-
+			/**
+			 * Creates an action for a mail correspondence
+			 * @param  {[type]} mail_id [description]
+			 * @return {[type]}         [description]
+			 */
 			function createAction(mail_id){
 				var mail = { mail_id : $scope.mail_corr.id,
 										 uid: loginService.getUserId(),
@@ -160,7 +176,10 @@
 						$scope.actions = []
 					});
 			}
-
+			/**
+			 * Uploads a file associated with a mail correspondence
+			 * @return {[type]} [description]
+			 */
 			function uploadFile() {
 				if($scope.file && $scope.file.length > 0){
 						var files = $scope.file[0];

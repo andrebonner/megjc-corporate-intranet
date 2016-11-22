@@ -10,7 +10,7 @@
         rename = require('gulp-rename'),
         uglify = require('gulp-uglify'),
         ngmin = require('gulp-ngmin'),
-        ngAnnotate = require('gulp-ng-annotate'),
+        annotate = require('gulp-ng-annotate'),
         del = require('del'),
         js = ['./public/app/**/**/*.module.js',
              './public/app/**/**/*.controller.js',
@@ -27,6 +27,8 @@
                     './public/app/**/**/*.service.js'])
               .pipe(concat('./public/build/concat.js'))
               .pipe(rename('./src.min.js'))
+              .pipe(annotate())
+              .pipe(uglify())
               .pipe(gulp.dest('./public/dist'));
   });
 
