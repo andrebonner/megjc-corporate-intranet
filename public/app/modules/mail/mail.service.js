@@ -10,23 +10,54 @@
           getMailsByDepartmentId: getMailsByDepartmentId,
           getMail: getMail,
           createMail: createMail,
-          initMail: initMail
+          initMail: initMail,
+          getActions: getActions,
+          createAction: createAction,
+          uploadFile: uploadFile
       };
+
+      function uploadFile(file, mail_id) {
+        var url = API_URLS.base_url + mail_id + '/upload'
+        return Upload.upload({
+          url: url,
+          file: file
+        }).then(handleSuccess)
+          .catch(handleError);
+
+        function handleSuccess(response) {
+          return response.data
+        }
+
+        function handleError(error) {
+          return error
+        }
+      }
       /**
        * Creates a mail correspondence.
        * @param  {[type]} mail [description]
        * @return {[type]}      [description]
        */
-      function createMail(mail, files){
+      function createMail(mail){
          mail.created_by = loginService.getUserId();
          mail.dept_id = loginService.getDepartmentId();
          var url = API_URLS.base_url + 'mails';
-         return	Upload.upload({
-       					 url: url,
-       					 file: files,
-       					 data: mail
-   			      }).then(handleSuccess)
-                .catch(handleError);
+         return $http
+                  .post(url, mail)
+                  .then(handleSuccess)
+                  .catch(handleError);
+        function handleSuccess(response) {
+            return response.data
+        }
+
+        function handleError(error) {
+           return error
+        }
+        //  return	Upload.upload({
+       // 					 url: url,
+       // 					 file: files,
+       // 					 data: mail
+   		// 	      }).then(handleSuccess)
+        //         .catch(handleError);
 
           function handleSuccess(response) {
             return response.data;
@@ -82,6 +113,37 @@
           return error;
         }
       }
+
+      function createAction(mail) {
+        var url = API_URLS.base_url + 'mails/' + mail.mail_id + '/actions'
+        return $http
+                  .post(url, mail)
+                  .then(handleSuccess)
+                  .catch(handleError);
+        function handleSuccess(response) {
+          return response.data
+        }
+        function handleError(error) {
+          return error
+        }
+      }
+
+      function getActions(mail_id){
+        var url = API_URLS.base_url + 'mails/' + mail_id + '/actions'
+        return $http
+                  .get(url)
+                  .then(handleSuccess)
+                  .catch(handleError);
+
+        function handleSuccess (response){
+          return response.data
+        }
+
+        function handleError (error) {
+          return error
+        }
+      }
+
       return service;
     }
 })();

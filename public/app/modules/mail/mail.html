@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-9">
-		<h2 class="department-title">All Mails</h2>
+		<h2 class="department-title">Mails</h2>
 	</div>
 </div>
 
@@ -31,21 +31,23 @@
             Create Mail</button>
         </div>
 
+
 				<table class="table table-hover" ng-show="mails.length > 0">
 					<thead>
 						<tr>
               <th></th>
 							<th>Sender</th>
-							<th>Subject of Mail</th>
-							<th>Received</th>
+							<th>Subject</th>
+							<th style="text-align:right;">Received</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
               <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td>
-							<td>{{mail.sender}}</td>
-							<td>{{mail.subject}}</td>
-							<td>{{mail.receipt_date | timestamp | date:'fullDate'}}</td>
+							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
+							<td class="capitalize">{{mail.subject}}</td>
+              <!-- <td>{{mail.mail_date | timestamp | date:'MMM d'}}</td> -->
+							<td style="text-align:right;width:150px;" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
 						</tr>
 					</tbody>
 				</table>

@@ -7,4 +7,5 @@
   require 'poll.php';
   require 'user.php';
   require 'mail.php';
+  require 'upload.php';
 ?>

@@ -10,73 +10,107 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-9">
-		<h2 class="department-title">{{mail.subject}} - {{mail.sender}} </h2>
+		<h3 class="department-title capitalize" style="font-weight:normal">{{mail_corr.subject}}</h3>
+      <hr>
 	</div>
 </div>
 
 <div class="row help-desk">
 	<div class="col-md-3"
-       data-ng-include="'public/app/modules/mail/partials/menu.html'"></div>
+       data-ng-include="'public/app/modules/mail/partials/menu.html'">
+  </div>
   <div class="col-md-9">
+    <label>From </label>
+    <div class="well well-sm capitalize">
+      {{mail_corr.sender}}
+    </div>
+
     <label>Received on </label>
     <div class="well well-sm ">
-      {{mail.receipt_date | timestamp | date:'fullDate'}}
+      {{mail_corr.receipt_date | timestamp | date:'fullDate'}}
     </div>
 
     <label>Letter dated</label>
     <div class="well well-sm">
-      {{mail.mail_date | timestamp | date:'fullDate'}}
+      {{mail_corr.mail_date | timestamp | date:'fullDate'}}
     </div>
 
     <label>Receipent</label>
-    <div class="well well-sm">
-      {{mail.receipent}}
+    <div class="well well-sm capitalize">
+      {{mail_corr.receipent}}
     </div>
 
     <label>From Organization</label>
-    <div class="well well-sm">
-      {{mail.from_org}}
+    <div class="well well-sm capitalize">
+      {{mail_corr.from_org}}
     </div>
 
     <label>Type of Mail</label>
-    <div class="well well-sm">
-      {{mail.mail_type}}
+    <div class="well well-sm capitalize">
+      {{mail_corr.mail_type}}
     </div>
 
     <label>Entered on</label>
     <div class="well well-sm">
-      {{mail.created_on | timestamp | date:'fullDate'}}
+      {{mail_corr.created_on | timestamp | date:'fullDate'}}
     </div>
 
-    <label>Attachments</label>
+
+
+    <!-- <label>Attachments</label>
     <p ng-show="uploads.length < 1">There are no attachments for this mail correspondence.</p>
     <table class="table table-hover" ng-show="uploads.length > 0">
         <tr ng-repeat="upload in uploads">
-          <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+          <td style="color:#2780E3"><i class="fa fa-file-o" aria-hidden="true"></i></td>
           <td>{{upload.file_name}}</td>
           <td>{{upload.created_on | timestamp | date: 'fullDate'}}</td>
           <td><a ng-href="{{root}}/routes/uploads/{{upload.file_name}}"> View</a></td>
         </tr>
+    </table> -->
 
-    </table>
+    <!-- <div class="btn btn-primary space" ngf-select ng-model="file" ngf-multiple="true">Attach</div>
+
+    <div ng-show="file.length > 0">
+      <label>Files to upload</label>
+      <table class="table table-hover">
+        <tr ng-repeat="f in file">
+          <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+          <td>{{f.name}}</td>
+          <td>{{f.size | toMB}} MB</td>
+          <td style="color:red"><i class="fa fa-trash-o" aria-hidden="true"></i>
+            <a style="color:red" href ng-click="removeFile()">Remove</td>
+        </tr>
+      </table>
+
+      <button class="btn btn-success">Upload Files</button>
+
+    </div> -->
+
+
+
+    <div class="space"></div>
 
     <label>Actions</label>
-    <p ng-show="uploads.length < 1"> There are no actions for this mail correspondence.</p>
-    <table class="table table-hover" ng-show="uploads.length > 0">
-      <thead>
-        <th></th>
-        <th>Date</th>
-        <th>Action</th>
-        <th>Entered by</th>
-      </thead>
-        <!-- <tr ng-repeat="upload in uploads">
-          <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
-          <td>{{upload.file_name}}</td>
-          <td>{{upload.created_on | timestamp | date: 'fullDate'}}</td>
-          <td>View</td>
-        </tr> -->
-
+    <p ng-show="actions.length < 1">There are no actions for this mail correspondence.</p>
+    <table class="table table-hover" ng-show="actions.length > 0">
+        <tr ng-repeat="action in actions">
+          <td style="color:#2780E3"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td class="capitalize">{{action.description}}</td>
+          <td style="text-align:right;width:150px;">{{action.created_on | timestamp | date: 'MMM d'}}</td>
+        </tr>
     </table>
+
+    <button class="btn btn-success" ng-click="revealActionForm()">Add Action</button>
+    <div style="padding-top:15px" ng-show="revealAction">
+      <form novalidate ng-submit="createAction()">
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="description"></textarea>
+        </div>
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+    </div>
 
   </div>
 </div>

@@ -28,7 +28,7 @@
    * @return [type] [description]
    */
   function findUserByDn($dn){
-    $sql = 'SELECT * FROM users WHERE dn=:dn';
+    $sql = 'SELECT id, dept_id, uname FROM users WHERE dn=:dn';
     try{
       $db = openDBConnection();
       $stmt = $db->prepare( $sql );
@@ -48,12 +48,15 @@
    * @return boolean
    */
   function createUser($dn, $dept_id){
-    $sql = 'INSERT INTO users (dn, dept_id, created_on)
-            VALUES (:dn, :dept_id, :created_on)';
+    $sql = 'INSERT INTO users (dn, dept_id, created_on, uname)
+            VALUES (:dn, :dept_id, :created_on, :uname)';
+    $uname = getUserNameFromDn( $dn );
     try{
       $db = openDBConnection();
       $stmt = $db->prepare($sql);
-      $stmt->execute(array(":dn" => $dn,":dept_id"=> $dept_id,
+      $stmt->execute(array(":dn" => $dn,
+                            ":dept_id" => $dept_id,
+                            ":uname" => $uname,
                             ":created_on" => date("Y-m-d H:i:s")));
       $result = $db->lastInsertId();
       closeDBConnection($db);
@@ -68,12 +71,18 @@
       $name = explode('=', $ou);
       return $name[1];
   }
+
+  function getUserNameFromDn($dn){
+    list($cn, $dept, $ou, $dc_one, $dc_two, $dc_three) = explode(',', $dn);
+    $uname = explode('=', $cn);
+    return $uname[1];
+  }
 /**
  * Find a user by id.
  * @return [type] [description]
  */
 function findUserByID($id){
-  $sql = 'SELECT * FROM users WHERE id=:id';
+  $sql = 'SELECT id, uname, dept_id FROM users WHERE id=:id';
   try{
     $db = openDBConnection();
     $stmt = $db->prepare( $sql );

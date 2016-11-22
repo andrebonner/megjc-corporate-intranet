@@ -38,8 +38,12 @@ $app->group('/v1', function() use ($app){
 					routeUserRequests($app);
 		});
 
-		$app->group('/mails', function() use($app){
-					routeMailRequests($app);
+		$app->group('/mails', function() use( $app ){
+					routeMailRequests( $app );
+		});
+
+		$app->group('/upload', function() use( $app ){
+					routeUploadRequests( $app );
 		});
 }); //end of group
 /**

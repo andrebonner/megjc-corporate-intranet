@@ -1,17 +1,12 @@
+<button class="btn btn-success btn-block"
+        style="margin-bottom:10px;"
+        data-ng-click="goTo('mails/create')"><strong>CREATE MAIL</strong></button>
+
   <div class="panel panel-default">
-        <div class="panel-heading"><h1 class="panel-title">Overview</h1></div>
         <ul class="list-group">
           <li class="list-group-item">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
             <a href data-ng-click="goTo('mails')"> Mails <span style="float: right">{{mails.length}}</span></a>
           </li>
-            <li class="list-group-item">
-              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-              <a href data-ng-click="goTo('mails/create')">Create Mail</a>
-            </li>
-            <!-- <li class="list-group-item">
-              <i class="fa fa-pause-circle" aria-hidden="true"></i>
-              <a href>Pending Mails
-              <span style="float: right">10</span></a></li> -->
         </ul>
   </div>

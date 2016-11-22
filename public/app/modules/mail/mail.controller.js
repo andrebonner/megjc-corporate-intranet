@@ -8,6 +8,7 @@
 	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS){
 			$scope.message = false;
 			$scope.showOther = false;
+			$scope.revealAction = false;
 			$scope.mail = mailService.initMail();
 			var blank = angular.copy($scope.mail);
 			$scope.showMail = show;
@@ -19,8 +20,13 @@
 			$scope.createMail = createMail;
 			$scope.toggle = toggle;
 			$scope.root = API_URLS.root;
-
+			$scope.createAction = createAction;
+			$scope.revealActionForm = revealActionForm
+			$scope.cancel = cancel
+			$scope.uploadFile = uploadFile
+			$scope.file = []
 			getMails();
+
 
 			if($routeParams.id){
 				show($routeParams.id);
@@ -44,8 +50,9 @@
 				mailService
 					.getMail(id)
 					.then(function(mail){
-						$scope.mail = mail.mail;
-						$scope.uploads = mail.uploads;
+						$scope.mail_corr = mail.mail;
+						$scope.uploads = mail.uploads
+						$scope.actions = mail.actions
 						$location.path('/mails/' + id + '/view')
 					}).catch(function(error){
 						$scope.mail = {};
@@ -78,11 +85,8 @@
 				if($scope.mail.file_title === '' || $scope.mail.file_title == null){
 						$scope.mail.file_title = 'none';
 				}
-				if($scope.file && $scope.file.length > 0){
-						var files = $scope.file[0];
-				}
 				mailService
-					.createMail($scope.mail, files)
+					.createMail($scope.mail)
 					.then(function(res){
 						clearForm();
 						$scope.message = true;
@@ -100,7 +104,7 @@
 			}
 
 			function removeFile(){
-				$scope.files = [];
+				$scope.file = []
 			}
 			/**
 			 * Toggles text field to accept other mail type.
@@ -118,6 +122,56 @@
 						default: $scope.showOther = false;
 										 $scope.showFile = false;
 					}
+			}
+
+			function revealActionForm() {
+				$scope.revealAction = !$scope.revealAction
+			}
+
+			function cancel() {
+					$scope.revealAction = false
+					$scope.description = ''
+			}
+
+			function createAction(mail_id){
+				var mail = { mail_id : $scope.mail_corr.id,
+										 uid: loginService.getUserId(),
+									   description: $scope.description
+									 }
+				mailService
+					.createAction(mail)
+					.then(function(response){
+						cancel()
+						getActions($scope.mail_corr.id)
+					}).catch(function(error){
+						//show error message
+					})
+			}
+			/**
+			 * Get actions by mail id
+			 * @return {[type]} [description]
+			 */
+			function getActions(mail_id){
+				mailService
+					.getActions(mail_id)
+					.then(function(actions){
+						$scope.actions = actions
+					}).catch(function(error){
+						$scope.actions = []
+					});
+			}
+
+			function uploadFile() {
+				if($scope.file && $scope.file.length > 0){
+						var files = $scope.file[0];
+						mailService
+							.uploadFile(files, $scope.mail_corr.id)
+							.then(function(response){
+								 console.log('file uploaded')
+							}).catch(function(error){
+								console.log('file upload error')
+							})
+				}
 			}
 	}
 })();

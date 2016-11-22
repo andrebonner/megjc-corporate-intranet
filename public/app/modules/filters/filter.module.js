@@ -4,12 +4,14 @@
         .module('intranet')
         .filter('sanitize', sanitize)
         .filter('removeEntities', removeEntities)
-        .filter('timestamp', function(){
-		          return function(dateString){
-			             var dateObject = new Date(dateString).toISOString();
-			                return dateObject;
-		          }
-        }).filter('toMB', toMB);
+        .filter('timestamp', timestamp)
+        .filter('toMB', toMB);
+
+    function timestamp () {
+      return function (dateString) {
+        return new Date(dateString);
+      }
+    }
 
     function toMB(){
       return function(bytes){
@@ -39,6 +41,4 @@
                 }) );
             };
         }
-
-
 })();

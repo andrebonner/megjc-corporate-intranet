@@ -4,6 +4,9 @@ body{
 	/*margin-bottom: 400px;*/
 }
 
+.capitalize{
+	text-transform: capitalize;
+}
 .main-area{
 		height: auto;
 		min-height: 100vh;
@@ -301,4 +304,8 @@ li.list-group-item a:visited{
 
 .table>tbody>tr>td{
 	cursor: pointer;
+}
+
+.space{
+	margin-bottom: 15px;
 }
