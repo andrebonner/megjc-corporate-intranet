@@ -115,6 +115,15 @@
                             ":created_on" => date("Y-m-d H:i:s"),
                             ":dept_id" => $mail->dept_id ));
         $mail_id = $db->lastInsertId();
+        $stmt = null;
+        $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
+                VALUES (:mail_id, :uid, :description, :created_on)';
+        $stmt = $db->prepare( $sql );
+        $stmt->execute(array( ":mail_id" => $mail_id,
+                              ":uid" => 6,
+                              ":description" => "Mail correspondence created.",
+                              ":created_on" => date("Y-m-d H:i:s") ));
+
         closeDBConnection($db);
       } catch (PDOException $e) {
         $mail_id = '{"error":{"text":' .$e->getMessage(). '}}';
@@ -122,7 +131,10 @@
       setResponseHeader($app);
       echo json_encode($mail_id);
     });
-
+    /**
+     * [$filename description]
+     * @var [type]
+     */
     $app->post('/:id/upload', function( $id ) use ( $app ){
         //$upload = $_POST;
         if(!empty($_FILES)){
@@ -138,7 +150,10 @@
           echo json_encode('endpoint hit');
         }
     });
-
+    /**
+     * [$action description]
+     * @var [type]
+     */
     $app->post('/:id/actions', function( $id ) use ( $app ){
       $action = json_decode( $app->request->getBody() );
       $action_id = 0;
@@ -159,7 +174,10 @@
       setResponseHeader( $app );
       echo json_encode( $action_id );
     });
-
+    /**
+     * [$sql description]
+     * @var string
+     */
     $app->get('/:id/actions', function ( $id ) use ( $app ){
       $sql = 'SELECT id, created_on, mail_id, uid, description
                       FROM actions WHERE mail_id=:id
@@ -177,9 +195,28 @@
         echo '{"error":{"text":' .$e->getMessage(). '}}';
       }
     });
+    /**
+     * Get all attachments for a given mail correspondence id
+     * @var string
+     */
+    $app->get('/:id/attachments', function ( $id ) use ( $app ){
+      $sql = 'SELECT id, file_name, created_on
+                      FROM uploads WHERE mail_id=:id
+                      ORDER BY created_on DESC';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare( $sql );
+        $stmt->bindParam("id", $id);
+        $stmt->execute();
+        $result = $stmt->fetchAll( PDO::FETCH_OBJ );
+        closeDBConnection( $db );
+        setResponseHeader( $app );
+        echo json_encode( $result );
+      }catch(PDOException $e){
+        echo '{"error":{"text":' .$e->getMessage(). '}}';
+      }
+    });
   }
-
-
   /**
    * Creates an attachment for a mail correspondence.
    * @param  [type] $mail_id The id of a mail correspondence.

@@ -3,34 +3,33 @@
 	.module('mail')
 	.controller('Mail', Mail);
 
-	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService' , 'API_URLS'];
+	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService' , 'API_URLS', 'Upload'];
 
-	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS){
+	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS, Upload){
 			$scope.message = false;
 			$scope.showOther = false;
+			$scope.file_upload_msg = false
 			$scope.revealAction = false;
 			$scope.mail = mailService.initMail();
 			var blank = angular.copy($scope.mail);
 			$scope.showMail = show;
 			$scope.goTo = goTo;
 			$scope.createMail = createMail;
-			$scope.dimiss = dimiss;
+		//	$scope.dismiss = dismiss;
 			$scope.removeFile = removeFile;
 			$scope.clearForm = clearForm;
 			$scope.createMail = createMail;
 			$scope.toggle = toggle;
-			$scope.root = API_URLS.root;
+			$scope.root = API_URLS.root
 			$scope.createAction = createAction;
 			$scope.revealActionForm = revealActionForm
 			$scope.cancel = cancel
 			$scope.uploadFile = uploadFile
 			$scope.file = []
+
 			getMails();
 
-
-			if($routeParams.id){
-				show($routeParams.id);
-			}
+			if($routeParams.id) show($routeParams.id)
 			/**
 			 * Clears form.
 			 * @return {[type]} [description]
@@ -88,6 +87,9 @@
 				if($scope.mail.mail_type === 'other')
 					$scope.mail.mail_type = $scope.mail.other_type
 
+				if($scope.mail.mail_type === 'cabinet_sub')
+						$scope.mail.mail_type = 'cabinet sub'
+
 				mailService
 					.createMail($scope.mail)
 					.then(function(res){
@@ -102,8 +104,14 @@
 			 * Dimisses a success or error alert.
 			 * @return {[type]} [description]
 			 */
-			function dimiss(){
-				$scope.message = false;
+			function dismiss( alert_id ){
+				switch (alert_id) {
+					case 'file_upload_msg': $scope.file_upload_msg = !$scope.file_upload_msg;
+						break;
+						case 'message': $scope.message = !$scope.message;
+							break;
+				}
+				//$scope.message = false;
 			}
 			/**
 			 * Clears file upload array
@@ -182,15 +190,31 @@
 			 */
 			function uploadFile() {
 				if($scope.file && $scope.file.length > 0){
-						var files = $scope.file[0];
+						var files = $scope.file[0],
+								url = API_URLS.base_url + 'upload/' + $scope.mail_corr.id
 						mailService
-							.uploadFile(files, $scope.mail_corr.id)
-							.then(function(response){
-								 console.log('file uploaded')
-							}).catch(function(error){
-								console.log('file upload error')
-							})
+								.uploadFile( files, $scope.mail_corr.id )
+								.then(function ( response ){
+									//dismiss( 'file_upload_msg' )
+									removeFile()
+									getAttachments()
+									getActions( $scope.mail_corr.id )
+								})
 				}
+			}
+			/**
+			 * Get all attachments for a given mail correspondence by id
+			 * @return {[type]} [description]
+			 */
+			function getAttachments() {
+				var id = $scope.mail_corr.id
+				mailService
+						.getAttachments( id )
+						.then(function ( attachments ){
+								$scope.uploads = attachments
+						}).catch(function ( error ){
+								console.log('Error in getting attachments')
+						})
 			}
 	}
 })();

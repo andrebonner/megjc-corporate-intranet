@@ -25,7 +25,7 @@
 		.config(config)
 		.constant("API_URLS", {
 				base_url : '/intranet/api/v1/',
-				root: '/intranet/api'
+				root: 'intranet/api/routes/uploads'
 		});
 
 	function config($routeProvider, $httpProvider){

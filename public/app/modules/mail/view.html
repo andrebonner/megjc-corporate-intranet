@@ -1,11 +1,5 @@
 <div class="row">
   <div class="col-md-3"></div>
-  <!-- <div class="col-md-9">
-    <div class="alert alert-success alert-dismissible" role="alert" data-ng-if="vm.message">
-      <button type="button" class="close" aria-label="Close" data-ng-click="vm.dismiss()"><span aria-hidden="true">&times;</span></button>
-      <strong>Your issue has been submitted.</strong>
-    </div>
-  </div> -->
 </div>
 <div class="row">
 	<div class="col-md-3"></div>
@@ -56,19 +50,31 @@
     </div>
 
 
+    <!-- <div class="alert alert-success alert-dismissible"
+         role="alert"
+         data-ng-if="file_upload_msg">
+      <button type="button" class="close" aria-label="Close"
+              data-ng-click="dismiss('file_upload_msg')">
+              <span aria-hidden="true">&times;</span></button>
+      <strong>Attachment added to mail correspondence</strong>
+    </div> -->
 
-    <!-- <label>Attachments</label>
+    <label>Attachments</label>
     <p ng-show="uploads.length < 1">There are no attachments for this mail correspondence.</p>
     <table class="table table-hover" ng-show="uploads.length > 0">
         <tr ng-repeat="upload in uploads">
           <td style="color:#2780E3"><i class="fa fa-file-o" aria-hidden="true"></i></td>
           <td>{{upload.file_name}}</td>
-          <td>{{upload.created_on | timestamp | date: 'fullDate'}}</td>
-          <td><a ng-href="{{root}}/routes/uploads/{{upload.file_name}}"> View</a></td>
+          <td>{{upload.created_on | timestamp | date: 'MMM d'}}</td>
+          <td><a ng-href="{{root}}/{{upload.file_name}}"> View</a></td>
         </tr>
-    </table> -->
+    </table>
 
-    <!-- <div class="btn btn-primary space" ngf-select ng-model="file" ngf-multiple="true">Attach</div>
+    <div class="btn btn-primary space"
+         ngf-select ng-model="file"
+         ngf-multiple="true">
+         <i class="fa fa-paperclip" aria-hidden="true"></i> Attach File
+    </div>
 
     <div ng-show="file.length > 0">
       <label>Files to upload</label>
@@ -82,9 +88,12 @@
         </tr>
       </table>
 
-      <button class="btn btn-success">Upload Files</button>
+      <button class="btn btn-success" ng-click="uploadFile()">
+        <i class="fa fa-upload" aria-hidden="true"></i>
+        Upload File
+      </button>
 
-    </div> -->
+    </div>
 
 
 

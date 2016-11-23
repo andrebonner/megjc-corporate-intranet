@@ -12,25 +12,24 @@
           createMail: createMail,
           initMail: initMail,
           getActions: getActions,
+          getAttachments: getAttachments,
           createAction: createAction,
           uploadFile: uploadFile
       };
-
+      /**
+       * [uploadFile description]
+       * @param  {[type]} file    [description]
+       * @param  {[type]} mail_id [description]
+       * @return {[type]}         [description]
+       */
       function uploadFile(file, mail_id) {
-        var url = API_URLS.base_url + mail_id + '/upload'
+        var url = API_URLS.base_url + 'upload/' + mail_id
         return Upload.upload({
           url: url,
           file: file
-        }).then(handleSuccess)
-          .catch(handleError);
-
-        function handleSuccess(response) {
-          return response.data
-        }
-
-        function handleError(error) {
-          return error
-        }
+        }).then(function( response ){
+            return response
+        })
       }
       /**
        * Creates a mail correspondence.
@@ -52,19 +51,6 @@
         function handleError(error) {
            return error
         }
-        //  return	Upload.upload({
-       // 					 url: url,
-       // 					 file: files,
-       // 					 data: mail
-   		// 	      }).then(handleSuccess)
-        //         .catch(handleError);
-
-          function handleSuccess(response) {
-            return response.data;
-          }
-          function handleError(error) {
-            return error;
-          }
       }
       /**
        * Initializes an empty mail correspondence object
@@ -113,13 +99,18 @@
           return error;
         }
       }
-
+      /**
+       * Create a mail correspondence action
+       * @param  {[type]} mail [description]
+       * @return {[type]}      [description]
+       */
       function createAction(mail) {
         var url = API_URLS.base_url + 'mails/' + mail.mail_id + '/actions'
         return $http
                   .post(url, mail)
                   .then(handleSuccess)
                   .catch(handleError);
+
         function handleSuccess(response) {
           return response.data
         }
@@ -127,7 +118,11 @@
           return error
         }
       }
-
+      /**
+       * Get all actions for a given mail correspondence by id
+       * @param  {[type]} mail_id [description]
+       * @return {[type]}         [description]
+       */
       function getActions(mail_id){
         var url = API_URLS.base_url + 'mails/' + mail_id + '/actions'
         return $http
@@ -142,6 +137,26 @@
         function handleError (error) {
           return error
         }
+      }
+      /**
+       * Get file attachments by mail correspondence id.
+       * @param  {[type]} id Mail correspondence id.
+       * @return {[type]}    [description]
+       */
+      function getAttachments ( id ) {
+          var url = API_URLS.base_url + 'mails/' + id + '/attachments'
+          return $http
+                  .get(url)
+                  .then(handleSuccess)
+                  .catch(handleError);
+
+          function handleSuccess( response ) {
+            return response.data
+          }
+
+          function handleError ( error ) {
+            return error
+          }
       }
 
       return service;
