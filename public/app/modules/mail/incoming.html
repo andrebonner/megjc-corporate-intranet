@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-3"></div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">Incoming Mails</h2>
+	</div>
+</div>
+
+<div class="row help-desk">
+	<div class="col-md-3"
+       data-ng-include="'public/app/modules/mail/partials/menu.html'">
+  </div>
+
+	<div class="col-md-9">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <input type="text"
+                class="form-control"
+                placeholder="Type here to filter mail by sender or subject"
+                ng-model="search">
+        </div>
+      </div>
+    </div>
+			<div class="open-ticket-wrapper">
+        <div ng-show="mails.length < 1">
+          <p ><strong>There are no mails.</strong></p>
+          <button class="btn btn-success" ng-click="goTo('mails/create')">
+            Create Mail</button>
+        </div>
+
+				<table class="table table-hover" ng-show="mails.length > 0">
+					<thead>
+						<tr>
+              <th></th>
+							<th>Sender</th>
+							<th>Subject</th>
+							<th style="text-align:right;">Received</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
+              <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td>
+							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
+							<td class="capitalize">{{mail.subject}}</td>
+              <!-- <td>{{mail.mail_date | timestamp | date:'MMM d'}}</td> -->
+							<td style="text-align:right;width:150px;font-weight:600" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+</div>
