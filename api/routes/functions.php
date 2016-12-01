@@ -1,5 +1,6 @@
 <?php
 $dotenv = new Dotenv\Dotenv(__DIR__);
+use \Firebase\JWT\JWT;
 $dotenv->load();
 /**
  * Opens database connection
@@ -118,5 +119,53 @@ function setSession($key, $value){
 
 function getSession($key){
   return $_SESSION[$key];
+}
+/**
+ * Creates a default JWT token
+ * @return object JWT token
+ */
+function createJWTToken( $user ){
+  $token = array(
+    "iss" => getenv('DOMAIN'),
+    "iat" => time(),
+    "nbf" => time() + 10,
+    "uid" => $user['id'],
+    "name" => "Tremaine Buchanan",
+    "dept_id" => 1
+  );
+  return $token;
+}
+/**
+ * Encodes a JSON Web Token
+ * @param  object $token JSON Web Token
+ * @return string        Encoded JSON Web Token
+ */
+function encodeJWT( $token ){
+  $jwt = JWT::encode( $token, getenv('JWT_KEY') );
+  return $jwt;
+}
+/**
+ * Decodes a JSON Web Token
+ * @param  [type] $token [description]
+ * @return [type]        [description]
+ */
+function decodeJWT( $token ){
+  try {
+    $decoded = JWT::decode( $token, getenv('JWT_KEY'), array('HS256'));
+    $data = ( array ) $decoded;
+    return array(
+        "success" => true,
+        "data" =>  $data,
+        "http_code" => 200
+      );
+    return (array) $decoded;
+  } catch (Exception $e) {
+    return array(
+      "success" => false,
+      "error" => $e->getMessage(),
+      "http_code" => 401
+    );
+  }
+
 }
 ?>

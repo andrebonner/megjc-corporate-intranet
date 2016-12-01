@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit8075250c91ef9e2bbd903c749ce07777
 {
     public static $prefixLengthsPsr4 = array (
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -14,6 +18,10 @@ class ComposerStaticInit8075250c91ef9e2bbd903c749ce07777
     );
 
     public static $prefixDirsPsr4 = array (
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',

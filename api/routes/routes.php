@@ -8,4 +8,5 @@
   require 'user.php';
   require 'mail.php';
   require 'upload.php';
+  require 'token.php';
 ?>
