@@ -6,7 +6,10 @@
 	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService' , 'API_URLS', 'Upload'];
 
 	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS, Upload){
-			$scope.message = false;
+			$scope.message = {
+					show: false,
+					body: ''
+			}
 			$scope.showOther = false;
 			$scope.file_upload_msg = false
 			$scope.revealAction = false;
@@ -15,7 +18,6 @@
 			$scope.showMail = show;
 			$scope.goTo = goTo;
 			$scope.createMail = createMail;
-		//	$scope.dismiss = dismiss;
 			$scope.removeFile = removeFile;
 			$scope.clearForm = clearForm;
 			$scope.createMail = createMail;
@@ -26,10 +28,19 @@
 			$scope.cancel = cancel
 			$scope.uploadFile = uploadFile
 			$scope.file = []
+			$scope.logout = logout
+			$scope.update = updateMail
 
 			getMails();
+			getActionTypes()
 
-			if($routeParams.id) show($routeParams.id)
+			if($routeParams.id){
+				if($location.path().indexOf('view') != -1)
+					show($routeParams.id, 'view')
+
+				if($location.path().indexOf('edit') != -1)
+					show($routeParams.id, 'edit')
+			}
 			/**
 			 * Clears form.
 			 * @return {[type]} [description]
@@ -42,19 +53,23 @@
     		$scope.mailForm.$setUntouched();
 			}
 			/**
-			 * Show details of mail.
+			 * Show details of a mail correspondence.
 			 * @param  {[type]} id Id of a mail correspondence.
 			 */
-			function show (id){
+			function show ( id, action ){
 				mailService
 					.getMail(id)
 					.then(function(mail){
-						$scope.mail_corr = mail.mail;
+						$scope.mail_corr = mail.mail
+						if(action == 'edit'){
+							$scope.mail_corr.receipt_date = new Date(mail.mail.receipt_date)
+							$scope.mail_corr.mail_date = new Date(mail.mail.mail_date)
+						}
 						$scope.uploads = mail.uploads
 						$scope.actions = mail.actions
-						$location.path('/mails/' + id + '/view')
+						$location.path('/mails/' + id + '/' + action)
 					}).catch(function(error){
-						$scope.mail = {};
+						$scope.mail = {}
 					});
 			}
 			/**
@@ -62,14 +77,11 @@
 			 * @return {[type]} [description]
 			 */
 			function getMails (){
-				var dept_id = loginService.getDepartmentId();
-				mailService
-					.getMailsByDepartmentId(dept_id)
-					.then(function(mails){
-						$scope.mails = mails;
-					}).catch(function(error){
-						$scope.mails = [];
-					})
+				mailService.getMails().then(function(mails){
+					$scope.mails = mails
+				}).catch(function(error){
+					$scope.mails = []
+				})
 			}
 
 			function goTo (path){
@@ -93,11 +105,12 @@
 				mailService
 					.createMail($scope.mail)
 					.then(function(res){
-						clearForm();
-						$scope.message = true;
+						clearForm()
+						$scope.message.show = true
+						$scope.message.body = 'Mail correspondence successfully created.'
 						getMails()
 				}).catch(function(err){
-					 console.log('Error in creating mail');
+					 console.log('Error in creating mail')
 				});
 			}
 			/**
@@ -159,8 +172,8 @@
 			 */
 			function createAction(mail_id){
 				var mail = { mail_id : $scope.mail_corr.id,
-										 uid: loginService.getUserId(),
-									   description: $scope.description
+									   description: $scope.description,
+										 type_id: $scope.action_type.id
 									 }
 				mailService
 					.createAction(mail)
@@ -214,6 +227,40 @@
 								$scope.uploads = attachments
 						}).catch(function ( error ){
 								console.log('Error in getting attachments')
+						})
+			}
+			/**
+			 * Logs out a user
+			 * @return {[type]} [description]
+			 */
+			function logout() {
+				loginService.logout()
+				$location.path('/login')
+			}
+			/**
+			 * Updates a mail correspondence
+			 * @return {[type]} [description]
+			 */
+			function updateMail(){
+				mailService
+					.update($scope.mail_corr)
+					.then(function(res){
+						$scope.message.show = true
+						$scope.message.body = 'Mail correspondence successfully updated.'
+					}).catch(function(error){
+						$scope.message = true;
+						$scope.message.body = "We are experiencing an error at this time."
+					})
+			}
+
+			function getActionTypes() {
+				mailService
+						.getActionTypes()
+						.then(function(action_types){
+							$scope.action_type = action_types[0]
+							$scope.action_types = action_types
+						}).catch(function(error){
+							console.log('error in getting action types')
 						})
 			}
 	}

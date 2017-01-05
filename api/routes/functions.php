@@ -128,10 +128,9 @@ function createJWTToken( $user ){
   $token = array(
     "iss" => getenv('DOMAIN'),
     "iat" => time(),
-    "nbf" => time() + 10,
-    "uid" => $user['id'],
-    "name" => "Tremaine Buchanan",
-    "dept_id" => 1
+    "uid" => $user->id,
+    "name" => $user->uname,
+    "dept_id" => $user->dept_id
   );
   return $token;
 }
@@ -167,5 +166,13 @@ function decodeJWT( $token ){
     );
   }
 
+  function checkRequestHeader($app){
+    $token = $app->request->headers->get('Authorization');
+    if($token){
+      return decodeJWT( $token );
+    }else{
+      return false;
+    }
+  }
 }
 ?>

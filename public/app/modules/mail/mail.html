@@ -42,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
+						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id, 'view')">
               <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td>
 							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>

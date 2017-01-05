@@ -5,19 +5,24 @@
 
   function routeUserRequests( $app ){
     $app->post('/', function() use ( $app ){
-      $message = array( 'success' => true, 'user' => '' );
+      $message = array( 'success' => true, 'token' => '' );
       $user = json_decode( $app->request->getBody() );
       $result = findUserByDn( $user->dn );
       if( !$result ){
         $uid = createUser( $user->dn, $user->dept_id );
         if( !$uid ){
           $message['success'] = false;
-          $message['user'] = 0;
+          $message['token'] = 0;
         }else{
-          $message['user'] = findUserByID( $uid );
+          $user_obj = findUserByDn( $user->dn );
+          if(!$user_obj){
+            $token = createJWTToken( $user_obj );
+            $message['token'] = encodeJWT( $token );
+          }
         }
       }else{
-        $message['user'] = $result;
+        $token = createJWTToken( $result );
+        $message['token'] = encodeJWT( $token );
       }
       setResponseHeader( $app );
       echo json_encode( $message );

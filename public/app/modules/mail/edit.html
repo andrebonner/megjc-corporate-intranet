@@ -1,0 +1,168 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9">
+    <div class="alert alert-success alert-dismissible" role="alert" data-ng-if="message.show">
+      <button type="button" class="close" aria-label="Close" data-ng-click="dismiss( message )"><span aria-hidden="true">&times;</span></button>
+      <strong>{{message.body}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">Update Mail</h2>
+	</div>
+</div>
+
+<div class="row help-desk">
+	<div class="col-md-3"
+       data-ng-include="'public/app/modules/mail/partials/menu.html'"></div>
+  <div class="col-md-9">
+
+      <form name="mailForm" novalidate ng-submit="update()" >
+        <div class="form-group">
+          <label>Type of correspondence</label>
+          <br>
+          <label class="radio-inline">
+              <input type="radio" value="letter" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Letter
+          </label>
+          <label class="radio-inline">
+            <input type="radio" value="memo" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Memo
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="invitation" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Invitation
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="travel" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Overseas Travel
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="cabinet_sub" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Cabinet Sub
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="file" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> File
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="email" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Email
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="other" ng-model="mail_corr.mail_type" ng-click="toggle(mail.mail_type)"> Other
+          </label>
+      </div>
+
+      <div class="form-group" ng-show="showFile">
+        <label>Title of File</label>
+          <input class="form-control" type="text" ng-model="mail_corr.file_title">
+      </div>
+
+      <div class="form-group" ng-show="showOther">
+        <label>Other</label>
+          <input class="form-control" type="text" ng-model="mail_corr.other_type">
+      </div>
+
+      <div class="form-group">
+        <label>Receipt Date</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          <input class="form-control" type="date" ng-model="mail_corr.receipt_date">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Corespondence Date</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          <input class="form-control" type="date" ng-model="mail_corr.mail_date">
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>From (Organization)</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-building-o" aria-hidden="true"></i></span>
+          <input class="form-control"
+                 type="text"
+                 ng-model="mail_corr.from_org">
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error': mailForm.sender.$touched &&
+                   mailForm.sender.$invalid }">
+        <label>Sender's Name</label>
+          <input class="form-control"
+                 name="sender"
+                 type="text"
+                 ng-model="mail_corr.sender"
+                 ng-minlength="3"
+                 required>
+
+           <div class="help-block"
+                ng-messages="mailForm.sender.$error"
+                ng-if="mailForm.sender.$touched">
+
+               <p ng-message="minlength">The sender's name is too short.</p>
+               <p ng-message="required">The sender's name is required.</p>
+         </div>
+      </div>
+
+
+
+      <div class="form-group"
+           ng-class="{ 'has-error': mailForm.receipent.$touched &&
+                        mailForm.receipent.$invalid }">
+        <label>Recipient's Name</label>
+          <input class="form-control"
+                 name="receipent"
+                 type="text"
+                 ng-model="mail_corr.receipent"
+                 ng-minlength="3"
+                 required>
+
+        <div class="help-block"
+             ng-messages="mailForm.receipent.$error"
+             ng-if="mailForm.receipent.$touched">
+
+            <p ng-message="minlength">The receipent's name is too short.</p>
+            <p ng-message="required">The receipent's name is required.</p>
+      </div>
+    </div>
+
+
+      <div class="form-group">
+        <label>Subject of Correspondence</label>
+        <textarea class="form-control" ng-model="mail_corr.subject"></textarea>
+      </div>
+
+      <!-- <div class="form-group">
+        <label>Attach scanned copy of correspondence</label>
+        <br>
+        <div class="btn btn-primary" ngf-select ng-model="file" ngf-multiple="true">Attach</div>
+      </div> -->
+
+      <!-- <div ng-show="file.length > 0">
+        <label>Attachments</label>
+        <table class="table table-hover">
+          <tr ng-repeat="f in file">
+            <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+            <td>{{f.name}}</td>
+            <td>{{f.size | toMB}} MB</td>
+            <td><i class="fa fa-trash-o" aria-hidden="true"></i>
+              <a href ng-click="removeFile()">Remove</td>
+          </tr>
+        </table>
+      </div> -->
+
+      <hr>
+      <div class="form-group">
+        <a class="btn btn-default" ng-click="clearForm()">Cancel</a>
+        <button class="btn btn-success" type="submit">Update</button>
+      </div>
+      </form>
+  </div>
+</div>

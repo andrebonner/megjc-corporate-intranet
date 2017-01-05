@@ -14,10 +14,10 @@
        data-ng-include="'public/app/modules/mail/partials/menu.html'">
   </div>
   <div class="col-md-9">
-    <label>From </label>
-    <div class="well well-sm capitalize">
-      {{mail_corr.sender}}
-    </div>
+        <label>From </label>
+        <div class="well well-sm capitalize">
+          {{mail_corr.sender}}
+        </div>
 
     <label>Received on </label>
     <div class="well well-sm ">
@@ -113,13 +113,24 @@
     <div style="padding-top:15px" ng-show="revealAction">
       <form novalidate ng-submit="createAction()">
         <div class="form-group">
+          <label>Action Type</label>
+          <select
+            class="form-control capitalize"
+            ng-options="action_type.title for action_type in action_types track by action_type.id"
+            ng-model="action_type">
+        </select>
+        </div>
+
+        <div class="form-group">
           <label>Description</label>
           <textarea class="form-control" ng-model="description"></textarea>
         </div>
+
         <a class="btn btn-default" ng-click="cancel()">Cancel</a>
         <button class="btn btn-success" type="submit">Submit</button>
       </form>
     </div>
-
+    <hr />
+    <button class="btn btn-default" ng-click="showMail(mail_corr.id, 'edit')">Edit</button>
   </div>
 </div>

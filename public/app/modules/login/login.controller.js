@@ -6,14 +6,15 @@
 	Login.$inject = ['$location','loginService'];
 
 	function Login($location, loginService){
-		var vm = this;
-		vm.handleForm = handleForm;
-		vm.message = false;
+		var vm = this
+		vm.handleForm = handleForm
+		vm.message = loginService.initMessage()
 		vm.user = {
 			name : '',
 			password : ''
-		};
-		activate();
+		}
+		activate()
+
 		/**
 		 * Handles login form to authenticate user.
 		 * @param  {[type]} user User email and password.
@@ -32,24 +33,26 @@
 														.then(function(user){
 															if(user.success){
 																vm.user = {};
-																loginService.setUser(user.user);
+																loginService.setUser(user.token);
 																$location.path('/mails');
+															}else{
+																vm.message = loginService.message (response )
 															}
 														}).catch(function(error){
-															console.log('Error in getting user');
+															console.log('We are experiencing an issue at this time.');
 														})
 										}).catch(function(error){
-											console.log('Error in getting department');
+											console.log('We are experiencing an issue at this time.');
 										});
 							}else{
-								vm.message = true;
-								vm.user.password = '';
+								vm.message = loginService.message( response )
 							}
 						}).catch(function (error){
 								console.log(error);
 						});
 			}else{
-				vm.message = true;
+				vm.message.show = true;
+				vm.message.body = 'Invalid email/password!'
 				vm.user.password = '';
 			}
 		}

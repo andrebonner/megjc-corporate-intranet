@@ -4,6 +4,11 @@ body{
 	/*margin-bottom: 400px;*/
 }
 
+.login input:focus{
+	box-shadow: none;
+	border: 2px solid;
+}
+
 .capitalize{
 	text-transform: capitalize;
 }
@@ -308,4 +313,8 @@ li.list-group-item a:visited{
 
 .space{
 	margin-bottom: 15px;
+}
+
+.edit-btn{
+	padding: 10px;
 }

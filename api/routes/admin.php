@@ -27,9 +27,23 @@ function routeAdminRequests($app){
     }
     apiResponse($response, $app, $error, $status);
   });
- 
- $app->get('/cookies', function() use($app){
-	echo json_encode('Cookie');
- });
+
+  $app->post('/actions/types', function() use ( $app ){
+      $action_type = json_decode( $app->request->getBody() );
+      $type = new ActionType( $action_type );
+      $response = $type->save();
+      echo json_encode( $response );
+  });
+
+  $app->get('/actions/types', function() use ( $app ){
+      $response = ActionType::getAll();
+      if($response == false){
+        $code = 500;
+      }else{
+        $code = 200;
+      }
+      setHTTPStatus( $app, $code );
+      echo json_encode( $response );
+  });
 }
 ?>

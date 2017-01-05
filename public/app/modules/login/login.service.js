@@ -15,7 +15,10 @@
        getUserId: getUserId,
        getUser: getUser,
        logout: logout,
-       setUser: setUser
+       setUser: setUser,
+       getToken: getToken,
+       initMessage: initMessage,
+       message: message
      };
      /**
       * Authenticates a user based on email and password.
@@ -75,16 +78,16 @@
       * @return boolean true if user is authenticated.
       */
      function isAuthenticated() {
-       var user = JSON.parse(localStorage.getItem('user'));
+       var user = localStorage.getItem('user')
        if(user == null) return false
-       else if(typeof user === 'object') return true;
+       else return true
      }
      /**
       * Sets user object to local storage.
       * @param object user User object.
       */
-     function setUser(user) {
-       localStorage.setItem('user', JSON.stringify(user));
+     function setUser(token) {
+       localStorage.setItem('user', token);
      }
      /**
       * Gets a user object from local storage.
@@ -133,7 +136,30 @@
              return error;
            }
      }
-     
+
+     function getToken(){
+       var user = localStorage.getItem('user')
+       if(user == null) return false
+       else return user
+     }
+
+     function initMessage(){
+       return {
+         show: false,
+         error: true,
+         body: ''
+       }
+     }
+
+     function message( response ) {
+       if(response.status == 400)
+          return {
+              show: true,
+              error: true,
+              body: response.data.description
+       }
+     }
+
      return service;
    }
 })();

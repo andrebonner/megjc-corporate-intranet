@@ -1,7 +1,7 @@
-<div class="alert alert-danger" role="alert" ng-show="vm.message">
-	<strong>Your username/password is invalid. </strong>
-</div>
 <div class="login">
+	<div class="alert alert-danger text-center" role="alert" ng-show="vm.message.show">
+		<strong>{{vm.message.body}}</strong>
+	</div>
 <h1 class="main-section-title">Sign in</h1>
 <form novalidate data-ng-submit="vm.handleForm(vm.user)">
 	<div class="form-group">

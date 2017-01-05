@@ -14,8 +14,53 @@
           getActions: getActions,
           getAttachments: getAttachments,
           createAction: createAction,
-          uploadFile: uploadFile
+          uploadFile: uploadFile,
+          getMails: getMails,
+          update:update,
+          getActionTypes: getActionTypes
       };
+
+      function getMails() {
+        var currentTime = (new Date()).getTime(),
+            token = loginService.getToken(),
+            url = API_URLS.base_url + 'mails',
+            header = {'Authorization': token}
+
+        if(token){
+          return $http
+                  .get(url, {headers: header })
+                  .then(handleSuccess)
+                  .catch(handleError)
+          function handleError(error) {
+            return error
+          }
+          function handleSuccess(response) {
+            return response.data
+          }
+        }
+      }
+
+      /**
+       * Get a mail correspondence by id.
+       * @param  {[type]} id Id of a mail correspondence
+       * @return {[type]}    [description]
+       */
+      function getMail( id ){
+        var token = loginService.getToken(),
+            header = {'Authorization': token},
+            url = API_URLS.base_url + 'mails/' + id
+
+        return $http
+                .get(url, {headers: header})
+                .then(handleSuccess)
+                .catch(handleError);
+        function handleSuccess (response){
+          return response.data;
+        }
+        function handleError (error) {
+          return error;
+        }
+      }
       /**
        * [uploadFile description]
        * @param  {[type]} file    [description]
@@ -37,17 +82,17 @@
        * @return {[type]}      [description]
        */
       function createMail(mail){
-         mail.created_by = loginService.getUserId();
-         mail.dept_id = loginService.getDepartmentId();
-         var url = API_URLS.base_url + 'mails';
+         var url = API_URLS.base_url + 'mails',
+             token = loginService.getToken(),
+             header = {'Authorization': token}
+
          return $http
-                  .post(url, mail)
+                  .post(url, mail, {headers: header})
                   .then(handleSuccess)
                   .catch(handleError);
         function handleSuccess(response) {
             return response.data
         }
-
         function handleError(error) {
            return error
         }
@@ -67,24 +112,7 @@
           file_title: ''
         }
       }
-      /**
-       * Get a mail correspondence by id.
-       * @param  {[type]} id Id of a mail correspondence
-       * @return {[type]}    [description]
-       */
-      function getMail (id) {
-        var url = API_URLS.base_url + 'mails/' + id;
-        return $http
-                .get(url)
-                .then(handleSuccess)
-                .catch(handleError);
-        function handleSuccess (response){
-          return response.data;
-        }
-        function handleError (error) {
-          return error;
-        }
-      }
+
 
       function getMailsByDepartmentId(dept_id) {
         var url = API_URLS.base_url + 'mails/departments/' + dept_id;
@@ -104,17 +132,21 @@
        * @param  {[type]} mail [description]
        * @return {[type]}      [description]
        */
-      function createAction(mail) {
-        var url = API_URLS.base_url + 'mails/' + mail.mail_id + '/actions'
+      function createAction( mail ) {
+        var url = API_URLS.base_url + 'mails/' + mail.mail_id + '/actions',
+            token = loginService.getToken(),
+            header = {'Authorization': token}
+
         return $http
-                  .post(url, mail)
+                  .post(url, mail, {headers: header})
                   .then(handleSuccess)
                   .catch(handleError);
 
-        function handleSuccess(response) {
+        function handleSuccess( response ) {
           return response.data
         }
-        function handleError(error) {
+
+        function handleError( error ) {
           return error
         }
       }
@@ -157,6 +189,44 @@
           function handleError ( error ) {
             return error
           }
+      }
+      /**
+       * Updates a mail correspondence
+       * @param  {[type]} mail [description]
+       * @return {[type]}      [description]
+       */
+      function update(mail){
+        var url = API_URLS.base_url + 'mails/' + mail.id,
+            token = loginService.getToken(),
+            header =  { 'Authorization': token}
+
+        return $http
+                  .put(url, mail, {headers: header})
+                  .then(handleSuccess)
+                  .catch(handleError);
+
+        function handleSuccess(response) {
+            return response.data
+        }
+        function handleError(error) {
+          return error;
+        }
+      }
+
+      function getActionTypes(){
+        var url = API_URLS.base_url + 'admin/actions/types'
+
+        return $http
+                  .get(url)
+                  .then(handleSuccess)
+                  .catch(handleError);
+
+        function handleSuccess(response){
+          return response.data
+        }
+        function handleError(error) {
+           return error
+        }
       }
 
       return service;
