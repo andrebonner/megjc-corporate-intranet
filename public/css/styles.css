@@ -309,3 +309,13 @@ li.list-group-item a:visited{
 .space{
 	margin-bottom: 15px;
 }
+
+.mail > input{
+	background-color: #FAFAFA;
+	color: #333333;
+	margin-bottom: 15px;
+}
+
+.mail > input:focus{
+	background-color: #FFFFFF;
+}

@@ -13,11 +13,9 @@
 	<div class="col-md-3"
        data-ng-include="'public/app/modules/mail/partials/menu.html'">
   </div>
-  <div class="col-md-9">
-    <label>From </label>
-    <div class="well well-sm capitalize">
-      {{mail_corr.sender}}
-    </div>
+  <div class="col-md-9 mail ">
+    <label>Subject</label>
+    <input class="form-control capitalize" ng-model="mail_corr.subject">
 
     <label>Received on </label>
     <div class="well well-sm ">
@@ -29,26 +27,26 @@
       {{mail_corr.mail_date | timestamp | date:'fullDate'}}
     </div>
 
+    <label>Sender's Name </label>
+    <input class="form-control capitalize" ng-model="mail_corr.sender">
+
     <label>Recipient</label>
-    <div class="well well-sm capitalize">
-      {{mail_corr.receipent}}
-    </div>
+    <input class="form-control capitalize" ng-model="mail_corr.receipent">
 
     <label>From Organization</label>
-    <div class="well well-sm capitalize">
-      {{mail_corr.from_org}}
-    </div>
+    <input class="form-control capitalize" ng-model="mail_corr.from_org">
 
     <label>Type of Mail</label>
-    <div class="well well-sm capitalize">
-      {{mail_corr.mail_type}}
-    </div>
+    <input class="form-control capitalize" ng-model="mail_corr.mail_type" >
 
     <label>Entered on</label>
     <div class="well well-sm">
       {{mail_corr.created_on | timestamp | date:'fullDate'}}
     </div>
 
+    <button class="btn btn-primary" ng-click="update()">
+      <strong>Update Mail</strong>
+    </button>
 
     <!-- <div class="alert alert-success alert-dismissible"
          role="alert"
@@ -59,7 +57,7 @@
       <strong>Attachment added to mail correspondence</strong>
     </div> -->
 
-    <label>Attachments</label>
+    <!-- <label>Attachments</label>
     <p ng-show="uploads.length < 1">There are no attachments for this mail correspondence.</p>
     <table class="table table-hover" ng-show="uploads.length > 0">
         <tr ng-repeat="upload in uploads">
@@ -68,15 +66,15 @@
           <td>{{upload.created_on | timestamp | date: 'MMM d'}}</td>
           <td><a ng-href="{{root}}/{{upload.file_name}}"> View</a></td>
         </tr>
-    </table>
+    </table> -->
 
-    <div class="btn btn-primary space"
+    <!-- <div class="btn btn-primary space"
          ngf-select ng-model="file"
          ngf-multiple="true">
          <i class="fa fa-paperclip" aria-hidden="true"></i> Attach File
-    </div>
+    </div> -->
 
-    <div ng-show="file.length > 0">
+    <!-- <div ng-show="file.length > 0">
       <label>Files to upload</label>
       <table class="table table-hover">
         <tr ng-repeat="f in file">
@@ -93,7 +91,7 @@
         Upload File
       </button>
 
-    </div>
+    </div> -->
 
 
 
@@ -120,6 +118,8 @@
         <button class="btn btn-success" type="submit">Submit</button>
       </form>
     </div>
+
+    <hr >
 
   </div>
 </div>

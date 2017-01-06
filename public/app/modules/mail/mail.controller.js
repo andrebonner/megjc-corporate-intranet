@@ -30,6 +30,7 @@
 			$scope.uploadFile = uploadFile
 			$scope.file = []
 			$scope.logout = logout
+			$scope.update = update
 
 			getMails();
 
@@ -226,6 +227,16 @@
 			function logout() {
 				loginService.logout()
 				$location.path('/login')
+			}
+
+			function update() {
+				mailService
+					.updateMail($scope.mail_corr)
+					.then(function( response ){
+						console.log( response )
+					}).catch(function( error ){
+						 console.log('Error in updating mail')
+					})
 			}
 	}
 })();

@@ -216,7 +216,50 @@
         echo '{"error":{"text":' .$e->getMessage(). '}}';
       }
     });
+
+    $app->put('/:id', function( $id ) use ( $app ){
+      $request = json_decode( $app->request->getBody() );
+      try{
+        $db = openDBConnection();
+        $sql = 'UPDATE mails
+                SET mail_type=:mail_type,
+                    file_title=:file_title,
+                    mail_date=:mail_date,
+                    receipt_date=:receipt_date,
+                    from_org=:from_org,
+                    sender=:sender,
+                    receipent=:receipent,
+                    subject=:subject,
+                    created_by=:created_by,
+                    created_on=:created_on,
+                    dept_id=:dept_id
+                  WHERE id=:mail_id';
+
+        $stmt = $db->prepare( $sql );
+        $stmt->execute(array( ":mail_type" => $request->mail_type,
+                              ":mail_id" => $id,
+                              ":file_title"=> $request->file_title,
+                              ":mail_date" => $request->mail_date,
+                              ":receipt_date" => $request->receipt_date,
+                              ":from_org" => $request->from_org,
+                              ":sender" => $request->sender,
+                              ":receipent" => $request->receipent,
+                              ":subject" => $request->subject,
+                              ":created_by" => $request->created_by,
+                              ":created_on" => $request->created_on,
+                              ":dept_id" => $request->dept_id ));
+         $response = $request->id;
+        closeDBConnection( $db );
+      }catch(PDOException $e){
+        $response = '{"error":{"text":' .$e->getMessage(). '}}';
+      }
+      setResponseHeader( $app );
+      echo json_encode( $response );
+    });
+
   }
+
+
   /**
    * Creates an attachment for a mail correspondence.
    * @param  [type] $mail_id The id of a mail correspondence.
