@@ -96,7 +96,7 @@ function getDnFromLDAP($conn, $q){
 	$attrs = array("displayname","cn", "sn", "givenname", "userPrincipalName", "samaccountname", "telephonenumber", "memberOf", "distinguisedName", "ou");
 	$results = ldap_search($conn, $dn, $filter, $attrs);
 	$info = ldap_get_entries($conn, $results);
-	return $info[0]["dn"]; 
+	return $info[0]["dn"];
 }
 
 function bindLDAP($conn, $dn, $password){
