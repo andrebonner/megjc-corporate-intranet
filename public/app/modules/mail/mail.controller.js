@@ -1,3 +1,6 @@
+/**
+ * @author Tremaine Buchanan (tremaine.buchanan@megjc.gov.jm)
+ */
 (function(){
 	angular
 	.module('mail')
@@ -26,6 +29,7 @@
 			$scope.cancel = cancel
 			$scope.uploadFile = uploadFile
 			$scope.file = []
+			$scope.logout = logout
 
 			getMails();
 
@@ -215,6 +219,13 @@
 						}).catch(function ( error ){
 								console.log('Error in getting attachments')
 						})
+			}
+			/**
+			 * Logs out signed in user
+			 */
+			function logout() {
+				loginService.logout()
+				$location.path('/login')
 			}
 	}
 })();
