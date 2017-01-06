@@ -310,6 +310,15 @@ li.list-group-item a:visited{
 	margin-bottom: 15px;
 }
 
+.mail > textarea{
+	background-color: #FAFAFA;
+	color: #333333;
+	margin-bottom: 15px;
+}
+.mail > textarea:focus{
+		background-color: #FFFFFF;
+}
+
 .mail > input{
 	background-color: #FAFAFA;
 	color: #333333;

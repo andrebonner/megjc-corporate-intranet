@@ -249,6 +249,15 @@
                               ":created_on" => $request->created_on,
                               ":dept_id" => $request->dept_id ));
          $response = $request->id;
+         $stmt = null;
+         $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
+                 VALUES (:mail_id, :uid, :description, :created_on)';
+         $desc = "Mail correspondence updated by ". $request->uname;
+         $stmt = $db->prepare( $sql );
+         $stmt->execute(array( ":mail_id" => $id,
+                               ":uid" => $request->created_by,
+                               ":description" => $desc,
+                               ":created_on" => date("Y-m-d H:i:s") ));
         closeDBConnection( $db );
       }catch(PDOException $e){
         $response = '{"error":{"text":' .$e->getMessage(). '}}';

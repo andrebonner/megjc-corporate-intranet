@@ -21,7 +21,7 @@
   </div>
   <div class="col-md-9 mail ">
     <label>Subject</label>
-    <input class="form-control capitalize" ng-model="mail_corr.subject">
+    <textarea class="form-control capitalize" ng-model="mail_corr.subject"></textarea>
 
     <label>Received on </label>
     <div class="well well-sm ">
@@ -43,7 +43,10 @@
     <input class="form-control capitalize" ng-model="mail_corr.from_org">
 
     <label>Type of Mail</label>
-    <input class="form-control capitalize" ng-model="mail_corr.mail_type" >
+    <div class="well well-sm capitalize">
+      {{mail_corr.mail_type }}
+    </div>
+    <!-- <input class="form-control capitalize" ng-model="mail_corr.mail_type" > -->
 
     <label>Entered on</label>
     <div class="well well-sm">

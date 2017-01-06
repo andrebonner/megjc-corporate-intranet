@@ -166,8 +166,8 @@
        */
       function updateMail( mail ) {
         var url = API_URLS.base_url + 'mails/' + mail.id
-        mail.created_by = loginService.getUserId();
-        
+        mail.created_by = loginService.getUserId()
+        mail.uname = loginService.getUserName()
         return $http
                 .put(url, mail)
                 .then(handleSuccess)

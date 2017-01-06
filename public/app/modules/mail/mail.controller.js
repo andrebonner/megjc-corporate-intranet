@@ -234,6 +234,7 @@
 					.updateMail($scope.mail_corr)
 					.then(function( response ){
 						$scope.message = true
+						show($scope.mail_corr.id)
 					}).catch(function( error ){
 						 console.log('Error in updating mail')
 					})
