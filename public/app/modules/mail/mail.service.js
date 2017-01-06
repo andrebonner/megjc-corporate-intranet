@@ -14,7 +14,8 @@
           getActions: getActions,
           getAttachments: getAttachments,
           createAction: createAction,
-          uploadFile: uploadFile
+          uploadFile: uploadFile,
+          updateMail: updateMail
       };
       /**
        * [uploadFile description]
@@ -157,6 +158,28 @@
           function handleError ( error ) {
             return error
           }
+      }
+      /**
+       * [updateMail description]
+       * @param  {[type]} mail [description]
+       * @return {[type]}      [description]
+       */
+      function updateMail( mail ) {
+        var url = API_URLS.base_url + 'mails/' + mail.id
+        mail.created_by = loginService.getUserId();
+        
+        return $http
+                .put(url, mail)
+                .then(handleSuccess)
+                .catch(handleError);
+
+        function handleSuccess( response ) {
+          return response.data
+        }
+
+        function handleError ( error ) {
+          return error
+        }
       }
 
       return service;
