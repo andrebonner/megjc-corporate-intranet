@@ -233,7 +233,7 @@
 				mailService
 					.updateMail($scope.mail_corr)
 					.then(function( response ){
-						console.log( response )
+						$scope.message = true
 					}).catch(function( error ){
 						 console.log('Error in updating mail')
 					})
