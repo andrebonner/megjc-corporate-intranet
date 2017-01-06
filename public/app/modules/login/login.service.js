@@ -14,6 +14,7 @@
        getDepartment: getDepartment,
        getUserId: getUserId,
        getUser: getUser,
+       getUserName: getUserName,
        logout: logout,
        setUser: setUser
      };
@@ -117,6 +118,14 @@
        localStorage.removeItem('user');
      }
      /**
+      * Get username from local storage.
+      * @return string uname
+      */
+     function getUserName(){
+       var user = JSON.parse(localStorage.getItem('user'))
+       return user.uname
+     }
+     /**
       * Gets the user.
       * @param  {[type]} dn      [description]
       * @param  {[type]} dept_id [description]
@@ -133,7 +142,7 @@
              return error;
            }
      }
-     
+
      return service;
    }
 })();
