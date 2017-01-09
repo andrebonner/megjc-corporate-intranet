@@ -1,10 +1,16 @@
 <div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-9">
-    <div class="alert alert-success alert-dismissible" role="alert" data-ng-if="message">
-      <button type="button" class="close" aria-label="Close" data-ng-click="dismiss( message )"><span aria-hidden="true">&times;</span></button>
-      <strong>Mail correspondence created.</strong>
+    <div ng-class="{'alert alert-success alert-dismissible': success, 'alert alert-danger alert-dismissible' : error}"
+         role="alert" data-ng-if="message">
+      <strong>{{text}}</strong>
     </div>
+
+    <!-- <div class="alert alert-danger alert-dismissible" role="alert" data-ng-if="error">
+      <button type="button" class="close" aria-label="Close" data-ng-click="dismiss( message )"><span aria-hidden="true">&times;</span></button>
+      <strong>Something went wrong!</strong>
+    </div> -->
+
   </div>
 </div>
 <div class="row">

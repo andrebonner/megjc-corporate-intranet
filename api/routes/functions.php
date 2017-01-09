@@ -119,4 +119,18 @@ function setSession($key, $value){
 function getSession($key){
   return $_SESSION[$key];
 }
+/**
+ * Checks if a property of an object is empty
+ * @param  [type]  $mail [description]
+ * @return boolean       [description]
+ */
+function isValueEmpty( $mail ){
+  $empty = false;
+  foreach ($mail as $key => $value) {
+    if(empty($value)){
+      $empty = true;
+    }
+  }
+  return $empty;
+}
 ?>

@@ -9,7 +9,9 @@
 	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService' , 'API_URLS', 'Upload'];
 
 	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS, Upload){
-			$scope.message = false;
+			$scope.message = false
+			$scope.error = false
+			$scope.text = ''
 			$scope.showOther = false;
 			$scope.file_upload_msg = false
 			$scope.revealAction = false;
@@ -85,22 +87,30 @@
 			 * @param  {[type]} mail [description]
 			 * @return {[type]}      [description]
 			 */
-			function createMail(){
-				if($scope.mail.file_title === '' || $scope.mail.file_title == null)
-						$scope.mail.file_title = 'none'
-
-				if($scope.mail.mail_type === 'other')
-					$scope.mail.mail_type = $scope.mail.other_type
-
-				if($scope.mail.mail_type === 'cabinet_sub')
-						$scope.mail.mail_type = 'cabinet sub'
-
+			function createMail(){				
 				mailService
 					.createMail($scope.mail)
 					.then(function(res){
-						clearForm();
-						$scope.message = true;
-						getMails()
+
+						if(res.status === 500){
+							$scope.message = true
+							$scope.text = 'An error has occurred on the server'
+							$scope.error = true
+						}
+
+						if(res.status === 400){
+							$scope.message = true
+							$scope.text = 'Please review the form for errors'
+							$scope.error = true
+						}
+
+						if(res.status === 200){
+							$scope.message = true
+							$scope.text = 'Mail correspondence created successfully'
+							$scope.success = true
+							clearForm()
+							getMails()
+						}
 				}).catch(function(err){
 					 console.log('Error in creating mail');
 				});

@@ -91,44 +91,55 @@
      * Creates a mail correspondence.
      */
     $app->post('/', function() use ( $app ){
-      $mail = json_decode( $app->request->getBody() );
-      try {
-        $db = openDBConnection();
-        $sql = 'INSERT INTO mails (mail_type, file_title,
-                                  mail_date, receipt_date,
-                                  from_org, sender, receipent, subject,
-                                  created_by, created_on, dept_id)
-                            VALUES (:mail_type, :file_title, :mail_date,
-                                    :receipt_date, :from_org, :sender,
-                                    :receipent, :subject, :created_by,
-                                    :created_on, :dept_id)';
-        $stmt = $db->prepare($sql);
-        $stmt->execute(array(":mail_type" => $mail->mail_type,
-                            ":file_title" => strtolower( $mail->file_title ),
-                            ":mail_date" => $mail->mail_date,
-                            ":receipt_date" => $mail->receipt_date,
-                            ":from_org" => strtolower( $mail->from_org ),
-                            ":sender" => strtolower( $mail->sender ),
-                            ":receipent" => strtolower( $mail->receipent ),
-                            ":subject" => strtolower( $mail->subject ),
-                            ":created_by" => $mail->created_by,
-                            ":created_on" => date("Y-m-d H:i:s"),
-                            ":dept_id" => $mail->dept_id ));
-        $mail_id = $db->lastInsertId();
-        $stmt = null;
-        $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
-                VALUES (:mail_id, :uid, :description, :created_on)';
-        $stmt = $db->prepare( $sql );
-        $stmt->execute(array( ":mail_id" => $mail_id,
-                              ":uid" => 6,
-                              ":description" => "Mail correspondence created.",
-                              ":created_on" => date("Y-m-d H:i:s") ));
+      $mail = json_decode( $app->request->getBody(), true);
+      $mail_id = false;
+      $status = null;
+      if(!isValueEmpty($mail)){
+        try {
+          $db = openDBConnection();
+          $sql = 'INSERT INTO mails (mail_type, file_title,
+                                    mail_date, receipt_date,
+                                    from_org, sender, receipent, subject,
+                                    created_by, created_on, dept_id)
+                              VALUES (:mail_type, :file_title, :mail_date,
+                                      :receipt_date, :from_org, :sender,
+                                      :receipent, :subject, :created_by,
+                                      :created_on, :dept_id)';
+          $stmt = $db->prepare($sql);
+          $stmt->execute(array(":mail_type" => $mail['mail_type'],
+                              ":file_title" => strtolower( $mail['file_title'] ),
+                              ":mail_date" => $mail['mail_date'],
+                              ":receipt_date" => $mail['receipt_date'],
+                              ":from_org" => strtolower( $mail['from_org'] ),
+                              ":sender" => strtolower( $mail['sender'] ),
+                              ":receipent" => strtolower( $mail['receipent'] ),
+                              ":subject" => strtolower( $mail['subject'] ),
+                              ":created_by" => $mail['created_by'],
+                              ":created_on" => date("Y-m-d H:i:s"),
+                              ":dept_id" => $mail['dept_id'] ));
+          $mail_id = $db->lastInsertId();
+          $stmt = null;
+          $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
+                  VALUES (:mail_id, :uid, :description, :created_on)';
+          $stmt = $db->prepare( $sql );
+          $stmt->execute(array( ":mail_id" => $mail_id,
+                                ":uid" => 6,
+                                ":description" => "Mail correspondence created.",
+                                ":created_on" => date("Y-m-d H:i:s") ));
 
-        closeDBConnection($db);
-      } catch (PDOException $e) {
-        $mail_id = '{"error":{"text":' .$e->getMessage(). '}}';
+          closeDBConnection($db);
+        } catch (PDOException $e) {
+          $mail_id = '{"error":{"text":' .$e->getMessage(). '}}';
+          $status = 400;
+        }
+      }
+      if(is_numeric($mail_id)){
+        $status = 200;
+      }else{
+        $status = 400;
       }
       setResponseHeader($app);
+      setHTTPStatus($app, $status);
       echo json_encode($mail_id);
     });
     /**
