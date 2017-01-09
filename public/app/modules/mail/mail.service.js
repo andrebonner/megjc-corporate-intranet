@@ -38,15 +38,25 @@
        * @return {[type]}      [description]
        */
       function createMail(mail){
+        if(mail.file_title === '' || mail.file_title == null)
+						mail.file_title = 'none'
+
+				if(mail.mail_type === 'other')
+					mail.mail_type = mail.other_type
+
+				if(mail.mail_type === 'cabinet_sub')
+						mail.mail_type = 'cabinet sub'
+
          mail.created_by = loginService.getUserId();
          mail.dept_id = loginService.getDepartmentId();
+
          var url = API_URLS.base_url + 'mails';
          return $http
                   .post(url, mail)
                   .then(handleSuccess)
                   .catch(handleError);
         function handleSuccess(response) {
-            return response.data
+            return response
         }
 
         function handleError(error) {
