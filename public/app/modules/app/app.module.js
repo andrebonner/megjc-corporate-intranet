@@ -27,7 +27,7 @@
 		});
 
 	function config($routeProvider, $httpProvider){
-	 $routeProvider.otherwise({redirectTo: '/'});
+	 $routeProvider.otherwise({redirectTo: '/'})
 	}
 	/**
 	 * Checks if an application route is protected.
