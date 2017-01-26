@@ -21,11 +21,11 @@
 
 			$http.get(abs_url).then(function(data){
 				console.log(data.data.items.slice(0,3));
-				$scope.news = data.data.items.slice(0,3);
-				
+				$scope.news = data.data.items.slice(0,3)
+
 				// var top_news = data.items.slice(0,3);
 				// console.log(top_news);
-			});	
+			});
 		}
 	}
 
