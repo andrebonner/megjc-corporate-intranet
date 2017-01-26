@@ -6,8 +6,7 @@
     homeService.$inject = ['$http'];
 
     function homeService($http){
-      var folder = "/intranet";
-      var apiBaseUrl = folder + "/wordpress/api";
+      var apiBaseUrl = "/wordpress/api";
       var service = {
           getVacancies: getVacancies,
           getVacancyBySlug: getVacancyBySlug,

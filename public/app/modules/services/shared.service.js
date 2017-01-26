@@ -12,7 +12,7 @@
 		 * @return {[type]}       [description]
 		 */
 		function sharedServices($http, $location){
-			var apiBaseUrl = "/intranet/wordpress/api";
+			var apiBaseUrl = "/wordpress/api";
 			var services = {
 				goTo: goTo,
 				getPostBySlug: getPostBySlug,
