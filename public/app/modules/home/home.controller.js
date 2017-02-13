@@ -16,11 +16,11 @@
 	function Home($http, $location, $window, $routeParams, homeService, sharedServices){
 		var vm = this;
 		//getVacancies();
-		getLeadStory();
-		getDidYouKnow();
-		getRSSFeed();
-		getStaffFocus();
-		getBlogPosts();
+		//getLeadStory();
+		//getDidYouKnow();
+		//getRSSFeed();
+		//getStaffFocus();
+		//getBlogPosts();
 		vm.goTo = goTo;
 		//vm.getNotices = getNotices;
 		vm.getBlogs = getBlogs;
