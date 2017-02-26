@@ -3,9 +3,9 @@
    .module('login')
    .service('loginService', loginService);
 
-   loginService.$inject = ['$http', '$window','API_URLS'];
+   loginService.$inject = ['$http', '$window','API_URL'];
 
-   function loginService($http, $window, API_URLS) {
+   function loginService($http, $window, API_URL) {
      var service = {
        authenticate: authenticate,
        checkCredentials: checkCredentials,
@@ -26,7 +26,7 @@
       */
      function authenticate(user) {
        return $http
-                .post(API_URLS.base_url + 'auth', user)
+                .post(API_URL.base_url + 'auth', user)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess(response){
@@ -53,7 +53,7 @@
       * @return object
       */
      function getDepartment(dn) {
-       return $http.post(API_URLS.base_url + 'departments', {dn: dn})
+       return $http.post(API_URL.base_url + 'departments', {dn: dn})
                    .then(handleSuccess)
                    .catch(handleError);
        /**
@@ -78,7 +78,7 @@
       * @return boolean true if user is authenticated.
       */
      function isAuthenticated() {
-       return $http.get('/api/v2/auth/token')
+       return $http.get(API.URL + 'auth/token')
                    .then(function (res) {
                       return res.data
                    }).catch(function (error) {
@@ -137,7 +137,7 @@
       * @return {[type]}         [description]
       */
      function getUser(dn, dept_id) {
-       return $http.post(API_URLS.base_url + 'users', {dn: dn, dept_id: dept_id})
+       return $http.post(API_URL.base_url + 'users', {dn: dn, dept_id: dept_id})
                    .then(handleSuccess)
                    .catch(handleError);
            function handleSuccess(response){

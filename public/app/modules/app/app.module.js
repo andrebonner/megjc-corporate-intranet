@@ -13,7 +13,7 @@
 		'api-interceptors'
 	]).run(routeLogin)
 		.config(config)
-		.constant("API_URLS", {
+		.constant("API_URL", {
 				base_url : '/api/v2/'
 		});
 

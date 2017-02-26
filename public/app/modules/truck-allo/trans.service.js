@@ -5,10 +5,10 @@
         .module('trans')
         .service('transService', transService);
 
-    transService.$inject = ['$http'];
+    transService.$inject = ['$http', 'API_URL'];
 
     /* @ngInject */
-    function transService($http) {
+    function transService($http, API_URL) {
         var service = {
           getTransaction: getTransaction,
           getTransactions: getTransactions,
@@ -18,7 +18,7 @@
 
         function getTransactions() {
           return $http
-                    .get('/api/v2/transactions')
+                    .get(API_URL + 'transactions')
                     .then(function (res) {
                       return res.data
                     }).catch(function(res){
@@ -28,7 +28,7 @@
 
         function getTransaction( id ) {
           return $http
-                    .get('/api/v2/transactions/' + id)
+                    .get(API_URL + 'transactions/' + id)
                     .then(function (res) {
                       return res.data
                     }).catch(function(res){
@@ -38,7 +38,7 @@
 
         function updateTransaction( value, id ) {
           var update = {'value': value},
-              url = '/api/v2/transactions/' + id
+              url = API_URL + 'transactions/' + id
           return $http
                     .put(url, update)
                     .then(function (res) {
@@ -50,7 +50,7 @@
 
         function createTransaction( trans ) {
           return $http
-            .post('/api/v2/transactions', trans)
+            .post(API_URL + 'transactions', trans)
             .then(function (res) {
                return res.data
             }).catch(function (res) {
