@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-3"></div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">Trucking Water Allocation</h2>
+	</div>
+</div>
+
+<div class="row help-desk">
+	<div class="col-md-3" ng-include="'public/app/modules/truck-allo/tpl/menu.tpl.html'"></div>
+
+	<div class="col-md-9">
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <input type="text"
+                class="form-control"
+                placeholder="Type here to filter mail by sender or subject"
+                ng-model="search">
+        </div>
+      </div>
+    </div> -->
+			<div class="open-ticket-wrapper">
+        <div ng-show="vm.councils.length < 1">
+          <p><strong>Detail report is currently unavailable.</strong></p>
+        </div>
+
+        <table class="table table-hover" ng-show="vm.councils.length > 1">
+					<thead>
+						<tr>
+              <th>Parish Council</th>
+							<th>Balance B/F</th>
+							<th>Current FY Allocation</th>
+							<th>Total</th>
+              <th>Current FY Expenditure</th>
+              <th>Balance</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="council in vm.councils">
+              <!-- <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td> -->
+							<td>{{council.name}}</td>
+							<td>{{council.balance | currency}}</td>
+							<td>{{council.allocation | currency}}</td>
+              <td>{{council.total | currency}}</td>
+              <td>{{council.expenses | currency }}</td>
+              <td>{{council.acc_bal | currency }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+</div>

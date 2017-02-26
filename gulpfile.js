@@ -11,10 +11,12 @@
         uglify = require('gulp-uglify'),
         ngmin = require('gulp-ngmin'),
         annotate = require('gulp-ng-annotate'),
+        plumber = require('gulp-plumber'),
         del = require('del'),
         js = ['./public/app/**/**/*.module.js',
              './public/app/**/**/*.controller.js',
-             './public/app/**/**/*.service.js'];
+             './public/app/**/**/*.service.js',
+             './public/app/**/**/*.interceptor.js'];
 
 
   gulp.task('clean', ['dist'], ()=>{
@@ -24,7 +26,9 @@
   gulp.task('dist', ()=>{
       return gulp.src(['./public/app/**/**/*.module.js',
                     './public/app/**/**/*.controller.js',
-                    './public/app/**/**/*.service.js'])
+                    './public/app/**/**/*.service.js',
+                    './public/app/**/**/*.interceptor.js'])
+              .pipe(plumber())
               .pipe(concat('./public/build/concat.js'))
               .pipe(rename('./src.min.js'))
               .pipe(annotate())

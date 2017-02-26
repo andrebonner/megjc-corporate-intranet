@@ -3,31 +3,23 @@
 	.module('intranet',[
 		'ngRoute',
 		'ngCookies',
-		'navigation',
+		'ngMessages',
 		'home',
-		'directory',
-		'birthday',
 		'login',
-		'notice',
-		'help',
-		'content',
+		'dashboard',
+		'mail',
+		'trans',
 		'shared-services',
-		'staff',
-		'blog',
-		'vacancy',
-		'poll',
-		'policy',
-		'form',
-		'promotion',
-		'mail'
+		'api-interceptors'
 	]).run(routeLogin)
 		.config(config)
 		.constant("API_URLS", {
-				base_url : '/api/v1/'
+				base_url : '/api/v2/'
 		});
 
 	function config($routeProvider, $httpProvider){
-	 $routeProvider.otherwise({redirectTo: '/login'})
+	 $httpProvider.interceptors.push('apiService')
+	//  $routeProvider.when('/40')
 	}
 	/**
 	 * Checks if an application route is protected.
@@ -36,11 +28,14 @@
 	 * @param  {[type]} sharedServices [description]
 	 * @return {[type]}                [description]
 	 */
-  function routeLogin($rootScope, $location, loginService){
+  function routeLogin($rootScope, $location, $window, loginService){
   	$rootScope.$on('$routeChangeStart', function(event, next, current){
-  		if(next.access.restricted && !loginService.isAuthenticated()){
-				 $location.path('/login');
-			}
-  	});
+				if($location.path() !== '/login' || sessionStorage.getItem('_jwt') !== null){
+						loginService.isAuthenticated()
+				}else{
+					$location.path('/login')
+				}
+		})
   }
+
 })();

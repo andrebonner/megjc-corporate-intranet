@@ -26,7 +26,7 @@
 			}
 
       function isAuth(){
-      	return $http.get('/api/v1/auth/user')
+      	return $http.get('/api/v2/auth/user')
       				.then(handleSuccess)
       				.catch(handleError);
       	function handleSuccess(response){ return response.data; }

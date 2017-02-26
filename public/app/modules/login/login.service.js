@@ -3,11 +3,11 @@
    .module('login')
    .service('loginService', loginService);
 
-   loginService.$inject = ['$http', 'API_URLS'];
+   loginService.$inject = ['$http', '$window','API_URLS'];
 
-   function loginService($http, API_URLS) {
+   function loginService($http, $window, API_URLS) {
      var service = {
-       authUser: authUser,
+       authenticate: authenticate,
        checkCredentials: checkCredentials,
        isAuthenticated: isAuthenticated,
        getDepartmentId: getDepartmentId,
@@ -16,15 +16,17 @@
        getUser: getUser,
        getUserName: getUserName,
        logout: logout,
-       setUser: setUser
+       setUser: setUser,
+       setToken: setToken,
+       getToken: getToken
      };
      /**
       * Authenticates a user based on email and password.
       * @param  {[type]} user User's email and password
       */
-     function authUser(credentials) {
+     function authenticate(user) {
        return $http
-                .post(API_URLS.base_url + 'auth', credentials)
+                .post(API_URLS.base_url + 'auth', user)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess(response){
@@ -40,8 +42,8 @@
       * @return boolean             [description]
       */
      function checkCredentials( credentials ) {
-       if(credentials.name === '' && credentials.password === '') return false;
-       if(credentials.name === '' || credentials.password === '') return false;
+       if(credentials.username === '' && credentials.password === '') return false;
+       if(credentials.username === '' || credentials.password === '') return false;
 
        return true;
      }
@@ -76,9 +78,12 @@
       * @return boolean true if user is authenticated.
       */
      function isAuthenticated() {
-       var user = JSON.parse(localStorage.getItem('user'));
-       if(user == null) return false
-       else if(typeof user === 'object') return true;
+       return $http.get('/api/v2/auth/token')
+                   .then(function (res) {
+                      return res.data
+                   }).catch(function (error) {
+                      return error
+                   });
      }
      /**
       * Sets user object to local storage.
@@ -141,6 +146,21 @@
            function handleError(error){
              return error;
            }
+     }
+
+     function setToken( token ) {
+       if(token != null || token != undefined ) sessionStorage.setItem('_jwt', token)
+     }
+
+     function getToken() {
+        var token = sessionStorage.getItem('_jwt');
+        if(typeof token === 'undefined') return false
+     }
+
+     function _createAuthHeader() {
+       var token = sessionStorage.getItem('_jwt') || '',
+           auth_header = {'Authorization': 'Bearer ' + token }
+       return auth_header
      }
 
      return service;

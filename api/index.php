@@ -1,54 +1,28 @@
-	<?php
+<?php
+use Slim\App;
 require 'vendor/autoload.php';
-require 'routes/routes.php';
 
-$config['displayErrorDetails'] = true;
+$app = new App([
+    'settings' => [
+        'determineRouteBeforeAppMiddleware' => true
+    ]
+]);
 
-$app = new \Slim\Slim(["settings" => $config]);
-/**
-* Slim group defining version of api
-*/
-$app->group('/v1', function() use ($app){
+$container = $app->getContainer();
 
-		$app->group('/departments', function() use ($app){
-				routeDepartmentRequests($app);
-		});
+$container['AuthCtrl'] = function($container){
+  return new \App\Controllers\AuthCtrl($container);
+};
 
-		$app->group('/employees', function() use($app){
-				routeEmployeeRequests($app);
-		});
+$container['TransCtrl'] = function($container){
+  return new \App\Controllers\TransCtrl($container);
+};
 
-		$app->group('/tickets', function() use($app){
-				routeTicketRequests($app);
-		});
+$container['TransTypeCtrl'] = function($container){
+  return new \App\Controllers\TransTypeCtrl($container);
+};
 
-		$app->group('/admin', function() use($app){
-				routeAdminRequests($app);
-		});
+require 'routes.php';
 
-		$app->group('/auth', function() use($app){
-					routeAuthRequests($app);
-		});
-
-		$app->group('/poll', function() use($app){
-					routePollRequests($app);
-		});
-
-		$app->group('/users', function() use($app){
-					routeUserRequests($app);
-		});
-
-		$app->group('/mails', function() use( $app ){
-					routeMailRequests( $app );
-		});
-
-		$app->group('/upload', function() use( $app ){
-					routeUploadRequests( $app );
-		});
-}); //end of group
-/**
- * Run the Slim application
- */
 $app->run();
-
 ?>

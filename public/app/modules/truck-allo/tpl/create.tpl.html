@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9">
+    <div ng-class="{'alert alert-success alert-dismissible': vm.message.success, 'alert alert-danger alert-dismissible' : vm.message.error}"
+         role="alert" data-ng-if="vm.message.show">
+      <strong>{{vm.message.text}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">Create Transaction</h2>
+	</div>
+</div>
+
+<div class="row help-desk">
+  <div class="col-md-3">
+
+    <button class="btn btn-success btn-block"
+            style="margin-bottom:10px;"
+            data-ng-click="vm.goTo('/dashboard/truck-allo/transactions/create')"><strong>Create Transaction </strong></button>
+
+      <div class="panel panel-default">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <i class="fa fa-file-o" aria-hidden="true"></i>
+                <a href data-ng-click="vm.goTo('/dashboard/truck-allo')" style="text-decoration:none"> Detail Analysis </a>
+              </li>
+              <li class="list-group-item">
+                <i class="fa fa-money" aria-hidden="true"></i>
+                <a href data-ng-click="vm.goTo('/dashboard/truck-allo/transactions')" style="text-decoration:none"> Transactions </a>
+              </li>
+            </ul>
+      </div>
+
+  </div>
+  <div class="col-md-9">
+
+      <form name="transactionForm" novalidate ng-submit="vm.create()" >
+
+      <label>Parish Council</label>
+      <select class="form-control" style="margin-bottom: 10px" ng-model="vm.trans.council_id">
+        <option ng-value="1">Kingston & Saint Andrew</option>
+        <option ng-value="2">Clarendon</option>
+        <option ng-value="3">Manchester</option>
+        <option ng-value="4">Trelawny</option>
+        <option ng-value="5">Saint Elizabeth</option>
+        <option ng-value="6"> Saint James</option>
+        <option ng-value="7">Portmore Municipal</option>
+        <option ng-value="8">Saint Catherine</option>
+        <option ng-value="8">Saint Mary</option>
+        <option ng-value="10">Westmoreland</option>
+        <option ng-value="11">Hanover</option>
+        <option ng-value="12">Portland</option>
+        <option ng-value="13">Saint Thomas</option>
+      </select>
+
+      <div class="form-group">
+        <label>Particulars</label>
+        <textarea class="form-control" ng-model="vm.trans.particular"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Payment Type</label>
+        <br>
+
+        <label class="radio-inline">
+          <input type="radio" ng-value="2" ng-model="vm.trans.type_id"> Expenditure
+        </label>
+
+        <label class="radio-inline">
+            <input type="radio" ng-value="1" ng-model="vm.trans.type_id"> Allocation
+        </label>
+
+        <label class="radio-inline">
+          <input type="radio" ng-value="3" ng-model="vm.trans.type_id"> Adjustment
+        </label>
+
+        <label class="radio-inline">
+          <input type="radio" ng-value="4" ng-model="vm.trans.type_id"> Reduction
+        </label>
+    </div>
+
+      <div class="form-group">
+        <label>Amount</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-usd" aria-hidden="true"></i></span>
+          <input class="form-control"
+                 type="text"
+                 ng-model="vm.trans.amount">
+        </div>
+      </div>
+
+      <hr>
+      <div class="form-group">
+        <a class="btn btn-default" ng-click="vm.clearForm()">Cancel</a>
+        <button class="btn btn-success" type="submit">Save</button>
+      </div>
+      </form>
+  </div>
+</div>

@@ -1,66 +1,52 @@
-(function(){
-	angular
-	.module('login')
-	.controller('Login', Login);
+(function() {
+    'use strict';
 
-	Login.$inject = ['$location','loginService'];
+    angular
+        .module('login')
+        .controller('Login', Login);
 
-	function Login($location, loginService){
-		var vm = this;
-		vm.handleForm = handleForm;
-		vm.message = false;
-		vm.user = {
-			name : '',
-			password : ''
-		};
-		activate();
-		/**
-		 * Handles login form to authenticate user.
-		 * @param  {[type]} user User email and password.
-		 */
-		function handleForm(credentials){
-			if( loginService.checkCredentials( credentials ) ){
-				loginService
-						.authUser(credentials)
-						.then(function(response){
-							if(response.success){
-								loginService
-										.getDepartment(response.dn)
-										.then(function (department) {
-												loginService
-														.getUser(response.dn, department.id)
-														.then(function(user){
-															if(user.success){
-																vm.user = {};
-																loginService.setUser(user.user);
-																$location.path('/mails');
-															}
-														}).catch(function(error){
-															console.log('Error in getting user');
-														})
-										}).catch(function(error){
-											console.log('Error in getting department');
-										});
-							}else{
-								vm.message = true;
-								vm.user.password = '';
-							}
-						}).catch(function (error){
-								console.log(error);
-						});
-			}else{
-				vm.message = true;
-				vm.user.password = '';
-			}
-		}
-		/**
-		 * Get mails by department id if user is authenticated.
-		 * @return {[type]} [description]
-		 */
-		function activate() {
-			if(loginService.isAuthenticated()){
-				$location.path('/mails');
-			}
-		}
-	}
+    Login.$inject = ['$location','loginService']
+    /* @ngInject */
+    function Login($location, loginService) {
+        var vm = this
+        vm.message = false
+        vm.user = {}
+        vm.handleForm = handleForm
+
+        activate()
+        /**
+         * [activate description]
+         * @return {[type]} [description]
+         */
+        function activate() {
+          if(sessionStorage.getItem('_jwt') !== null){
+            loginService
+              .isAuthenticated()
+              .then(function (res) {
+                if(res.success) $location.path('/dashboard')
+              })
+          }
+        }
+        /**
+         * [handleForm description]
+         * @param  {[type]} form [description]
+         * @return {[type]}      [description]
+         */
+        function handleForm(form) {
+					loginService
+						.authenticate(vm.user)
+						.then(function (res) {
+                if(form){
+                    vm.user = {}
+                    form.$setValidity()
+                    form.$setPristine()
+                    form.$setUntouched()
+                }
+                loginService.setToken(res.token)
+                $location.path('/dashboard')
+						}).catch(function (error) {
+							console.log('Error')
+						})
+        }
+    }
 })();

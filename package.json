@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "This repository contains MEGJC's intranet. The main goal of the intranet is to provide staff members a channel/platform to communicate their ideas, keep up to date with internal news and show staff achievements.",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-plumber": "^1.1.0"
+  },
   "devDependencies": {
     "del": "^2.2.2",
     "event-stream": "^3.3.2",
