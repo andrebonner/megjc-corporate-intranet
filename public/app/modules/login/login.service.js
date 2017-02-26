@@ -78,7 +78,7 @@
       * @return boolean true if user is authenticated.
       */
      function isAuthenticated() {
-       return $http.get(API.URL + 'auth/token')
+       return $http.get(API_URL + 'auth/token')
                    .then(function (res) {
                       return res.data
                    }).catch(function (error) {
