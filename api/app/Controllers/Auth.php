@@ -28,7 +28,7 @@ class Auth extends BaseCtrl
          return $response->withJson(array("success" => false, "message" => "User not activated."),423);
        }
      }else{
-       $message['message'] = "Internal server error";
+       //$message['message'] = "Internal server error";
        return $response->withJson($message, 500);
      }
      $instance->close();
