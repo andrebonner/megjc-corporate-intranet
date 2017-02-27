@@ -1,0 +1,24 @@
+<button class="btn btn-success btn-block"
+        style="margin-bottom:10px;"
+        data-ng-click="vm.goTo('dashboard/apps/mails/create')"><strong>CREATE MAIL</strong></button>
+
+  <div class="panel panel-default">
+        <ul class="list-group">
+          <li class="list-group-item" style="color: red">
+            <i class="fa fa-flag-o" aria-hidden="true"></i>
+            <a href data-ng-click="goTo('mails')" style="color: red" > Pending Followup <span style="float: right">{{mails.length}}</span></a>
+          </li>
+          <li class="list-group-item">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+            <a href data-ng-click="goTo('mails')"> Incoming <span style="float: right">{{vm.incoming.length}}</span></a>
+          </li>
+          <li class="list-group-item">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            <a href data-ng-click="goTo('mails')"> Outgoing <span style="float: right">{{vm.outgoing.length}}</span></a>
+          </li>
+        </ul>
+  </div>
+
+  <!-- <button class="btn btn-default btn-block"
+          style="margin-bottom:10px;"
+          data-ng-click="logout()"><strong>Logout</strong></button> -->

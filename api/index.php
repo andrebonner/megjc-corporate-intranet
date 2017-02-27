@@ -15,6 +15,10 @@ $container['Auth'] = function($container){
   return new \App\Controllers\Auth($container);
 };
 
+$container['Mail'] = function($container){
+  return new \App\Controllers\Mail($container);
+};
+
 require 'routes.php';
 // $app->group('/v1', function() use ($app){
 //

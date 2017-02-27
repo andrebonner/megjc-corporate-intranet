@@ -10,7 +10,7 @@
 		vm.handleForm = handleForm;
 		vm.message = false;
 		vm.user = {
-			name : '',
+			username : '',
 			password : ''
 		};
 		activate();
@@ -19,48 +19,21 @@
 		 * @param  {[type]} user User email and password.
 		 */
 		function handleForm(credentials){
-			if( loginService.checkCredentials( credentials ) ){
 				loginService
-						.authUser(credentials)
-						.then(function(response){
-							if(response.success){
-								loginService
-										.getDepartment(response.dn)
-										.then(function (department) {
-												loginService
-														.getUser(response.dn, department.id)
-														.then(function(user){
-															if(user.success){
-																vm.user = {};
-																loginService.setUser(user.user);
-																$location.path('/mails');
-															}
-														}).catch(function(error){
-															console.log('Error in getting user');
-														})
-										}).catch(function(error){
-											console.log('Error in getting department');
-										});
-							}else{
-								vm.message = true;
-								vm.user.password = '';
-							}
-						}).catch(function (error){
-								console.log(error);
-						});
-			}else{
-				vm.message = true;
-				vm.user.password = '';
-			}
+					.authUser(credentials)
+					.then(function(res){
+						sessionStorage.setItem('_jwt', res.token)
+						vm.user.password = ''
+						$location.path('/dashboard/apps')
+					}).catch(function(err){
+						console.log('Error')
+					})
 		}
 		/**
 		 * Get mails by department id if user is authenticated.
 		 * @return {[type]} [description]
 		 */
 		function activate() {
-			if(loginService.isAuthenticated()){
-				$location.path('/mails');
-			}
 		}
 	}
 })();

@@ -3,30 +3,21 @@
 	.module('intranet',[
 		'ngRoute',
 		'ngCookies',
-		'navigation',
+		'ngMessages',
 		'home',
-		'directory',
-		'birthday',
 		'login',
-		'notice',
-		'help',
-		'content',
+		'dashboard',
+		'mail-mgmt',
 		'shared-services',
-		'staff',
-		'blog',
-		'vacancy',
-		'poll',
-		'policy',
-		'form',
-		'promotion',
-		'mail'
-	]).run(routeLogin)
+		'api-interceptors'
+	])//.run(routeLogin)
 		.config(config)
 		.constant("API_URLS", {
-				base_url : '/api/v1/'
+				base_url : '/api/v2/'
 		});
 
 	function config($routeProvider, $httpProvider){
+	 $httpProvider.interceptors.push('apiService')
 	 $routeProvider.otherwise({redirectTo: '/login'})
 	}
 	/**
@@ -38,9 +29,18 @@
 	 */
   function routeLogin($rootScope, $location, loginService){
   	$rootScope.$on('$routeChangeStart', function(event, next, current){
-  		if(next.access.restricted && !loginService.isAuthenticated()){
-				 $location.path('/login');
-			}
+			if($location.path() !== '/login' || sessionStorage.getItem('_jwt') !== null){
+						loginService
+							.isAuthenticated()
+							.then(function (res) {
+								//loginService.routeUser(res.admin)
+								$location.path('/dashboard/apps')
+							}).catch(function () {
+								console.log('Error')
+							})
+				}else{
+					$location.path('/login')
+				}
   	});
   }
 })();

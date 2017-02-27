@@ -1,5 +1,6 @@
 api/routes/.env
 api/vendor
+api/app/Helpers/.env
 public/bower_components
 node_modules
 .idea/

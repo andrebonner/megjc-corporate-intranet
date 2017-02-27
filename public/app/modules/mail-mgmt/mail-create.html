@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9">
+    <div ng-class="{'alert alert-success alert-dismissible': success, 'alert alert-danger alert-dismissible' : error}"
+         role="alert" data-ng-if="message">
+      <strong>{{text}}</strong>
+    </div>
+
+    <!-- <div class="alert alert-danger alert-dismissible" role="alert" data-ng-if="error">
+      <button type="button" class="close" aria-label="Close" data-ng-click="dismiss( message )"><span aria-hidden="true">&times;</span></button>
+      <strong>Something went wrong!</strong>
+    </div> -->
+
+  </div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h2 class="department-title">Create Mail</h2>
+	</div>
+</div>
+
+<div class="row help-desk">
+	<div class="col-md-3"
+       data-ng-include="'public/app/modules/mail-mgmt/menu.html'"></div>
+  <div class="col-md-9">
+
+      <form name="mailForm" novalidate ng-submit="vm.createMail()" >
+        <div class="form-group">
+          <label>Category of Mail</label>
+          <br>
+          <label class="radio-inline">
+              <input type="radio" value="1" ng-model="vm.mail.mail_category"> Incoming
+          </label>
+          <label class="radio-inline">
+            <input type="radio" value="2" ng-model="vm.mail.mail_category"> Outgoing
+          </label>
+      </div>
+
+      <label>Type of correspondence</label>
+
+      <select class="form-control"
+        ng-model="vm.mail.mail_type"
+        ng-change="vm.changedValue(vm.mail.mail_type)"
+        ng-options="type.id as type.title for type in vm.corr_types">
+        <option value="">
+          Select correspondence type
+        </option>
+      </select>
+
+      <div class="form-group" ng-show="showFile">
+        <label>Title of File</label>
+          <input class="form-control" type="text" ng-model="vm.mail.file_title">
+      </div>
+
+      <div class="form-group">
+        <label>Receipt Date</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          <input class="form-control" type="date" ng-model="vm.mail.receipt_date">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Correspondence Date</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          <input class="form-control" type="date" ng-model="vm.mail.mail_date">
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>From (Organization)</label>
+        <div class="input-group">
+           <span class="input-group-addon" ><i class="fa fa-building-o" aria-hidden="true"></i></span>
+          <input class="form-control"
+                 type="text"
+                 ng-model="vm.mail.from_org">
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error': mailForm.sender.$touched &&
+                   mailForm.sender.$invalid }">
+        <label>Sender's Name</label>
+          <input class="form-control"
+                 name="sender"
+                 type="text"
+                 ng-model="vm.mail.sender"
+                 ng-minlength="3"
+                 required>
+
+           <div class="help-block"
+                ng-messages="mailForm.sender.$error"
+                ng-if="mailForm.sender.$touched">
+
+               <p ng-message="minlength">The sender's name is too short.</p>
+               <p ng-message="required">The sender's name is required.</p>
+         </div>
+      </div>
+
+
+
+      <div class="form-group"
+           ng-class="{ 'has-error': mailForm.receipent.$touched &&
+                        mailForm.receipent.$invalid }">
+        <label>Recipient's Name</label>
+          <input class="form-control"
+                 name="receipent"
+                 type="text"
+                 ng-model="vm.mail.receipent"
+                 ng-minlength="3"
+                 required>
+
+        <div class="help-block"
+             ng-messages="mailForm.receipent.$error"
+             ng-if="mailForm.receipent.$touched">
+
+            <p ng-message="minlength">The receipent's name is too short.</p>
+            <p ng-message="required">The receipent's name is required.</p>
+      </div>
+    </div>
+
+
+      <div class="form-group">
+        <label>Subject of Correspondence</label>
+        <textarea class="form-control" ng-model="vm.mail.subject"></textarea>
+      </div>
+
+      <hr>
+      <div class="form-group">
+        <a class="btn btn-default" ng-click="vm.clearForm()">Cancel</a>
+        <button class="btn btn-success" type="submit">Save</button>
+      </div>
+      </form>
+  </div>
+</div>

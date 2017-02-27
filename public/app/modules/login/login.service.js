@@ -16,15 +16,18 @@
        getUser: getUser,
        getUserName: getUserName,
        logout: logout,
-       setUser: setUser
+       setUser: setUser,
+       routeUser: routeUser
      };
+
+     return service;
      /**
       * Authenticates a user based on email and password.
       * @param  {[type]} user User's email and password
       */
      function authUser(credentials) {
        return $http
-                .post(API_URLS.base_url + 'auth', credentials)
+                .post(API_URLS.base_url + 'auth/user', credentials)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess(response){
@@ -33,6 +36,10 @@
         function handleError(error){
           return error;
         }
+     }
+
+     function routeUser( type ) {
+       console.log( type )
      }
      /**
       * Checks if user credentials are valid.
@@ -76,9 +83,12 @@
       * @return boolean true if user is authenticated.
       */
      function isAuthenticated() {
-       var user = JSON.parse(localStorage.getItem('user'));
-       if(user == null) return false
-       else if(typeof user === 'object') return true;
+       return $http.get(API_URLS.base_url + 'auth/token')
+                   .then(function (res) {
+                      return res.data
+                   }).catch(function (error) {
+                      return error
+                   });
      }
      /**
       * Sets user object to local storage.
@@ -115,7 +125,7 @@
       * @return {[type]} [description]
       */
      function logout() {
-       localStorage.removeItem('user');
+       sessionStorage.removeItem('_jwt');
      }
      /**
       * Get username from local storage.
@@ -143,6 +153,6 @@
            }
      }
 
-     return service;
+
    }
 })();
