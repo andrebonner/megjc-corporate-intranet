@@ -5,15 +5,15 @@
 
 	function config($routeProvider){
 		$routeProvider
-		.when('/mails',{
+		.when('/dashboard/apps/mails',{
 			templateUrl: "public/app/modules/mail/mail.html",
 			controller: 'Mail',
 			access: {restricted: true}
-		}).when('/mails/create', {
+		}).when('/dashboard/apps/mails/create', {
 			templateUrl: "public/app/modules/mail/create.html",
 			controller: 'Mail',
 			access: {restricted: true}
-		}).when('/mails/:id/view', {
+		}).when('/dashboard/apps/mails/:id/view', {
 			templateUrl: "public/app/modules/mail/view.html",
 			controller: 'Mail',
 			access: {restricted: true}

@@ -33,7 +33,7 @@
 															if(user.success){
 																vm.user = {};
 																loginService.setUser(user.user);
-																$location.path('/mails');
+																$location.path('/dashboard/apps');
 															}
 														}).catch(function(error){
 															console.log('Error in getting user');
@@ -59,7 +59,7 @@
 		 */
 		function activate() {
 			if(loginService.isAuthenticated()){
-				$location.path('/mails');
+				$location.path('/dashboard/apps')
 			}
 		}
 	}
