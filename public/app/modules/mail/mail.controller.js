@@ -59,7 +59,7 @@
 						$scope.mail_corr = mail.mail;
 						$scope.uploads = mail.uploads
 						$scope.actions = mail.actions
-						$location.path('/mails/' + id + '/view')
+						$location.path('/dashboard/apps/mails/' + id + '/view')
 					}).catch(function(error){
 						$scope.mail = {};
 					});
@@ -87,7 +87,7 @@
 			 * @param  {[type]} mail [description]
 			 * @return {[type]}      [description]
 			 */
-			function createMail(){				
+			function createMail(){
 				mailService
 					.createMail($scope.mail)
 					.then(function(res){

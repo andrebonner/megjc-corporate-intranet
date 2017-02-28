@@ -1,13 +1,5 @@
-<div class="row">
-  <div class="col-md-3"></div>
-</div>
-<div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-9">
-		<h2 class="department-title">Mails</h2>
-	</div>
-</div>
-
+<div ng-include="'public/app/partials/sub-menu.html'"></div>
+<hr />
 <div class="row help-desk">
 	<div class="col-md-3"
        data-ng-include="'public/app/modules/mail/partials/menu.html'">
@@ -27,7 +19,7 @@
 			<div class="open-ticket-wrapper">
         <div ng-show="mails.length < 1">
           <p ><strong>There are no mails.</strong></p>
-          <button class="btn btn-success" ng-click="goTo('mails/create')">
+          <button class="btn btn-success" ng-click="goTo('dashboard/apps/mails/create')">
             Create Mail</button>
         </div>
 

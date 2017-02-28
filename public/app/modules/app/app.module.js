@@ -3,23 +3,16 @@
 	.module('intranet',[
 		'ngRoute',
 		'ngCookies',
-		'navigation',
 		'home',
+		'dashboard',
 		'directory',
-		'birthday',
 		'login',
-		'notice',
 		'help',
-		'content',
 		'shared-services',
-		'staff',
-		'blog',
 		'vacancy',
-		'poll',
-		'policy',
-		'form',
 		'promotion',
-		'mail'
+		'mail',
+		'nav'
 	]).run(routeLogin)
 		.config(config)
 		.constant("API_URLS", {
