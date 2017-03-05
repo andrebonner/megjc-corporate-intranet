@@ -15,8 +15,10 @@
           getAttachments: getAttachments,
           createAction: createAction,
           uploadFile: uploadFile,
-          updateMail: updateMail
-      };
+          updateMail: updateMail,
+          getMailsForFollowup, getMailsForFollowup,
+          followUp: followUp
+      }
       /**
        * [uploadFile description]
        * @param  {[type]} file    [description]
@@ -31,6 +33,20 @@
         }).then(function( response ){
             return response
         })
+      }
+
+      function getMailsForFollowup( dept_id) {
+        var url = API_URLS.base_url + 'mails/departments/' + dept_id + '?follow_up=2'
+        return $http
+                .get(url)
+                .then(handleSuccess)
+                .catch(handleError);
+        function handleSuccess (response){
+          return response.data;
+        }
+        function handleError (error) {
+          return error;
+        }
       }
       /**
        * Creates a mail correspondence.
@@ -75,7 +91,8 @@
   				from_org: "",
   				subject: "",
           receipt_date: new Date(),
-          file_title: ''
+          file_title: '',
+          follow_up: "1"
         }
       }
       /**
@@ -97,8 +114,8 @@
         }
       }
 
-      function getMailsByDepartmentId(dept_id) {
-        var url = API_URLS.base_url + 'mails/departments/' + dept_id;
+      function getMailsByDepartmentId(dept_id, limit, offset) {
+        var url = API_URLS.base_url + 'mails/departments/' + dept_id
         return $http
                 .get(url)
                 .then(handleSuccess)
@@ -180,6 +197,30 @@
         mail.uname = loginService.getUserName()
         return $http
                 .put(url, mail)
+                .then(handleSuccess)
+                .catch(handleError);
+
+        function handleSuccess( response ) {
+          return response.data
+        }
+
+        function handleError ( error ) {
+          return error
+        }
+      }
+
+      function followUp( flag, id) {
+        var url = API_URLS.base_url + 'mails/' + id,
+            update = {
+              created_by : loginService.getUserId(),
+              uname : loginService.getUserName(),
+              follow_up: flag
+            }
+        // if(flag) update.follow_up = 2
+        // else update.follow_up = 1
+
+        return $http
+                .put(url, update)
                 .then(handleSuccess)
                 .catch(handleError);
 

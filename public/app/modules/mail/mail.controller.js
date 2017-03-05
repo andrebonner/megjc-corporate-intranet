@@ -15,12 +15,11 @@
 			$scope.showOther = false;
 			$scope.file_upload_msg = false
 			$scope.revealAction = false;
-			$scope.mail = mailService.initMail();
+
 			var blank = angular.copy($scope.mail);
 			$scope.showMail = show;
 			$scope.goTo = goTo;
-			$scope.createMail = createMail;
-		//	$scope.dismiss = dismiss;
+			$scope.createMail = createMail
 			$scope.removeFile = removeFile;
 			$scope.clearForm = clearForm;
 			$scope.createMail = createMail;
@@ -34,9 +33,32 @@
 			$scope.logout = logout
 			$scope.update = update
 
-			getMails();
+			$scope.revealSubjectEditField = false
+			$scope.editSubject = editSubject
+			$scope.cancelSubjectEdit = cancelSubjectEdit
 
-			if($routeParams.id) show($routeParams.id)
+			$scope.revealReceivedEditField = false
+			$scope.editReceivedOn = editReceivedOn
+			$scope.cancelReceviedOnEdit = cancelReceviedOnEdit
+
+			$scope.revealCorrespondenceEditField = false
+			$scope.editCorrespondenceDate = editCorrespondenceDate
+			$scope.cancelCorrespondenceEdit = cancelCorrespondenceEdit
+
+			$scope.markForFollow = function () {
+				var flag = 0
+				if($scope.follow_up == true){
+					flag = 2
+				}else{
+					flag = 1
+				}
+				mailService.followUp(flag, $scope.mail_corr.id)
+					.then(function (res) {
+					activate()
+				})
+			}
+
+			activate()
 			/**
 			 * Clears form.
 			 * @return {[type]} [description]
@@ -48,6 +70,15 @@
 				$scope.mailForm.$setValidity();
     		$scope.mailForm.$setUntouched();
 			}
+
+			function activate() {
+				getMails()
+				$scope.mail = mailService.initMail();
+				if($routeParams.id){
+					show($routeParams.id)
+				}
+				getMailsForFollowup()
+			}
 			/**
 			 * Show details of mail.
 			 * @param  {[type]} id Id of a mail correspondence.
@@ -56,7 +87,7 @@
 				mailService
 					.getMail(id)
 					.then(function(mail){
-						$scope.mail_corr = mail.mail;
+						$scope.mail_corr = mail.mail
 						$scope.uploads = mail.uploads
 						$scope.actions = mail.actions
 						$location.path('/dashboard/apps/mails/' + id + '/view')
@@ -73,7 +104,18 @@
 				mailService
 					.getMailsByDepartmentId(dept_id)
 					.then(function(mails){
-						$scope.mails = mails;
+						$scope.mails = mails.mails
+					}).catch(function(error){
+						$scope.mails = [];
+					})
+			}
+
+			function getMailsForFollowup (){
+				var dept_id = loginService.getDepartmentId();
+				mailService
+					.getMailsForFollowup(dept_id)
+					.then(function(mails){
+						$scope.follow_ups = mails.mails
 					}).catch(function(error){
 						$scope.mails = [];
 					})
@@ -91,7 +133,6 @@
 				mailService
 					.createMail($scope.mail)
 					.then(function(res){
-
 						if(res.status === 500){
 							$scope.message = true
 							$scope.text = 'An error has occurred on the server'
@@ -249,5 +290,30 @@
 						 console.log('Error in updating mail')
 					})
 			}
+
+			function editSubject() {
+				$scope.revealSubjectEditField = !$scope.revealSubjectEditField
+			}
+
+			function cancelSubjectEdit() {
+					$scope.revealSubjectEditField = false
+			}
+
+			function editReceivedOn() {
+				$scope.revealReceivedEditField = !$scope.revealReceivedEditField
+			}
+
+			function cancelReceviedOnEdit() {
+					$scope.revealReceivedEditField = false
+			}
+
+			function editCorrespondenceDate() {
+				$scope.revealCorrespondenceEditField = !$scope.revealCorrespondenceEditField
+			}
+
+			function cancelCorrespondenceEdit() {
+					$scope.revealCorrespondenceEditField = false
+			}
+
 	}
 })();

@@ -5,16 +5,19 @@
         .module('dashboard')
         .controller('Dashboard', Dashboard);
 
-    Dashboard.$inject = ['$scope'];
-
+    Dashboard.$inject = ['loginService']
     /* @ngInject */
-    function Dashboard($scope) {
+    function Dashboard(loginService) {
         var vm = this;
-
+        vm.logout = logout
         activate();
 
         function activate() {
 
+        }
+
+        function logout() {
+          loginService.logout()
         }
     }
 })();

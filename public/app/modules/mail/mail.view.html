@@ -1,0 +1,140 @@
+<div ng-include="'public/app/partials/sub-menu.html'"></div>
+<hr />
+<div class="alert alert-danger alert-dismissible"
+     role="alert" data-ng-show="mail_corr.follow_up == 2">
+  <strong>Mail flagged for follow up</strong>
+</div>
+<div class="row help-desk">
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Subject</h3>
+      </div>
+      <div class="panel-body">
+        {{mail_corr.subject}}
+        <!-- <a href ng-click="editSubject()" class="pull-right">Edit</a> -->
+      </div>
+    </div>
+
+    <div class="panel panel-primary" ng-show="revealSubjectEditField">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Subject</h3>
+      </div>
+      <div class="panel-body">
+        <textarea class="form-control" ng-model="mail_corr.subject"></textarea>
+        <hr />
+        <button class="btn btn-success pull-right">Save</button>
+        <button class="btn btn-default" ng-click="cancelSubjectEdit()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Received On</h3>
+      </div>
+      <div class="panel-body">
+        {{mail_corr.receipt_date | timestamp | date:'fullDate'}}
+        <!-- <a href class="pull-right" ng-click="editReceivedOn()">Edit</a> -->
+      </div>
+    </div>
+
+    <div class="panel panel-primary" ng-show="revealReceivedEditField">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Received On</h3>
+      </div>
+      <div class="panel-body">
+        <input class="form-control" type="date" ng-model="mail.receipt_date">
+        <hr />
+        <button class="btn btn-success pull-right">Save</button>
+        <button class="btn btn-default" ng-click="cancelReceviedOnEdit()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Correspondence Date</h3>
+      </div>
+      <div class="panel-body">
+        {{mail_corr.mail_date | timestamp | date:'fullDate'}}
+        <!-- <a href class="pull-right" ng-click="editCorrespondenceDate()">Edit</a> -->
+      </div>
+    </div>
+
+    <!-- <div class="panel panel-primary" ng-show="revealCorrespondenceEditField">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Correspondence Date</h3>
+      </div>
+      <div class="panel-body">
+        <input class="form-control" type="date" ng-model="mail_corr.mail_date">
+        <hr />
+        <button class="btn btn-success pull-right">Save</button>
+        <button class="btn btn-default" ng-click="cancelCorrespondenceEdit()">Cancel</button>
+      </div>
+    </div> -->
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">From</h3>
+      </div>
+      <div class="panel-body">
+        <strong>Organization </strong>- {{mail_corr.from_org}}
+        <br />
+        <strong>Sender</strong> - {{mail_corr.sender}}
+        <!-- <a href class="pull-right">Edit</a> -->
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Receipent</h3>
+      </div>
+      <div class="panel-body">
+        {{mail_corr.receipent}}
+        <!-- <a href class="pull-right">Edit</a> -->
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Entered on</h3>
+      </div>
+      <div class="panel-body">
+        {{mail_corr.created_on | timestamp | date:'fullDate'}}
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6">
+        <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title">Actions</h3>
+  </div>
+  <div class="panel-body">
+    <input type="checkbox" ng-change="markForFollow()" ng-model="follow_up" /> Mark for follow up
+  </div>
+    <p ng-show="actions.length < 1">There are no actions for this mail correspondence.</p>
+    <table class="table table-hover" ng-show="actions.length > 0">
+        <tr ng-repeat="action in actions">
+          <td style="color:#2780E3"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td style="width:150px;">{{action.created_on | timestamp | date: 'MMM d yyyy'}}</td>
+          <td class="capitalize">{{action.description}}</td>
+        </tr>
+    </table>
+    </div>
+
+    <button class="btn btn-success" ng-click="revealActionForm()">Add Action</button>
+
+    <div style="padding-top:15px" ng-show="revealAction">
+      <form novalidate ng-submit="createAction()">
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="description"></textarea>
+        </div>
+
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

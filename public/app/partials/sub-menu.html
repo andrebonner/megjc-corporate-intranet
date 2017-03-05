@@ -1,7 +1,8 @@
 <ul class="nav nav-pills">
-  <li role="presentation" class="pull-right"><a href="#/dashboard/apps"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
-  <li role="presentation"><a href="#/dashboard/apps"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a></li>
-  <li role="presentation" class="active"><a href="#/dashboard/apps/mails/create"> Create Mail</a></li>
-  <li role="presentation"><a href="#/dashboard/apps/mails">Incoming <span class="badge">{{mails.length}}</span></strong></a></li>
-  <li role="presentation"><a href="#">Outgoing</a></li>
+  <li role="presentation" class="pull-right"><a href ng-click="logout()"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
+  <li role="presentation"><a href="#!/dashboard/apps"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a></li>
+
+  <li role="presentation"><a href="#!/dashboard/apps/mails">Incoming <strong><span class="badge"> {{mails.length}} </span></strong></a></li>
+  <li role="presentation"><a href="#!/dashboard/apps/mails/follow_ups">Follow ups <strong><span class="badge"> {{follow_ups.length}}</strong></a></li>
+  <li role="presentation" ><a href="#!/dashboard/apps/mails/create"> Create Mail</a></li>
 </ul>

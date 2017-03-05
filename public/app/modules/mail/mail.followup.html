@@ -6,7 +6,7 @@
   </div> -->
 
 	<div class="col-md-12">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="form-group">
           <input type="text"
@@ -15,25 +15,13 @@
                 ng-model="search">
         </div>
       </div>
-    </div>
-
-		<!-- <ul class="nav nav-pills">
-		  <li role="presentation" class="pull-right"><a href ng-click="getOldMail()">
-		     Next <i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-				 <li role="presentation" class="pull-right"><a href ng-click="getNewMail()">
-					 <i class="fa fa-caret-left" aria-hidden="true"></i>
-	 		     Previous</a></li>
-		</ul> -->
+    </div> -->
 
 			<div class="open-ticket-wrapper">
-        <div ng-show="mails.length < 1">
-          <p ><strong>There are no mails.</strong></p>
-          <button class="btn btn-success" ng-click="goTo('dashboard/apps/mails/create')">
-            Create Mail</button>
+        <div ng-show="follow_ups < 1">
+          <p ><strong>There are no mails flagged for follow up.</strong></p>
         </div>
-
-
-				<table class="table table-hover" ng-show="mails.length > 0">
+				<table class="table table-hover" ng-show="follow_ups.length > 0">
 					<thead>
 						<tr>
               <th></th>
@@ -43,13 +31,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
+						<tr ng-repeat="mail in follow_ups | filter:search" data-ng-click="showMail(mail.id)">
               <td>
 								<i class="fa fa-exclamation" aria-hidden="true" style="color:red"
 									ng-show="mail.follow_up == 2"></i>
 								<i class="fa fa-envelope-o" aria-hidden="true"></i>
 							</td>
-							<td style="width:184px">{{mail.sender}}</td>
+							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>
 							<td style="text-align:right;width:150px;font-weight:600" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
 						</tr>

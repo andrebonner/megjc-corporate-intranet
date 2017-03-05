@@ -33,7 +33,32 @@ hr.item-divider{
 	height: 48px;
 }
 
+.apps-link{
+	font-size:18px;
+	color:#333333;
+}
 
+.nav-pills>li>a:hover{
+	background-color: #2780E3;
+	color: #FFFFFF;
+}
+
+.custom-hr{
+	border-top: 2px solid #2780E3;
+}
+
+.apps-link:hover{
+	background-color: #2780E3;
+	text-decoration: none;
+	color: #FFFFFF;
+	padding: 10px;
+}
+
+
+.table>tbody>tr:hover{
+	background-color: #2780E3;
+	color: #FFFFFF;
+}
 /*.footer {
   position: absolute;
   bottom: 0;
@@ -300,7 +325,7 @@ li.list-group-item a:visited{
 .login{
 	max-width: 330px;
 	padding: 15px;
-	margin: 0 auto;
+	margin: 100px auto;
 }
 
 .table>tbody>tr>td{
