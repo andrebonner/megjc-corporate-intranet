@@ -1,9 +1,6 @@
 <div ng-include="'public/app/partials/sub-menu.html'"></div>
 <hr class="custom-hr"/>
 <div class="row help-desk">
-	<!-- <div class="col-md-3"
-       data-ng-include="'public/app/modules/mail/partials/menu.html'">
-  </div> -->
 
 	<div class="col-md-12">
     <div class="row">
@@ -16,15 +13,6 @@
         </div>
       </div>
     </div>
-
-		<!-- <ul class="nav nav-pills">
-		  <li role="presentation" class="pull-right"><a href ng-click="getOldMail()">
-		     Next <i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-				 <li role="presentation" class="pull-right"><a href ng-click="getNewMail()">
-					 <i class="fa fa-caret-left" aria-hidden="true"></i>
-	 		     Previous</a></li>
-		</ul> -->
-
 			<div class="open-ticket-wrapper">
         <div ng-show="mails.length < 1">
           <p ><strong>There are no mails.</strong></p>
@@ -43,13 +31,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
-              <td>
+						<tr ng-repeat="mail in mails | filter:search" ng-click="showMail(mail.id)">
+              <td style="width:60px" ng-click="$event.stopPropagation()">
 								<i class="fa fa-exclamation" aria-hidden="true" style="color:red"
 									ng-show="mail.follow_up == 2"></i>
 								<i class="fa fa-envelope-o" aria-hidden="true"></i>
 							</td>
-							<td style="width:184px">{{mail.sender}}</td>
+							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>
 							<td style="text-align:right;width:150px;font-weight:600" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
 						</tr>

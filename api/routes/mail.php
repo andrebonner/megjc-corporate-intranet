@@ -52,14 +52,7 @@
          $result = $stmt->fetchAll( PDO::FETCH_OBJ );
          closeDBConnection( $db );
          setResponseHeader( $app );
-        //  if(array_key_exists('limit', $params) && array_key_exists('offset', $params)){
-        //    echo json_encode(array('mails'=>$result,
-        //                           'limit'=>$params['limit'],
-        //                           'offset'=> $params['offset'],
-        //                           'count'=>sizeof($result)));
-        //  }else{
-           echo json_encode(array('mails'=>$result, 'count'=>sizeof($result)));
-         //}
+         echo json_encode(array('mails'=>$result, 'count'=>sizeof($result)));
        }catch(PDOException $e){
          echo '{"error":{"text":' .$e->getMessage(). '}}';
        }
@@ -70,7 +63,7 @@
      $app->get('/:id', function( $id ) use( $app ){
       $sql = 'SELECT id, mail_type, file_title, mail_date,
                       receipt_date, from_org, sender,
-                      receipent, subject, created_on, dept_id, follow_up
+                      receipent, subject, created_on, dept_id, follow_up, follow_date
                       FROM mails WHERE id=:id
                       ORDER BY created_on DESC';
       $sql_attachments = 'SELECT id, file_name, mail_id, created_on
@@ -108,7 +101,6 @@
      */
     $app->post('/', function() use ( $app ){
       $mail = json_decode( $app->request->getBody(), true);
-      // echo json_encode($mail);die();
       $mail_id = false;
       $status = null;
       if(!isValueEmpty($mail)){
@@ -118,11 +110,11 @@
           $sql = 'INSERT INTO mails (mail_type, file_title,
                                     mail_date, receipt_date,
                                     from_org, sender, receipent, subject,
-                                    created_by, created_on, dept_id, follow_up)
+                                    created_by, created_on, dept_id, follow_up, follow_date)
                               VALUES (:mail_type, :file_title, :mail_date,
                                       :receipt_date, :from_org, :sender,
                                       :receipent, :subject, :created_by,
-                                      :created_on, :dept_id, :follow_up)';
+                                      :created_on, :dept_id, :follow_up, :follow_date)';
           $stmt = $db->prepare($sql);
           $stmt->execute(array(":mail_type" => $mail['mail_type'],
                               ":file_title" => $mail['file_title'],
@@ -135,7 +127,9 @@
                               ":created_by" => $mail['created_by'],
                               ":created_on" => date("Y-m-d H:i:s"),
                               ":dept_id" => $mail['dept_id'],
-                              ":follow_up"=> intval($mail['follow_up'])));
+                              ":follow_up"=> intval($mail['follow_up']),
+                              ":follow_date" => $mail['follow_up_date']));
+
           $mail_id = $db->lastInsertId();
           $stmt = null;
           $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
@@ -197,11 +191,11 @@
                               ":description" => $action->description,
                               ":created_on" => date("Y-m-d H:i:s") ));
         $action_id = $db->lastInsertId();
-        $stmt = null;
+        //$stmt = null;
         //if($action->follow_up === 1){
-          $sql_update = 'UPDATE mails SET follow_up = 2 WHERE id=:mail_id';
-          $stmt = $db->prepare( $sql_update );
-          $stmt->execute(array(":mail_id"=> $action->mail_id));
+          // $sql_update = 'UPDATE mails SET follow_up = 2 WHERE id=:mail_id';
+          // $stmt = $db->prepare( $sql_update );
+          // $stmt->execute(array(":mail_id"=> $action->mail_id));
       //  }
         closeDBConnection( $db );
       }catch(PDOException $e){

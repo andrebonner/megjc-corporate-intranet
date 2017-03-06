@@ -5,19 +5,21 @@
         .module('dashboard')
         .controller('Dashboard', Dashboard);
 
-    Dashboard.$inject = ['loginService']
+    Dashboard.$inject = ['$location', 'loginService']
     /* @ngInject */
-    function Dashboard(loginService) {
-        var vm = this;
+    function Dashboard($location, loginService) {
+        var vm = this
         vm.logout = logout
-        activate();
+        activate()
 
         function activate() {
-
+          var user = JSON.parse(localStorage.getItem('user'))
+          vm.username = user.uname
         }
 
         function logout() {
           loginService.logout()
+          $location.path('/login')
         }
     }
 })();

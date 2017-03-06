@@ -15,7 +15,7 @@
 			$scope.showOther = false;
 			$scope.file_upload_msg = false
 			$scope.revealAction = false;
-
+			$scope.showFollowup = false
 			var blank = angular.copy($scope.mail);
 			$scope.showMail = show;
 			$scope.goTo = goTo;
@@ -32,6 +32,21 @@
 			$scope.file = []
 			$scope.logout = logout
 			$scope.update = update
+
+			$scope.toggleFollowup = function () {
+				if($scope.mail.follow_up == 2){
+					var date = new Date()
+					date.setDate(date.getDate() + 7)
+					$scope.mail.follow_up_date = date
+					$scope.showFollowup = true
+				}else{
+					$scope.showFollowup = false
+				}
+			}
+
+			$scope.flag = function () {
+				console.log('Flag')
+			}
 
 			$scope.revealSubjectEditField = false
 			$scope.editSubject = editSubject
@@ -74,9 +89,6 @@
 			function activate() {
 				getMails()
 				$scope.mail = mailService.initMail();
-				if($routeParams.id){
-					show($routeParams.id)
-				}
 				getMailsForFollowup()
 			}
 			/**
@@ -100,11 +112,10 @@
 			 * @return {[type]} [description]
 			 */
 			function getMails (){
-				var dept_id = loginService.getDepartmentId();
 				mailService
-					.getMailsByDepartmentId(dept_id)
+					.getMailsByDepartmentId()
 					.then(function(mails){
-						$scope.mails = mails.mails
+						$scope.mails = mails
 					}).catch(function(error){
 						$scope.mails = [];
 					})
@@ -151,6 +162,8 @@
 							$scope.success = true
 							clearForm()
 							getMails()
+							getMailsForFollowup()
+							$scope.$broadcast('mailCreated')
 						}
 				}).catch(function(err){
 					 console.log('Error in creating mail');
