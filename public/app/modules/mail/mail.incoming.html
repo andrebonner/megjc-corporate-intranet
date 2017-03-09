@@ -34,8 +34,6 @@
 					<tbody>
 						<tr ng-repeat="mail in mails | filter:search" ng-click="showMail(mail.id)">
               <td style="width:40px">
-								<!-- <i class="fa fa-exclamation" aria-hidden="true" style="color:red"
-									ng-show="mail.follow_up == 2"></i> -->
 								<i class="fa fa-envelope-o" aria-hidden="true" ng-class="mail.follow_up == 2 ? 'envelope-red' : 'envelope-black'"></i>
 							</td>
 							<td style="width:184px" class="capitalize">{{mail.sender}}</td>

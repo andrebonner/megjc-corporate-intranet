@@ -12,7 +12,7 @@
               <th></th>
 							<th>Sender</th>
 							<th>Subject</th>
-							<th style="text-align:right;">Received</th>
+							<th style="text-align:right;">Due Date</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -22,7 +22,7 @@
 							</td>
 							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>
-							<td style="text-align:right;width:150px;font-weight:600" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
+							<td style="text-align:right;width:150px;font-weight:600" >{{mail.follow_date | timestamp | date:"MMM d"}}</td>
 						</tr>
 					</tbody>
 				</table>

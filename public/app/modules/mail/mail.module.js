@@ -20,7 +20,7 @@
 			access: {restricted: true}
 		}).when('/dashboard/apps/mails/:id/view', {
 			templateUrl: "public/app/modules/mail/mail.view.html",
-			controller: 'View',
+			controller: 'View as vm',
 			access: {restricted: true}
 		}).when('/dashboard/apps/mails/follow_ups', {
 			templateUrl: "public/app/modules/mail/mail.followup.html",

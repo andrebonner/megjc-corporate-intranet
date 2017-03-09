@@ -34,13 +34,13 @@
        if(array_key_exists('follow_up', $params)){
          $sql = 'SELECT id, mail_type, file_title, mail_date,
                          receipt_date, from_org, sender,
-                         receipent, subject, created_on, dept_id, follow_up
+                         receipent, subject, created_on, dept_id, follow_up, follow_date
                          FROM mails WHERE dept_id=:id AND follow_up = 2
                          ORDER BY receipt_date DESC';
        }else{
          $sql = 'SELECT id, mail_type, file_title, mail_date,
                          receipt_date, from_org, sender,
-                         receipent, subject, created_on, dept_id, follow_up
+                         receipent, subject, created_on, dept_id, follow_up, follow_date
                          FROM mails WHERE dept_id=:id
                          ORDER BY receipt_date DESC';
        }

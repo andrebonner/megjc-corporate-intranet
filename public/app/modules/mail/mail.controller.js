@@ -12,7 +12,7 @@
 			$scope.message = false
 			$scope.error = false
 			$scope.text = ''
-			$scope.showOther = false;
+			$scope.showOther = false
 			$scope.file_upload_msg = false
 			$scope.revealAction = false;
 			$scope.showFollowup = false
