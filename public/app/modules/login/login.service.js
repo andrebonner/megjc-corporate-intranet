@@ -3,9 +3,9 @@
    .module('login')
    .service('loginService', loginService);
 
-   loginService.$inject = ['$http', 'API_URLS'];
+   loginService.$inject = ['$http', '$location', 'API_URLS'];
 
-   function loginService($http, API_URLS) {
+   function loginService($http, $location, API_URLS) {
      var service = {
        authUser: authUser,
        checkCredentials: checkCredentials,
@@ -28,7 +28,7 @@
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess(response){
-          return response.data;
+          return response.data
         }
         function handleError(error){
           return error;
@@ -116,6 +116,7 @@
       */
      function logout() {
        localStorage.removeItem('user');
+       $location.path('/login')
      }
      /**
       * Get username from local storage.

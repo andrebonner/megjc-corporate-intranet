@@ -1,28 +1,14 @@
-<div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-9">
-    <div ng-class="{'alert alert-success alert-dismissible': success, 'alert alert-danger alert-dismissible' : error}"
-         role="alert" data-ng-if="message">
-      <strong>{{text}}</strong>
-    </div>
+<div ng-include="'public/app/partials/sub-menu.html'"></div>
+<hr class="custom-hr"/>
 
-    <!-- <div class="alert alert-danger alert-dismissible" role="alert" data-ng-if="error">
-      <button type="button" class="close" aria-label="Close" data-ng-click="dismiss( message )"><span aria-hidden="true">&times;</span></button>
-      <strong>Something went wrong!</strong>
-    </div> -->
+<div ng-class="{'alert alert-success alert-dismissible': success, 'alert alert-danger alert-dismissible' : error}"
+     role="alert" data-ng-if="message">
+  <strong>{{text}}</strong>
+</div>
 
-  </div>
-</div>
-<div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-9">
-		<h2 class="department-title">Create Mail</h2>
-	</div>
-</div>
+<a href="top"></a>
 
 <div class="row help-desk">
-	<div class="col-md-3"
-       data-ng-include="'public/app/modules/mail/partials/menu.html'"></div>
   <div class="col-md-9">
 
       <form name="mailForm" novalidate ng-submit="createMail()" >
@@ -72,18 +58,26 @@
       </div>
 
       <div class="form-group">
-        <label>Receipt Date</label>
-        <div class="input-group">
-           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
-          <input class="form-control" type="date" ng-model="mail.receipt_date">
+        <div class="row">
+          <div class="col-md-5">
+            <label>Receipt Date</label>
+            <div class="input-group">
+               <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+              <input class="form-control" type="date" ng-model="mail.receipt_date">
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Corespondence Date</label>
-        <div class="input-group">
-           <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
-          <input class="form-control" type="date" ng-model="mail.mail_date">
+        <div class="row">
+          <div class="col-md-5">
+            <label>Correspondence Date</label>
+            <div class="input-group">
+               <span class="input-group-addon" ><i class="fa fa-calendar" aria-hidden="true"></i></span>
+              <input class="form-control" type="date" ng-model="mail.mail_date">
+            </div>
+          </div>
         </div>
       </div>
 
@@ -145,25 +139,30 @@
         <textarea class="form-control" ng-model="mail.subject"></textarea>
       </div>
 
-      <!-- <div class="form-group">
-        <label>Attach scanned copy of correspondence</label>
-        <br>
-        <div class="btn btn-primary" ngf-select ng-model="file" ngf-multiple="true">Attach</div>
-      </div> -->
 
-      <!-- <div ng-show="file.length > 0">
-        <label>Attachments</label>
-        <table class="table table-hover">
-          <tr ng-repeat="f in file">
-            <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
-            <td>{{f.name}}</td>
-            <td>{{f.size | toMB}} MB</td>
-            <td><i class="fa fa-trash-o" aria-hidden="true"></i>
-              <a href ng-click="removeFile()">Remove</td>
-          </tr>
-        </table>
-      </div> -->
+        <div class="form-group">
+          <label>Flag for follow up</label>
+          <label class="radio-inline">
+              <input type="radio" value="2" ng-model="mail.follow_up" ng-change="toggleFollowup()"> Yes
+          </label>
+          <label class="radio-inline">
+            <input type="radio" value="1" ng-model="mail.follow_up" ng-change="toggleFollowup()"> No
+          </label>
+        </div>
 
+        <div class="row" ng-show="showFollowup">
+          <div class="col-md-5">
+            <div class="form-group" >
+              <label>Follow up Date</label>
+              <div class="input-group">
+                 <span class="input-group-addon" >
+                   <i class="fa fa-calendar" aria-hidden="true"></i>
+                 </span>
+                <input class="form-control" type="date" ng-model="mail.follow_up_date">
+              </div>
+            </div>
+          </div>
+        </div>
       <hr>
       <div class="form-group">
         <a class="btn btn-default" ng-click="clearForm()">Cancel</a>

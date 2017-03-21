@@ -15,8 +15,10 @@
           getAttachments: getAttachments,
           createAction: createAction,
           uploadFile: uploadFile,
-          updateMail: updateMail
-      };
+          updateMail: updateMail,
+          getMailsForFollowup, getMailsForFollowup,
+          followUp: followUp
+      }
       /**
        * [uploadFile description]
        * @param  {[type]} file    [description]
@@ -32,6 +34,21 @@
             return response
         })
       }
+
+      function getMailsForFollowup() {
+        var dept_id = loginService.getDepartmentId(),
+            url = API_URLS.base_url + 'mails/departments/' + dept_id + '?follow_up=2'
+        return $http
+                .get(url)
+                .then(handleSuccess)
+                .catch(handleError);
+        function handleSuccess (response){
+          return response.data;
+        }
+        function handleError (error) {
+          return error;
+        }
+      }
       /**
        * Creates a mail correspondence.
        * @param  {[type]} mail [description]
@@ -46,6 +63,9 @@
 
 				if(mail.mail_type === 'cabinet_sub')
 						mail.mail_type = 'cabinet sub'
+        if(mail.follow_up_date == null){
+            mail.follow_up_date = new Date(0)
+        }
 
          mail.created_by = loginService.getUserId();
          mail.dept_id = loginService.getDepartmentId();
@@ -75,7 +95,8 @@
   				from_org: "",
   				subject: "",
           receipt_date: new Date(),
-          file_title: ''
+          file_title: '',
+          follow_up: "1"
         }
       }
       /**
@@ -97,14 +118,15 @@
         }
       }
 
-      function getMailsByDepartmentId(dept_id) {
-        var url = API_URLS.base_url + 'mails/departments/' + dept_id;
+      function getMailsByDepartmentId() {
+        var dept_id = loginService.getDepartmentId(),
+            url = API_URLS.base_url + 'mails/departments/' + dept_id
         return $http
                 .get(url)
                 .then(handleSuccess)
                 .catch(handleError);
         function handleSuccess (response){
-          return response.data;
+          return response.data.mails;
         }
         function handleError (error) {
           return error;
@@ -180,6 +202,30 @@
         mail.uname = loginService.getUserName()
         return $http
                 .put(url, mail)
+                .then(handleSuccess)
+                .catch(handleError);
+
+        function handleSuccess( response ) {
+          return response.data
+        }
+
+        function handleError ( error ) {
+          return error
+        }
+      }
+
+      function followUp( flag, id) {
+        var url = API_URLS.base_url + 'mails/' + id,
+            update = {
+              created_by : loginService.getUserId(),
+              uname : loginService.getUserName(),
+              follow_up: flag
+            }
+        // if(flag) update.follow_up = 2
+        // else update.follow_up = 1
+
+        return $http
+                .put(url, update)
                 .then(handleSuccess)
                 .catch(handleError);
 

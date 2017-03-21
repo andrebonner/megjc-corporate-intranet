@@ -30,11 +30,20 @@
       * Get all mails by a department id.
       */
       $app->get('/departments/:id', function( $id ) use( $app ){
-       $sql = 'SELECT id, mail_type, file_title, mail_date,
-                       receipt_date, from_org, sender,
-                       receipent, subject, created_on, dept_id
-                       FROM mails WHERE dept_id=:id
-                       ORDER BY created_on DESC';
+       $params = $app->request->get();
+       if(array_key_exists('follow_up', $params)){
+         $sql = 'SELECT id, mail_type, file_title, mail_date,
+                         receipt_date, from_org, sender,
+                         receipent, subject, created_on, dept_id, follow_up, follow_date
+                         FROM mails WHERE dept_id=:id AND follow_up = 2
+                         ORDER BY receipt_date DESC';
+       }else{
+         $sql = 'SELECT id, mail_type, file_title, mail_date,
+                         receipt_date, from_org, sender,
+                         receipent, subject, created_on, dept_id, follow_up, follow_date
+                         FROM mails WHERE dept_id=:id
+                         ORDER BY receipt_date DESC';
+       }
        try{
          $db = openDBConnection();
          $stmt = $db->prepare( $sql );
@@ -43,7 +52,7 @@
          $result = $stmt->fetchAll( PDO::FETCH_OBJ );
          closeDBConnection( $db );
          setResponseHeader( $app );
-         echo json_encode($result);
+         echo json_encode(array('mails'=>$result, 'count'=>sizeof($result)));
        }catch(PDOException $e){
          echo '{"error":{"text":' .$e->getMessage(). '}}';
        }
@@ -54,7 +63,7 @@
      $app->get('/:id', function( $id ) use( $app ){
       $sql = 'SELECT id, mail_type, file_title, mail_date,
                       receipt_date, from_org, sender,
-                      receipent, subject, created_on, dept_id
+                      receipent, subject, created_on, dept_id, follow_up, follow_date
                       FROM mails WHERE id=:id
                       ORDER BY created_on DESC';
       $sql_attachments = 'SELECT id, file_name, mail_id, created_on
@@ -95,28 +104,32 @@
       $mail_id = false;
       $status = null;
       if(!isValueEmpty($mail)){
+
         try {
           $db = openDBConnection();
           $sql = 'INSERT INTO mails (mail_type, file_title,
                                     mail_date, receipt_date,
                                     from_org, sender, receipent, subject,
-                                    created_by, created_on, dept_id)
+                                    created_by, created_on, dept_id, follow_up, follow_date)
                               VALUES (:mail_type, :file_title, :mail_date,
                                       :receipt_date, :from_org, :sender,
                                       :receipent, :subject, :created_by,
-                                      :created_on, :dept_id)';
+                                      :created_on, :dept_id, :follow_up, :follow_date)';
           $stmt = $db->prepare($sql);
           $stmt->execute(array(":mail_type" => $mail['mail_type'],
-                              ":file_title" => strtolower( $mail['file_title'] ),
+                              ":file_title" => $mail['file_title'],
                               ":mail_date" => $mail['mail_date'],
                               ":receipt_date" => $mail['receipt_date'],
-                              ":from_org" => strtolower( $mail['from_org'] ),
-                              ":sender" => strtolower( $mail['sender'] ),
-                              ":receipent" => strtolower( $mail['receipent'] ),
-                              ":subject" => strtolower( $mail['subject'] ),
+                              ":from_org" => $mail['from_org'],
+                              ":sender" => $mail['sender'],
+                              ":receipent" => $mail['receipent'],
+                              ":subject" => $mail['subject'],
                               ":created_by" => $mail['created_by'],
                               ":created_on" => date("Y-m-d H:i:s"),
-                              ":dept_id" => $mail['dept_id'] ));
+                              ":dept_id" => $mail['dept_id'],
+                              ":follow_up"=> intval($mail['follow_up']),
+                              ":follow_date" => $mail['follow_up_date']));
+
           $mail_id = $db->lastInsertId();
           $stmt = null;
           $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
@@ -178,6 +191,12 @@
                               ":description" => $action->description,
                               ":created_on" => date("Y-m-d H:i:s") ));
         $action_id = $db->lastInsertId();
+        $stmt = null;
+        if($action->follow_up == 1 && $action->closeFollowup == 1){
+          $sql_update = 'UPDATE mails SET follow_up = 1 WHERE id=:mail_id';
+          $stmt = $db->prepare( $sql_update );
+          $stmt->execute(array(":mail_id"=> $action->mail_id));
+       }
         closeDBConnection( $db );
       }catch(PDOException $e){
         $action_id = '{"error":{"text":' .$e->getMessage(). '}}';
@@ -198,6 +217,21 @@
         $stmt = $db->prepare( $sql );
         $stmt->bindParam("id", $id);
         $stmt->execute();
+        $result = $stmt->fetchAll( PDO::FETCH_OBJ );
+        closeDBConnection( $db );
+        setResponseHeader( $app );
+        echo json_encode( $result );
+      }catch(PDOException $e){
+        echo '{"error":{"text":' .$e->getMessage(). '}}';
+      }
+    });
+
+    $app->get('/search/mails', function (  ) use ( $app ){
+      $params = $app->request->get('q');
+      $sql = 'SELECT * FROM mails';
+      try{
+        $db = openDBConnection();
+        $stmt = $db->prepare( $sql );;
         $result = $stmt->fetchAll( PDO::FETCH_OBJ );
         closeDBConnection( $db );
         setResponseHeader( $app );
@@ -232,38 +266,16 @@
       $request = json_decode( $app->request->getBody() );
       try{
         $db = openDBConnection();
-        $sql = 'UPDATE mails
-                SET mail_type=:mail_type,
-                    file_title=:file_title,
-                    mail_date=:mail_date,
-                    receipt_date=:receipt_date,
-                    from_org=:from_org,
-                    sender=:sender,
-                    receipent=:receipent,
-                    subject=:subject,
-                    created_by=:created_by,
-                    created_on=:created_on,
-                    dept_id=:dept_id
-                  WHERE id=:mail_id';
-
+        $sql = 'UPDATE mails SET follow_up =:follow_up WHERE id=:mail_id';
         $stmt = $db->prepare( $sql );
-        $stmt->execute(array( ":mail_type" => $request->mail_type,
-                              ":mail_id" => $id,
-                              ":file_title"=> $request->file_title,
-                              ":mail_date" => $request->mail_date,
-                              ":receipt_date" => $request->receipt_date,
-                              ":from_org" => $request->from_org,
-                              ":sender" => $request->sender,
-                              ":receipent" => $request->receipent,
-                              ":subject" => $request->subject,
-                              ":created_by" => $request->created_by,
-                              ":created_on" => $request->created_on,
-                              ":dept_id" => $request->dept_id ));
-         $response = $request->id;
+        $stmt->execute(array( ":mail_id" => $id,
+                              ":follow_up" => $request->follow_up ));
+         $response = $id;
          $stmt = null;
          $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
                  VALUES (:mail_id, :uid, :description, :created_on)';
-         $desc = "Mail correspondence updated by ". $request->uname;
+
+        $desc = "Mail follow up status updated by ". $request->uname;
          $stmt = $db->prepare( $sql );
          $stmt->execute(array( ":mail_id" => $id,
                                ":uid" => $request->created_by,

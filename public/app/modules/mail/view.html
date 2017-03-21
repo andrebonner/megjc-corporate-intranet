@@ -9,19 +9,26 @@
     </div>
   </div>
 </div>
-<div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-9">
-		<h3 class="department-title capitalize" style="font-weight:normal">{{mail_corr.subject}}</h3>
-      <hr>
-	</div>
+
+<!-- <div ng-include="'public/app/modules/mail/action-menu.html'"></div> -->
+
+<div class="row help-desk">
+  <!-- <div class="col-md-10">
+    <label>Subject</label>
+    <a class="btn pull-right" href="#">
+      <i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>
+    <textarea class="form-control capitalize pull-right" ng-model="mail_corr.subject"></textarea>
+  </div> -->
 </div>
 
 <div class="row help-desk">
-	<div class="col-md-3"
-       data-ng-include="'public/app/modules/mail/partials/menu.html'">
-  </div>
-  <div class="col-md-9 mail ">
+
+
+
+  <div class="col-md-9">
+
+
+
     <label>Subject</label>
     <textarea class="form-control capitalize" ng-model="mail_corr.subject"></textarea>
 
@@ -48,7 +55,6 @@
     <div class="well well-sm capitalize">
       {{mail_corr.mail_type }}
     </div>
-    <!-- <input class="form-control capitalize" ng-model="mail_corr.mail_type" > -->
 
     <label>Entered on</label>
     <div class="well well-sm">
@@ -59,56 +65,9 @@
       <strong>Update Mail</strong>
     </button>
 
-    <!-- <div class="alert alert-success alert-dismissible"
-         role="alert"
-         data-ng-if="file_upload_msg">
-      <button type="button" class="close" aria-label="Close"
-              data-ng-click="dismiss('file_upload_msg')">
-              <span aria-hidden="true">&times;</span></button>
-      <strong>Attachment added to mail correspondence</strong>
-    </div> -->
+   <div class="space"></div>
 
-    <!-- <label>Attachments</label>
-    <p ng-show="uploads.length < 1">There are no attachments for this mail correspondence.</p>
-    <table class="table table-hover" ng-show="uploads.length > 0">
-        <tr ng-repeat="upload in uploads">
-          <td style="color:#2780E3"><i class="fa fa-file-o" aria-hidden="true"></i></td>
-          <td>{{upload.file_name}}</td>
-          <td>{{upload.created_on | timestamp | date: 'MMM d'}}</td>
-          <td><a ng-href="{{root}}/{{upload.file_name}}"> View</a></td>
-        </tr>
-    </table> -->
-
-    <!-- <div class="btn btn-primary space"
-         ngf-select ng-model="file"
-         ngf-multiple="true">
-         <i class="fa fa-paperclip" aria-hidden="true"></i> Attach File
-    </div> -->
-
-    <!-- <div ng-show="file.length > 0">
-      <label>Files to upload</label>
-      <table class="table table-hover">
-        <tr ng-repeat="f in file">
-          <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
-          <td>{{f.name}}</td>
-          <td>{{f.size | toMB}} MB</td>
-          <td style="color:red"><i class="fa fa-trash-o" aria-hidden="true"></i>
-            <a style="color:red" href ng-click="removeFile()">Remove</td>
-        </tr>
-      </table>
-
-      <button class="btn btn-success" ng-click="uploadFile()">
-        <i class="fa fa-upload" aria-hidden="true"></i>
-        Upload File
-      </button>
-
-    </div> -->
-
-
-
-    <div class="space"></div>
-
-    <label>Actions</label>
+    <!-- <label>Actions</label>
     <p ng-show="actions.length < 1">There are no actions for this mail correspondence.</p>
     <table class="table table-hover" ng-show="actions.length > 0">
         <tr ng-repeat="action in actions">
@@ -130,7 +89,7 @@
       </form>
     </div>
 
-    <hr >
+    <hr > -->
 
   </div>
 </div>

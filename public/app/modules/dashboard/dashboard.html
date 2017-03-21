@@ -1,21 +1,27 @@
-<div ng-include="'public/app/partials/sub-menu.html'"></div>
+<ul class="nav nav-pills">
+  <li role="presentation" class="pull-right">
+    <a href ng-click="vm.logout()" class="dashboard-pills">
+      <i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
+  </li>
+  <li role="presentation" class="pull-right"><a href>Logged in as <strong>{{vm.username}}</strong></a></li>
+</ul>
 <h2 class="department-title">My Apps</h2>
-<!-- <div class="row">
-	<div class="col-md-12">
 
-    <hr />
-	</div>
-</div> -->
-<hr />
+<hr class="custom-hr"/>
 <div class="row help-desk">
 	<div class="col-md-12">
 			<div class="open-ticket-wrapper">
           <ul style="list-style:none;padding-left:0">
             <li>
-              <i class="fa fa-envelope-open" aria-hidden="true"></i>
-              <a href="#/dashboard/apps/mails"
-                 style="font-size:17px;text-decoration:none;color:#333333">
+              <a href="#!/dashboard/apps/mails/incoming" class="apps-link">
+                <i class="fa fa-envelope-open" aria-hidden="true"></i>
                  Mail Correspondence Management</a>
+            </li>
+            <hr />
+            <li>
+              <a href="#!/dashboard/apps/truck-allo" class="apps-link">
+                <i class="fa fa-truck" aria-hidden="true"></i>
+                 Trucking Water Allocation</a>
             </li>
           </ul>
 			</div>

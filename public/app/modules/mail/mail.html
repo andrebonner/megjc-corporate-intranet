@@ -1,11 +1,8 @@
 <div ng-include="'public/app/partials/sub-menu.html'"></div>
-<hr />
+<hr class="custom-hr"/>
 <div class="row help-desk">
-	<div class="col-md-3"
-       data-ng-include="'public/app/modules/mail/partials/menu.html'">
-  </div>
 
-	<div class="col-md-9">
+	<div class="col-md-12">
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -34,11 +31,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="mail in mails | filter:search" data-ng-click="showMail(mail.id)">
-              <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td>
+						<tr ng-repeat="mail in mails | filter:search" ng-click="showMail(mail.id)">
+              <td style="width:60px" ng-click="$event.stopPropagation()">
+								<i class="fa fa-exclamation" aria-hidden="true" style="color:red"
+									ng-show="mail.follow_up == 2"></i>
+								<i class="fa fa-envelope-o" aria-hidden="true"></i>
+							</td>
 							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>
-              <!-- <td>{{mail.mail_date | timestamp | date:'MMM d'}}</td> -->
 							<td style="text-align:right;width:150px;font-weight:600" >{{mail.receipt_date | timestamp | date:'MMM d'}}</td>
 						</tr>
 					</tbody>

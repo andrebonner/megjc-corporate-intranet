@@ -3,17 +3,18 @@
 	.module('login')
 	.controller('Login', Login);
 
-	Login.$inject = ['$location','loginService'];
+	Login.$inject = ['$location', '$scope', 'loginService'];
 
-	function Login($location, loginService){
+	function Login($location, $scope, loginService){
 		var vm = this;
 		vm.handleForm = handleForm;
 		vm.message = false;
 		vm.user = {
 			name : '',
 			password : ''
-		};
-		activate();
+		}
+
+		activate()
 		/**
 		 * Handles login form to authenticate user.
 		 * @param  {[type]} user User email and password.
@@ -36,7 +37,7 @@
 																$location.path('/dashboard/apps');
 															}
 														}).catch(function(error){
-															console.log('Error in getting user');
+															console.log('Error in getting user')
 														})
 										}).catch(function(error){
 											console.log('Error in getting department');
@@ -58,6 +59,7 @@
 		 * @return {[type]} [description]
 		 */
 		function activate() {
+
 			if(loginService.isAuthenticated()){
 				$location.path('/dashboard/apps')
 			}

@@ -11,6 +11,7 @@
         uglify = require('gulp-uglify'),
         ngmin = require('gulp-ngmin'),
         annotate = require('gulp-ng-annotate'),
+        plumber = require('gulp-plumber'),
         del = require('del'),
         js = ['./public/app/**/**/*.module.js',
              './public/app/**/**/*.controller.js',
@@ -25,32 +26,33 @@
       return gulp.src(['./public/app/**/**/*.module.js',
                     './public/app/**/**/*.controller.js',
                     './public/app/**/**/*.service.js'])
+              .pipe(plumber())
               .pipe(concat('./public/build/concat.js'))
               .pipe(rename('./src.min.js'))
               .pipe(annotate())
-              .pipe(uglify())
+              //.pipe(uglify())
               .pipe(gulp.dest('./public/dist'));
   });
 
   gulp.task('inject-files', ['dist'], ()=>{
     let target = gulp.src('./index.html'),
-        sources = gulp.src(['./public/dist/*.js']);
+        sources = gulp.src(['./public/dist/*.js'])
 
-       return target.pipe(inject(sources)).pipe(gulp.dest('./'));
+       return target.pipe(inject(sources)).pipe(gulp.dest('./'))
   });
 
   gulp.task('inject-dev', ()=>{
     let target = gulp.src('./index.html'),
         sources = gulp.src(js);
-    return target.pipe(inject(sources)).pipe(gulp.dest('./'));
+    return target.pipe(inject(sources)).pipe(gulp.dest('./'))
   });
 
-  gulp.task('production', ['dist', 'inject-files', 'clean']);
+  gulp.task('production', ['dist', 'inject-files', 'clean'])
 
-  gulp.task('default', ['watch']);
+  gulp.task('default', ['watch'])
 
   gulp.task('watch', function () {
-    gulp.watch(js, ['dist', 'inject-files', 'clean']);
+    gulp.watch(js, ['dist', 'inject-files', 'clean'])
   });
 
 })();
