@@ -6,34 +6,59 @@
 	.module('mail')
 	.controller('Mail', Mail);
 
-	Mail.$inject = ['$routeParams', '$location', '$scope','mailService', 'loginService' , 'API_URLS', 'Upload'];
+	Mail.$inject = ['$routeParams', '$location', '$scope', '$anchorScroll',
+									'mailService', 'loginService' , 'API_URLS', 'Upload'];
 
-	function Mail($routeParams, $location, $scope, mailService, loginService, API_URLS, Upload){
+	function Mail($routeParams, $location, $scope, $anchorScroll,
+								mailService, loginService, API_URLS, Upload){
 			$scope.message = false
 			$scope.error = false
 			$scope.text = ''
 			$scope.showOther = false
 			$scope.file_upload_msg = false
-			$scope.revealAction = false;
+			$scope.revealAction = false
 			$scope.showFollowup = false
-			var blank = angular.copy($scope.mail);
-			$scope.showMail = show;
-			$scope.goTo = goTo;
+			var blank = angular.copy($scope.mail)
+			$scope.showMail = show
+			$scope.goTo = goTo
 			$scope.createMail = createMail
-			$scope.removeFile = removeFile;
-			$scope.clearForm = clearForm;
-			$scope.createMail = createMail;
-			$scope.toggle = toggle;
-			$scope.root = API_URLS.root
-			$scope.createAction = createAction;
+			$scope.removeFile = removeFile
+			$scope.clearForm = clearForm
+			$scope.createMail = createMail
+			$scope.toggle = toggle
+			$scope.createAction = createAction
 			$scope.revealActionForm = revealActionForm
 			$scope.cancel = cancel
-			$scope.uploadFile = uploadFile
 			$scope.file = []
 			$scope.logout = logout
 			$scope.update = update
-
-			$scope.toggleFollowup = function () {
+			$scope.toggleFollowup =  toggleFollowup
+			activate()
+			/**
+			 * Clears form.
+			 * @return {[type]} [description]
+			 */
+			function clearForm(){
+				$scope.file = []
+				$scope.mail = angular.copy(blank)
+				$scope.mailForm.$setPristine()
+				$scope.mailForm.$setValidity()
+    		$scope.mailForm.$setUntouched()
+			}
+			/**
+			 * Handles
+			 * @return {[type]} [description]
+			 */
+			function activate() {
+				getMails()
+				$scope.mail = mailService.initMail()
+				getMailsForFollowup()
+			}
+			/**
+			 * Sets the follow up date for the mail correspondence
+			 * @return {[type]} [description]
+			 */
+			function toggleFollowup () {
 				if($scope.mail.follow_up == 2){
 					var date = new Date()
 					date.setDate(date.getDate() + 7)
@@ -42,54 +67,6 @@
 				}else{
 					$scope.showFollowup = false
 				}
-			}
-
-			$scope.flag = function () {
-				console.log('Flag')
-			}
-
-			$scope.revealSubjectEditField = false
-			$scope.editSubject = editSubject
-			$scope.cancelSubjectEdit = cancelSubjectEdit
-
-			$scope.revealReceivedEditField = false
-			$scope.editReceivedOn = editReceivedOn
-			$scope.cancelReceviedOnEdit = cancelReceviedOnEdit
-
-			$scope.revealCorrespondenceEditField = false
-			$scope.editCorrespondenceDate = editCorrespondenceDate
-			$scope.cancelCorrespondenceEdit = cancelCorrespondenceEdit
-
-			$scope.markForFollow = function () {
-				var flag = 0
-				if($scope.follow_up == true){
-					flag = 2
-				}else{
-					flag = 1
-				}
-				mailService.followUp(flag, $scope.mail_corr.id)
-					.then(function (res) {
-					activate()
-				})
-			}
-
-			activate()
-			/**
-			 * Clears form.
-			 * @return {[type]} [description]
-			 */
-			function clearForm(){
-				$scope.file = [];
-				$scope.mail = angular.copy(blank);
-				$scope.mailForm.$setPristine();
-				$scope.mailForm.$setValidity();
-    		$scope.mailForm.$setUntouched();
-			}
-
-			function activate() {
-				getMails()
-				$scope.mail = mailService.initMail();
-				getMailsForFollowup()
 			}
 			/**
 			 * Show details of mail.
@@ -160,14 +137,22 @@
 							$scope.message = true
 							$scope.text = 'Mail correspondence created successfully'
 							$scope.success = true
+							scroll('top')
 							clearForm()
-							getMails()
-							getMailsForFollowup()
+							activate()
 							$scope.$broadcast('mailCreated')
 						}
 				}).catch(function(err){
-					 console.log('Error in creating mail');
+					 console.log('Error in creating mail')
 				});
+			}
+			/**
+			 * Scrolls to a position on the page
+			 * @param  string pos Position to scroll to
+			 */
+			function scroll( pos ) {
+				$location.hash( pos )
+				$anchorScroll()
 			}
 			/**
 			 * Dimisses a success or error alert.
@@ -254,24 +239,6 @@
 					});
 			}
 			/**
-			 * Uploads a file associated with a mail correspondence
-			 * @return {[type]} [description]
-			 */
-			function uploadFile() {
-				if($scope.file && $scope.file.length > 0){
-						var files = $scope.file[0],
-								url = API_URLS.base_url + 'upload/' + $scope.mail_corr.id
-						mailService
-								.uploadFile( files, $scope.mail_corr.id )
-								.then(function ( response ){
-									//dismiss( 'file_upload_msg' )
-									removeFile()
-									getAttachments()
-									getActions( $scope.mail_corr.id )
-								})
-				}
-			}
-			/**
 			 * Get all attachments for a given mail correspondence by id
 			 * @return {[type]} [description]
 			 */
@@ -303,30 +270,5 @@
 						 console.log('Error in updating mail')
 					})
 			}
-
-			function editSubject() {
-				$scope.revealSubjectEditField = !$scope.revealSubjectEditField
-			}
-
-			function cancelSubjectEdit() {
-					$scope.revealSubjectEditField = false
-			}
-
-			function editReceivedOn() {
-				$scope.revealReceivedEditField = !$scope.revealReceivedEditField
-			}
-
-			function cancelReceviedOnEdit() {
-					$scope.revealReceivedEditField = false
-			}
-
-			function editCorrespondenceDate() {
-				$scope.revealCorrespondenceEditField = !$scope.revealCorrespondenceEditField
-			}
-
-			function cancelCorrespondenceEdit() {
-					$scope.revealCorrespondenceEditField = false
-			}
-
 	}
 })();

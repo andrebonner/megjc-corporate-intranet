@@ -12,6 +12,7 @@
 		'vacancy',
 		'promotion',
 		'mail',
+		'trans',
 		'nav'
 	]).run(routeLogin)
 		.config(config)
@@ -31,9 +32,11 @@
 	 */
   function routeLogin($rootScope, $location, loginService){
   	$rootScope.$on('$routeChangeStart', function(event, next, current){
-  		if(next.access.restricted && !loginService.isAuthenticated()){
-				 $location.path('/login');
-			}
+			if(next.access != null){
+				if(next.access.restricted && !loginService.isAuthenticated()){
+					 $location.path('/login');
+				}
+			}  	
   	});
   }
 })();

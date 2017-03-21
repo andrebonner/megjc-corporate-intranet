@@ -6,15 +6,25 @@
 	function config($routeProvider){
 		$routeProvider
 		.when('/', {
-			controller: 'Home',
-			controllerAs: 'vm',
-			templateUrl: 'public/app/modules/home/home.html',
+			controllerAs: 'Home as vm',
+			templateUrl: 'public/app/modules/home/tpl/home.html',
 			access: {restricted: false}
-		}).when('/news-feed', {
-			controller: 'Home',
-			controllerAs: 'vm',
-			templateUrl: 'public/app/modules/home/news-feed.html',
-			access: {restricted: false}
-		});
+		}).when('/vacancies', {
+				controllerAs: 'Home as vm',
+				templateUrl: 'public/app/modules/home/tpl/home.html',
+				access: {restricted: false}
+		}).when('/directory', {
+				controllerAs: 'Home as vm',
+				templateUrl: 'public/app/modules/home/tpl/home.html',
+				access: {restricted: false}
+		}).when('/forms', {
+				controllerAs: 'Home as vm',
+				templateUrl: 'public/app/modules/home/tpl/home.html',
+				access: {restricted: false}
+		}).when('/policies', {
+				controllerAs: 'Home as vm',
+				templateUrl: 'public/app/modules/home/tpl/home.html',
+				access: {restricted: false}
+		})
 	}
 })();

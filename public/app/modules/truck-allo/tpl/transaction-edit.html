@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9">
+    <div ng-class="{'alert alert-success alert-dismissible': vm.message.success, 'alert alert-danger alert-dismissible' : vm.message.error}"
+         role="alert" data-ng-if="vm.message.show">
+      <strong>{{vm.message.text}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
+		<h3 class="department-title capitalize" style="font-weight:normal">Transaction #{{vm.transaction.id}}</h3>
+      <hr>
+	</div>
+</div>
+
+<div class="row help-desk">
+	<div class="col-md-3"
+       data-ng-include="'public/app/modules/truck-allo/tpl/menu.tpl.html'">
+  </div>
+  <div class="col-md-9 mail ">
+    <label>Date</label>
+    <div class="well well-sm ">
+      {{vm.transaction.created | timestamp | date:'fullDate'}}
+    </div>
+
+
+    <button class="btn btn-primary" ng-click="vm.update()">
+      <strong>Update Mail</strong>
+    </button>
+
+    <div class="space"></div>
+
+    <hr >
+
+  </div>
+</div>

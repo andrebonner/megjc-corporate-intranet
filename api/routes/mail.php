@@ -191,12 +191,12 @@
                               ":description" => $action->description,
                               ":created_on" => date("Y-m-d H:i:s") ));
         $action_id = $db->lastInsertId();
-        //$stmt = null;
-        //if($action->follow_up === 1){
-          // $sql_update = 'UPDATE mails SET follow_up = 2 WHERE id=:mail_id';
-          // $stmt = $db->prepare( $sql_update );
-          // $stmt->execute(array(":mail_id"=> $action->mail_id));
-      //  }
+        $stmt = null;
+        if($action->follow_up == 1 && $action->closeFollowup == 1){
+          $sql_update = 'UPDATE mails SET follow_up = 1 WHERE id=:mail_id';
+          $stmt = $db->prepare( $sql_update );
+          $stmt->execute(array(":mail_id"=> $action->mail_id));
+       }
         closeDBConnection( $db );
       }catch(PDOException $e){
         $action_id = '{"error":{"text":' .$e->getMessage(). '}}';

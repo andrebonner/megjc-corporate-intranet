@@ -36,6 +36,7 @@ hr.item-divider{
 .apps-link{
 	font-size:18px;
 	color:#333333;
+	margin-bottom: 40px;
 }
 
 .nav-pills>li>a:hover{
@@ -361,4 +362,24 @@ li.list-group-item a:visited{
 
 .mail > input:focus{
 	background-color: #FFFFFF;
+}
+
+.mail-follow-up{
+	list-style-type: none;
+}
+
+.mail-follow-up li{
+	display: inline;
+	padding-left: 10px;
+}
+
+.mail-follow-up a{
+	
+}
+.mail-follow-up a:hover
+.mail-follow-up a:active,
+.mail-follow-up a:visited,
+.mail-follow-up a:focus{
+	text-decoration: none;
+	color: #FFFFFF;
 }
