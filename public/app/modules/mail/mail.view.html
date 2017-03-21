@@ -20,7 +20,7 @@
   <div class="col-md-12">
     <form novalidate ng-submit="vm.closeFollowup()">
       <div class="form-group">
-        <label>Description</label>
+        <label>Reason for closing follow up</label>
         <textarea class="form-control" ng-model="vm.followup_desc"></textarea>
       </div>
         <a class="btn btn-default" ng-click="vm.revealFollowupForm()">Cancel</a>
@@ -116,18 +116,6 @@
       </div>
     </div>
 
-    <!-- <div class="panel panel-primary" ng-show="revealCorrespondenceEditField">
-      <div class="panel-heading">
-        <h3 class="panel-title">Edit Correspondence Date</h3>
-      </div>
-      <div class="panel-body">
-        <input class="form-control" type="date" ng-model="mail_corr.mail_date">
-        <hr />
-        <button class="btn btn-success pull-right">Save</button>
-        <button class="btn btn-default" ng-click="cancelCorrespondenceEdit()">Cancel</button>
-      </div>
-    </div> -->
-
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">From</h3>
@@ -173,7 +161,7 @@
         <tr ng-repeat="action in vm.actions">
           <td style="color:#2780E3"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
           <td style="width:150px;">{{action.created_on | timestamp | date: 'MMM d yyyy'}}</td>
-          <td class="capitalize">{{action.description}}</td>
+          <td>{{action.description}}</td>
         </tr>
     </table>
     </div>
