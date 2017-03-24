@@ -33,8 +33,9 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="mail in mails | filter:search" ng-click="showMail(mail.id)">
-              <td style="width:40px">
+              <td style="width:60px">
 								<i class="fa fa-envelope-o" aria-hidden="true" ng-class="mail.follow_up == 2 ? 'envelope-red' : 'envelope-black'"></i>
+								<i class="fa fa-folder-o" aria-hidden="true" ng-if="mail.file_title != 'none'"></i>
 							</td>
 							<td style="width:184px" class="capitalize">{{mail.sender}}</td>
 							<td class="capitalize">{{mail.subject}}</td>

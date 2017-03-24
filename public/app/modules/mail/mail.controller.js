@@ -11,7 +11,7 @@
 
 	function Mail($routeParams, $location, $scope, $anchorScroll,
 								mailService, loginService, API_URLS, Upload){
-			$scope.message = false
+			$scope.message = $scope.success = false
 			$scope.error = false
 			$scope.text = ''
 			$scope.showOther = false
@@ -77,11 +77,10 @@
 					.getMail(id)
 					.then(function(mail){
 						$scope.mail_corr = mail.mail
-						$scope.uploads = mail.uploads
 						$scope.actions = mail.actions
 						$location.path('/dashboard/apps/mails/' + id + '/view')
 					}).catch(function(error){
-						$scope.mail = {};
+						$scope.mail_corr = {}
 					});
 			}
 			/**
@@ -94,10 +93,13 @@
 					.then(function(mails){
 						$scope.mails = mails
 					}).catch(function(error){
-						$scope.mails = [];
+						$scope.mails = []
 					})
 			}
-
+			/**
+			 * Get mails tagged for follow up
+			 * @return {[type]} [description]
+			 */
 			function getMailsForFollowup (){
 				var dept_id = loginService.getDepartmentId();
 				mailService
@@ -133,14 +135,14 @@
 							$scope.error = true
 						}
 
-						if(res.status === 200){
-							$scope.message = true
+						if(res.status == 200){
 							$scope.text = 'Mail correspondence created successfully'
+							$scope.message = true							
 							$scope.success = true
-							scroll('top')
 							clearForm()
-							activate()
+							$scope.mail = mailService.initMail()
 							$scope.$broadcast('mailCreated')
+							scroll('top')
 						}
 				}).catch(function(err){
 					 console.log('Error in creating mail')
