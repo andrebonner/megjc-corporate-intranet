@@ -30,7 +30,7 @@
               .pipe(concat('./public/build/concat.js'))
               .pipe(rename('./src.min.js'))
               .pipe(annotate())
-              //.pipe(uglify())
+              .pipe(uglify())
               .pipe(gulp.dest('./public/dist'));
   });
 

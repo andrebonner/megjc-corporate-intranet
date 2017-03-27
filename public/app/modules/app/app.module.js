@@ -36,7 +36,7 @@
 				if(next.access.restricted && !loginService.isAuthenticated()){
 					 $location.path('/login');
 				}
-			}  	
+			}
   	});
   }
 })();

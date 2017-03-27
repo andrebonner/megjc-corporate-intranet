@@ -41,7 +41,7 @@
          $sql = 'SELECT id, mail_type, file_title, mail_date,
                          receipt_date, from_org, sender,
                          receipent, subject, created_on, dept_id, follow_up, follow_date
-                         FROM mails WHERE dept_id=:id
+                         FROM mails WHERE dept_id=:id AND deleted = 1
                          ORDER BY receipt_date DESC';
        }
        try{
@@ -64,7 +64,7 @@
       $sql = 'SELECT id, mail_type, file_title, mail_date,
                       receipt_date, from_org, sender,
                       receipent, subject, created_on, dept_id, follow_up, follow_date
-                      FROM mails WHERE id=:id
+                      FROM mails WHERE id=:id AND deleted = 1
                       ORDER BY created_on DESC';
       $sql_attachments = 'SELECT id, file_name, mail_id, created_on
                           FROM uploads WHERE mail_id=:id';
@@ -78,11 +78,6 @@
           $stmt->execute();
           $mail = $stmt->fetch( PDO::FETCH_OBJ );
           $stmt = null;
-          $stmt = $db->prepare( $sql_attachments );
-          $stmt->bindParam("id", $id);
-          $stmt->execute();
-          $uploads = $stmt->fetchAll( PDO::FETCH_OBJ );
-          $stmt = null;
           $stmt = $db->prepare( $sql_actions );
           $stmt->bindParam("id", $id);
           $stmt->execute();
@@ -90,7 +85,6 @@
           closeDBConnection( $db );
           setResponseHeader( $app );
           echo json_encode(array( "mail" => $mail,
-                                  "uploads"=> $uploads,
                                   "actions" => $actions ));
         }catch(PDOException $e){
           echo '{"error":{"text":' .$e->getMessage(). '}}';
@@ -160,7 +154,6 @@
      * @var [type]
      */
     $app->post('/:id/upload', function( $id ) use ( $app ){
-        //$upload = $_POST;
         if(!empty($_FILES)){
           $filename = $_FILES['file']['name'];
           $sql_upload = 'INSERT INTO uploads (file_name, mail_id, created_on)
@@ -264,23 +257,32 @@
 
     $app->put('/:id', function( $id ) use ( $app ){
       $request = json_decode( $app->request->getBody() );
+      $fields = array("subject" => "subject",
+                      "receipt_date"=>"receipt date",
+                      "sender" => "sender",
+                      "mail_date" => "correspondence date",
+                      "from_org" => "from organization",
+                      "receipent" => "receipent",
+                      "file_title" =>  "file title",
+                      "deleted" => "deleted");
       try{
         $db = openDBConnection();
-        $sql = 'UPDATE mails SET follow_up =:follow_up WHERE id=:mail_id';
-        $stmt = $db->prepare( $sql );
-        $stmt->execute(array( ":mail_id" => $id,
-                              ":follow_up" => $request->follow_up ));
-         $response = $id;
-         $stmt = null;
-         $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
-                 VALUES (:mail_id, :uid, :description, :created_on)';
+        $stmt = $db->prepare( "UPDATE mails SET $request->key=:value WHERE id=:id" );
+        $response = $stmt->execute(array("value" => $request->value, "id"=>$id));
+        if($response){
+          $stmt = null;
+          $sql = 'INSERT INTO actions (mail_id, uid, description, created_on)
+                   VALUES (:mail_id, :uid, :description, :created_on)';
 
-        $desc = "Mail follow up status updated by ". $request->uname;
-         $stmt = $db->prepare( $sql );
-         $stmt->execute(array( ":mail_id" => $id,
-                               ":uid" => $request->created_by,
-                               ":description" => $desc,
-                               ":created_on" => date("Y-m-d H:i:s") ));
+          $desc = "Mail correspondence ".$fields[$request->key]." updated by ". $request->uname;
+          $stmt = $db->prepare( $sql );
+          $stmt->execute(array( ":mail_id" => $id,
+                                 ":uid" => $request->created_by,
+                                 ":description" => $desc,
+                                 ":created_on" => date("Y-m-d H:i:s") ));
+        }else{
+          $response = array();
+        }
         closeDBConnection( $db );
       }catch(PDOException $e){
         $response = '{"error":{"text":' .$e->getMessage(). '}}';
@@ -288,7 +290,6 @@
       setResponseHeader( $app );
       echo json_encode( $response );
     });
-
   }
 
 

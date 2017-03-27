@@ -1,0 +1,297 @@
+<div ng-include="'public/app/partials/sub-menu.html'"></div>
+<hr />
+<div class="alert alert-warning"
+     role="alert" data-ng-show="vm.mail_corr.follow_up == 2">
+  <strong>Mail flagged for follow up on
+    {{vm.mail_corr.follow_date | timestamp | date:'fullDate'}}
+  </strong>
+  <ul class="pull-right mail-follow-up">
+    <li>
+      <a href ng-click="vm.revealFollowupForm()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Close
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="alert alert-success" role="alert" ng-show="vm.updateSuccess">
+  <strong>{{vm.notification}}</strong>
+</div>
+
+<div class="row" ng-show="vm.revealFollowup">
+  <div class="col-md-12">
+    <form novalidate ng-submit="vm.closeFollowup()">
+      <div class="form-group">
+        <label>Reason for closing follow up</label>
+        <textarea class="form-control" ng-model="vm.followup_desc"></textarea>
+      </div>
+        <a class="btn btn-default"
+          ng-click="vm.revealFollowupForm()">Cancel
+        </a>
+        <button class="btn btn-success" type="submit">Submit</button>
+    <hr />
+    </form>
+  </div>
+</div>
+
+<div class="row" ng-show="vm.showFollowupDate">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Follow up date</label>
+      <div class="input-group">
+         <span class="input-group-addon" >
+           <i class="fa fa-calendar" aria-hidden="true"></i>
+       </span>
+        <input class="form-control" type="date" ng-model="vm.follow_up_date">
+      </div>
+    </div>
+    <button class="btn btn-default"
+            style="margin-bottom:21px"
+            ng-click="vm.revealFollowupDate()">Cancel
+    </button>
+    <button class="btn btn-success" style="margin-bottom:21px">Update</button>
+  </div>
+</div>
+
+
+<div class="row help-desk">
+
+  <div class="col-md-5">
+
+    <div class="panel panel-default" ng-show="vm.panels.subject">
+      <div class="panel-heading">
+        <h3 class="panel-title">Subject
+          <a href class="pull-right" ng-click="vm.toggleEditCtrl('subject')">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            Edit
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.subject}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.subject">
+      <p>
+        <strong>Edit Subject</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" ng-model="vm.mail_corr.subject"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('subject')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('subject', vm.mail_corr.subject)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="vm.panels.file_title">
+      <div class="panel-heading">
+        <h3 class="panel-title">File Title
+          <a href class="pull-right" ng-click="vm.toggleEditCtrl('file_title')">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            Edit
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.file_title}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.file_title">
+      <p>
+        <strong>Edit File Title</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" ng-model="vm.mail_corr.file_title"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('file_title')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('file_title', vm.mail_corr.file_title)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="vm.panels.receipt_date">
+      <div class="panel-heading">
+        <h3 class="panel-title">Received On
+        <a href class="pull-right" ng-click="vm.toggleEditCtrl('receipt_date')">
+          <i class="fa fa-pencil-square" aria-hidden="true"></i>
+          Edit
+        </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.receipt_date | timestamp | date:'fullDate'}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.receipt_date">
+      <p>
+        <strong>Edit Receipt Date</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" type="date" ng-model="vm.mail_corr.receipt_date"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('receipt_date')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('receipt_date', vm.mail_corr.receipt_date)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="vm.panels.mail_date">
+      <div class="panel-heading">
+        <h3 class="panel-title">Correspondence Date
+          <a href class="pull-right" ng-click="vm.toggleEditCtrl('mail_date')">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            Edit
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.mail_date | timestamp | date:'fullDate'}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.mail_date">
+      <p>
+        <strong>Edit Correspondence Date</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" type="date" ng-model="vm.mail_corr.mail_date"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('mail_date')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('mail_date', vm.mail_corr.mail_date)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="vm.panels.sender">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sender
+          <a href class="pull-right" ng-click="vm.toggleEditCtrl('sender')">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            Edit
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.sender}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.sender">
+      <p>
+        <strong>Edit Sender</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" ng-model="vm.mail_corr.sender"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('sender')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('sender', vm.mail_corr.sender)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="vm.panels.from_org">
+      <div class="panel-heading">
+        <h3 class="panel-title">From (Organization)
+          <a href class="pull-right" ng-click="vm.toggleEditCtrl('from_org')">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            Edit
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.from_org}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.from_org">
+      <p>
+        <strong>Edit From Organization</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" ng-model="vm.mail_corr.from_org"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('from_org')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('from_org', vm.mail_corr.from_org)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="vm.panels.receipent">
+      <div class="panel-heading">
+        <h3 class="panel-title">Receipent
+          <a href class="pull-right" ng-click="vm.toggleEditCtrl('receipent')">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            Edit
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.receipent}}
+      </div>
+    </div>
+
+    <div class="well" ng-show="vm.ctrls.receipent">
+      <p>
+        <strong>Edit Receipent</strong>
+      </p>
+      <div class="form-group">
+        <input class="form-control" ng-model="vm.mail_corr.receipent"/>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="vm.toggleEditCtrl('receipent')">Cancel</button>
+        <button class="btn btn-success" ng-click="vm.update('receipent', vm.mail_corr.receipent)">Update</button>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Entered on</h3>
+      </div>
+      <div class="panel-body">
+        {{vm.mail_corr.created_on | timestamp | date:'fullDate'}}
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-7">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title">Actions</h3>
+  </div>
+  
+    <p ng-show="vm.actions.length < 1">There are no actions for this mail correspondence.</p>
+    <table class="table table-hover" ng-show="vm.actions.length > 0">
+        <tr ng-repeat="action in vm.actions">
+          <td style="color:#2780E3"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td style="width:150px;">{{action.created_on | timestamp | date: 'MMM d yyyy'}}</td>
+          <td>{{action.description}}</td>
+        </tr>
+    </table>
+    </div>
+
+    <button class="btn btn-success" ng-click="vm.revealActionForm()">Add Action</button>
+
+    <div style="padding-top:15px" ng-show="vm.revealAction">
+      <form novalidate ng-submit="vm.createAction()">
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="vm.description"></textarea>
+        </div>
+
+        <a class="btn btn-default" ng-click="vm.cancel()">Cancel</a>
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+    </div>
+</div>

@@ -16,8 +16,11 @@
           createAction: createAction,
           uploadFile: uploadFile,
           updateMail: updateMail,
-          getMailsForFollowup, getMailsForFollowup,
-          followUp: followUp
+          getMailsForFollowup: getMailsForFollowup,
+          followUp: followUp,
+          initFormCtrls: initFormCtrls,
+          initPanels: initPanels,
+          update:update
       }
       /**
        * [uploadFile description]
@@ -33,6 +36,36 @@
         }).then(function( response ){
             return response
         })
+      }
+      /**
+       * Initialize form controls
+       * @return {[type]} [description]
+       */
+      function initFormCtrls(){
+        return {
+          subject: false,
+          file_title: false,
+          receipt_date: false,
+          mail_date: false,
+          sender: false,
+          from_org: false,
+          receipent: false
+        }
+      }
+      /**
+       * Initialize panels
+       * @return {[type]} [description]
+       */
+      function initPanels(){
+        return {
+          subject: true,
+          receipt_date: true,
+          mail_date: true,
+          sender: true,
+          from_org: true,
+          receipent: true,
+          file_title: true
+        }
       }
 
       function getMailsForFollowup() {
@@ -204,6 +237,32 @@
                 .put(url, mail)
                 .then(handleSuccess)
                 .catch(handleError);
+
+        function handleSuccess( response ) {
+          return response.data
+        }
+
+        function handleError ( error ) {
+          return error
+        }
+      }
+      /**
+       * Updates a field of a mail correspondence
+       * @param  {[type]} field [description]
+       * @param  {[type]} data  [description]
+       * @return {[type]}       [description]
+       */
+      function update( key, value, id ) {
+        var url = API_URLS.base_url + 'mails/' + id,
+            update = { 'key': key,
+                       'value': value,
+                       'uname': loginService.getUserName(),
+                       'created_by': loginService.getUserId()
+                     }
+
+        return $http.put( url, update )
+                    .then(handleSuccess)
+                    .catch(handleError)
 
         function handleSuccess( response ) {
           return response.data
